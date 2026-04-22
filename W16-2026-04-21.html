@@ -1,0 +1,1349 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Анализ оттока — W16 · 21.04.2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Onest:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.js"></script>
+<style>
+:root {
+  --bg: #f6f7f9;
+  --surface: #ffffff;
+  --surface2: #f1f3f6;
+  --border: #e2e8f0;
+  --text: #0f172a;
+  --text-dim: #475569;
+  --text-muted: #94a3b8;
+  --accent: #2563eb;
+  --green: #059669;
+  --yellow: #d97706;
+  --red: #dc2626;
+  --accent-bg: rgba(37,99,235,0.08);  --accent-border: rgba(37,99,235,0.25);
+  --green-bg: rgba(5,150,105,0.08);   --green-border: rgba(5,150,105,0.25);
+  --yellow-bg: rgba(217,119,6,0.08);  --yellow-border: rgba(217,119,6,0.25);
+  --red-bg: rgba(220,38,38,0.08);     --red-border: rgba(220,38,38,0.25);
+  --incomplete: rgba(71,85,105,0.35);
+  --incomplete-text: #64748b;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Onest', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.65;
+  font-size: 15px;
+  -webkit-font-smoothing: antialiased;
+}
+.mono { font-family: 'JetBrains Mono', monospace; font-variant-numeric: tabular-nums; }
+.container { max-width: 1180px; margin: 0 auto; padding: 0 32px; }
+section { padding: 56px 0; border-bottom: 1px solid var(--border); }
+section:last-of-type { border-bottom: none; }
+
+/* NAV */
+nav {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(255,255,255,0.85);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--border);
+  box-shadow: 0 2px 8px rgba(15,23,42,0.06);
+}
+nav .inner {
+  max-width: 1180px; margin: 0 auto; padding: 14px 32px;
+  display: flex; gap: 18px; align-items: center;
+  overflow-x: auto; white-space: nowrap;
+}
+nav .brand {
+  font-weight: 700; font-size: 15px;
+  letter-spacing: 0.02em; color: var(--text);
+  padding-right: 12px; border-right: 1px solid var(--border);
+}
+nav a {
+  color: var(--text-dim); text-decoration: none;
+  font-size: 13px; font-weight: 500;
+  padding: 4px 0;
+  transition: color 0.15s;
+}
+nav a:hover, nav a.active { color: var(--accent); }
+
+/* HERO */
+.hero { padding: 64px 0 40px; position: relative; overflow: hidden; }
+.hero::before {
+  content: ''; position: absolute;
+  top: -150px; right: -100px;
+  width: 500px; height: 500px;
+  background: radial-gradient(circle, rgba(37,99,235,0.06) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hero-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 100px; padding: 6px 14px 6px 10px;
+  font-size: 12px; font-weight: 500; color: var(--text-dim);
+  margin-bottom: 24px;
+  letter-spacing: 0.04em; text-transform: uppercase;
+}
+.hero-badge .dot {
+  width: 8px; height: 8px; background: var(--yellow);
+  border-radius: 50%; animation: pulse 2s infinite;
+}
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+.hero h1 {
+  font-size: 40px; font-weight: 800;
+  letter-spacing: -0.03em; line-height: 1.15;
+  margin-bottom: 14px;
+}
+.hero h1 .accent { color: var(--accent); }
+.hero h1 .red { color: var(--red); }
+.hero h1 .green { color: var(--green); }
+.hero-sub {
+  font-size: 17px; color: var(--text-dim); font-weight: 400;
+  max-width: 780px; margin-bottom: 32px;
+}
+.hero-metrics {
+  display: grid; grid-template-columns: repeat(4,1fr); gap: 16px;
+}
+.hero-metric {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 14px; padding: 18px;
+  position: relative; overflow: hidden;
+  box-shadow: 0 1px 3px rgba(15,23,42,0.04);
+}
+.hero-metric::after {
+  content: ''; position: absolute; top:0; left:0; right:0; height: 2px;
+}
+.hero-metric.positive::after { background: var(--green); }
+.hero-metric.warning::after { background: var(--yellow); }
+.hero-metric.negative::after { background: var(--red); }
+.hero-metric.neutral::after { background: var(--accent); }
+.hero-metric .label {
+  font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em;
+  color: var(--text-muted); margin-bottom: 8px; font-weight: 600;
+}
+.hero-metric .value {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 26px; font-weight: 700; letter-spacing: -0.02em;
+  color: var(--text);
+}
+.hero-metric .delta { font-size: 12px; font-weight: 600; margin-top: 4px; }
+.delta.green { color: var(--green); }
+.delta.yellow { color: var(--yellow); }
+.delta.red { color: var(--red); }
+.delta.dim { color: var(--text-muted); }
+
+/* SECTIONS */
+.section-header { margin-bottom: 28px; }
+.section-number {
+  font-size: 11px; font-weight: 700;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--accent); margin-bottom: 8px;
+}
+.section-header h2 {
+  font-size: 26px; font-weight: 700;
+  letter-spacing: -0.02em; line-height: 1.25;
+}
+.section-header p {
+  color: var(--text-dim); margin-top: 6px;
+  max-width: 760px; font-size: 15px;
+}
+
+/* CARD */
+.card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 14px; padding: 24px;
+  margin-bottom: 14px;
+  box-shadow: 0 1px 3px rgba(15,23,42,0.04);
+}
+.card-header {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 16px; flex-wrap: wrap; gap: 8px;
+}
+.card-title { font-size: 16px; font-weight: 600; }
+.card-badge {
+  font-size: 11px; font-weight: 600; padding: 3px 10px;
+  border-radius: 100px; letter-spacing: 0.02em;
+}
+.badge-green { background: var(--green-bg); color: var(--green); border: 1px solid var(--green-border); }
+.badge-yellow { background: var(--yellow-bg); color: var(--yellow); border: 1px solid var(--yellow-border); }
+.badge-red { background: var(--red-bg); color: var(--red); border: 1px solid var(--red-border); }
+.badge-blue { background: var(--accent-bg); color: var(--accent); border: 1px solid var(--accent-border); }
+
+/* GRIDS */
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.grid-3 { display: grid; grid-template-columns: repeat(3,1fr); gap: 14px; }
+.grid-4 { display: grid; grid-template-columns: repeat(4,1fr); gap: 12px; }
+
+/* TABLE */
+.table-wrap { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; font-size: 13px; }
+th {
+  text-align: left; font-weight: 600; color: var(--text-dim);
+  padding: 8px 10px; background: var(--surface2);
+  border-bottom: 1px solid var(--border);
+  font-size: 12px; text-transform: uppercase; letter-spacing: 0.03em;
+}
+td { padding: 8px 10px; border-bottom: 1px solid var(--border); }
+tr:last-child td { border-bottom: none; }
+td.num, th.num { text-align: right; font-family: 'JetBrains Mono', monospace; }
+.val-green { color: var(--green); font-weight: 600; }
+.val-red { color: var(--red); font-weight: 600; }
+.val-yellow { color: var(--yellow); font-weight: 600; }
+.val-dim { color: var(--text-muted); }
+
+/* CALLOUT */
+.callout {
+  padding: 14px 18px; border-radius: 8px;
+  border-left: 4px solid var(--accent);
+  background: var(--accent-bg);
+  color: var(--text); font-size: 14px;
+  margin: 12px 0;
+}
+.callout-green { border-left-color: var(--green); background: var(--green-bg); color: #064e3b; }
+.callout-yellow { border-left-color: var(--yellow); background: var(--yellow-bg); color: #78350f; }
+.callout-red { border-left-color: var(--red); background: var(--red-bg); color: #7f1d1d; }
+.callout strong { font-weight: 700; }
+
+/* CHART WRAP */
+.chart-wrap { position: relative; height: 320px; }
+.chart-wrap.sm { height: 220px; }
+.chart-wrap.lg { height: 380px; }
+
+/* SEG CARDS */
+.seg-card {
+  background: var(--surface2); border-radius: 10px; padding: 16px;
+  border: 1px solid var(--border);
+}
+.seg-title { font-weight: 700; font-size: 14px; color: var(--text); }
+.seg-value {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 22px; font-weight: 700; margin: 8px 0 2px;
+}
+.seg-sub { font-size: 12px; color: var(--text-dim); }
+
+/* MINI STAT */
+.mini-stat {
+  background: var(--surface2); border-radius: 8px; padding: 12px;
+  border: 1px solid var(--border);
+}
+.ms-label { font-size: 11px; color: var(--text-muted); text-transform: uppercase; font-weight: 600; }
+.ms-value { font-family: 'JetBrains Mono', monospace; font-size: 20px; font-weight: 700; margin-top: 4px; }
+.ms-sub { font-size: 11px; color: var(--text-dim); margin-top: 2px; }
+
+/* COMPARE BARS */
+.cmp-row { display: flex; align-items: center; gap: 10px; margin: 4px 0; font-size: 13px; }
+.cmp-label { flex: 0 0 220px; color: var(--text); font-size: 13px; }
+.cmp-bars { flex: 1; display: flex; gap: 4px; flex-direction: column; }
+.cmp-bar {
+  height: 16px; background: var(--border); border-radius: 3px;
+  position: relative; overflow: visible;
+}
+.cmp-bar.w15 { background: rgba(220,38,38,0.35); }
+.cmp-bar.w16 { background: rgba(37,99,235,0.5); }
+.cmp-bar-val { position: absolute; right: 4px; top: -1px; font-size: 11px; font-weight: 700; color: var(--text); font-family: 'JetBrains Mono', monospace; }
+
+/* PRIORITY */
+.priority { display: flex; gap: 14px; padding: 14px 0; border-bottom: 1px solid var(--border); align-items: flex-start; }
+.priority:last-child { border-bottom: none; }
+.priority-num {
+  width: 32px; height: 32px; flex-shrink: 0; border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 14px; font-weight: 700;
+}
+.priority-num.red { background: var(--red-bg); color: var(--red); border: 1px solid var(--red-border); }
+.priority-num.yellow { background: var(--yellow-bg); color: var(--yellow); border: 1px solid var(--yellow-border); }
+.priority-num.blue { background: var(--accent-bg); color: var(--accent); border: 1px solid var(--accent-border); }
+.priority-content { flex: 1; }
+.p-title { font-weight: 600; font-size: 15px; margin-bottom: 4px; }
+.p-desc { color: var(--text-dim); font-size: 13px; line-height: 1.55; }
+
+/* FOOTER */
+footer {
+  padding: 36px 0 60px; text-align: center;
+  color: var(--text-muted); font-size: 12px;
+  border-top: 1px solid var(--border);
+}
+
+@media (max-width: 900px) {
+  .grid-2, .grid-3, .grid-4, .hero-metrics { grid-template-columns: 1fr 1fr; }
+  .container { padding: 0 20px; }
+  .hero h1 { font-size: 28px; }
+  nav .inner { gap: 12px; }
+  .cmp-label { flex: 0 0 140px; font-size: 12px; }
+}
+@media (max-width: 600px) {
+  .grid-2, .grid-3, .grid-4, .hero-metrics { grid-template-columns: 1fr; }
+}
+@media print {
+  nav { display: none; }
+  section { break-inside: avoid; }
+  body { background: #fff; }
+  .card { box-shadow: none; border: 1px solid #ccc; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="inner">
+    <span class="brand">АНАЛИЗ ОТТОКА · W16</span>
+    <a href="#summary">Итоги</a>
+    <a href="#monthly">Помесячно</a>
+    <a href="#dynamics">Недельно</a>
+    <a href="#weekly">W15→W16</a>
+    <a href="#attribution">Атрибуция</a>
+    <a href="#mom">M-o-M</a>
+    <a href="#segments">Сегменты</a>
+    <a href="#reasons">Причины</a>
+    <a href="#funnel">Воронка</a>
+    <a href="#echo">Эхо</a>
+    <a href="#debt">Дебиторка</a>
+    <a href="#retention">Тарифы</a>
+    <a href="#ur">УР</a>
+    <a href="#cohorts">Когорты</a>
+    <a href="#risks">Риски</a>
+    <a href="#actions">Действия</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero" id="summary">
+  <div class="container">
+    <div class="hero-badge"><span class="dot"></span> Отчёт на 21.04.2026 · Неделя W16 · Апрель неполный (на 21 из 30 дней)</div>
+    <h1>Отток апреля <span class="accent">597</span> · W16 нетто <span class="green">129</span> <span style="font-size:22px;color:var(--text-dim);font-weight:500">(−31% к W15)</span></h1>
+    <p class="hero-sub">W16 прошла качественно лучше W15 по всем компонентам: расторжения −30 %, возвраты +150 %, приост.>90 почти без изменений. Прирост апрельского итога +40 за неделю — в рамках плановой механики. Главный тревожный сигнал — рост приостановок «Нет связи с Клиентом» с 3 до 13 (×4).</p>
+
+    <div class="hero-metrics">
+      <div class="hero-metric warning">
+        <div class="label">Отток апреля (итог)</div>
+        <div class="value">597</div>
+        <div class="delta yellow">0,962 % АКБ · +40 к прошлой неделе</div>
+      </div>
+      <div class="hero-metric positive">
+        <div class="label">Нетто W16 vs W15</div>
+        <div class="value">129 ← 187</div>
+        <div class="delta green">−58 (−31 %)</div>
+      </div>
+      <div class="hero-metric positive">
+        <div class="label">Возвраты W16</div>
+        <div class="value">45 ← 18</div>
+        <div class="delta green">+150 % — главный драйвер улучшения</div>
+      </div>
+      <div class="hero-metric neutral">
+        <div class="label">МОНИТОР2.0 апрель</div>
+        <div class="value">139</div>
+        <div class="delta dim">Рекорд 7 мес. · скрытое удержание</div>
+      </div>
+    </div>
+
+    <div class="callout" style="margin-top:24px;">
+      <strong>Ключ к пониманию недели:</strong> из 129 нетто-оттока W16 <strong>97 событий (75 %) — эхо 12 января</strong>: приостановки, поставленные 90 дней назад, сегодня синхронно пересекли порог и ушли в отток. В составе — 48 NSR (49 %), в основном по Квартире (60 из 97). Это <strong>не новое клиентское поведение</strong>, а механическое срабатывание 90-дневного правила. Без этого эхо W16 была бы ~32 события — ниже W11 (март, 76).
+    </div>
+  </div>
+</div>
+
+<!-- 01. MONTHLY -->
+<section id="monthly">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-number">01 — Помесячная динамика</div>
+      <h2>Отток по месяцам · апрель 597 = локальный максимум 2026</h2>
+      <p>Январь (186) аномально низкий за счёт массовых возвратов (597 в W1). С февраля видно плавный рост: 519 → 581 → 597. Хвост мая–июня выше на графике — это прогнозные данные (неполные), в анализе не используются.</p>
+    </div>
+
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">Отток (компоненты) · 9 месяцев</div>
+          <span class="card-badge badge-yellow">факт + прогноз</span>
+        </div>
+        <div class="chart-wrap"><canvas id="chartMonthly"></canvas></div>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">% от АКБ</div>
+          <span class="card-badge badge-blue">апрель 0,962 %</span>
+        </div>
+        <div class="chart-wrap"><canvas id="chartMonthlyPct"></canvas></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 02. WEEKLY YTD -->
+<section id="dynamics">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-number">02 — Недельная динамика YTD 2026</div>
+      <h2>За 16 недель отдано 2,90 % АКБ · W16 в середине диапазона</h2>
+      <p>W15 и W16 подсвечены. Прогнозные недели W17+ — в серой зоне, в сравнения не включаются. Пики W5 (+241), W9 (+271), W13 (+218) — эхо 90-дневных волн от ноября-декабря-января.</p>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">Нетто-отток по неделям + нарастающий итог</div>
+      </div>
+      <div class="chart-wrap lg"><canvas id="chartYtd"></canvas></div>
+    </div>
+  </div>
+</section>
+
+<!-- 03. W15 vs W16 -->
+<section id="weekly">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-number">03 — W16 vs W15</div>
+      <h2>Декомпозиция компонентов формулы оттока</h2>
+      <p>Нетто-отток 187 → 129 (−31 %). Улучшение по трём компонентам: расторжения −26, приост.>90 −5, возвраты +27.</p>
+    </div>
+
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-header"><div class="card-title">Компоненты формулы</div></div>
+        <div class="chart-wrap sm"><canvas id="chartW15W16"></canvas></div>
+      </div>
+      <div class="card">
+        <div class="card-header"><div class="card-title">Значения</div></div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Компонента</th><th class="num">W15</th><th class="num">W16</th><th class="num">Δ</th><th class="num">%</th></tr></thead>
+            <tbody>
+              <tr><td>Расторжения</td><td class="num">86</td><td class="num">60</td><td class="num val-green">−26</td><td class="num val-green">−30 %</td></tr>
+              <tr><td>Приост.>90</td><td class="num">119</td><td class="num">114</td><td class="num val-green">−5</td><td class="num val-green">−4 %</td></tr>
+              <tr><td>Возвраты</td><td class="num">18</td><td class="num">45</td><td class="num val-green">+27</td><td class="num val-green">+150 %</td></tr>
+              <tr style="background:var(--surface2);"><td><strong>Нетто-отток</strong></td><td class="num"><strong>187</strong></td><td class="num"><strong>129</strong></td><td class="num val-green"><strong>−58</strong></td><td class="num val-green"><strong>−31 %</strong></td></tr>
+              <tr><td>% АКБ неделя</td><td class="num">0,301 %</td><td class="num">0,208 %</td><td class="num val-green">−0,09 п.п.</td><td class="num val-dim">—</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout callout-green">
+      <strong>W16 качественно лучше W15</strong> по всем компонентам. Главный драйвер — рост возвратов +150 % (преимущественно Квартира, +21 из +27). Расторжения упали на треть.
+    </div>
+  </div>
+</section>
+
+<!-- 04. ATTRIBUTION -->
+<section id="attribution">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-number">04 — Атрибуция прироста итога</div>
+      <h2>Почему апрельский итог вырос с 557 до 597 (+40)</h2>
+      <p>+40 в апрельском итоге за неделю ≈ новые 129 нетто-событий W16 − 89 уже учтённых в прогнозе прошлой недели. Остаток +40 — «сюрпризы». Основной вклад в W16 — эхо 12 января.</p>
+    </div>
+
+    <div class="grid-3">
+      <div class="card">
+        <div class="card-header"><div class="card-title">Δ_R расторжения</div><span class="card-badge badge-green">−26</span></div>
+        <p style="font-size:13px;color:var(--text-dim);margin-bottom:10px;">60 расторжений в W16.</p>
+        <table style="font-size:12px;"><tbody>
+          <tr><td>Малый Бизнес</td><td class="num">31</td><td class="num val-red">41 %</td></tr>
+          <tr><td>Квартира</td><td class="num">27</td><td class="num">36 %</td></tr>
+          <tr><td>Коттедж</td><td class="num">17</td><td class="num">23 %</td></tr>
+        </tbody></table>
+        <div style="margin-top:10px;font-size:12px;color:var(--text-dim);">МБ даёт почти половину расторжений при базе в 3× меньше Квартиры — <strong>структурная проблема</strong>.</div>
+      </div>
+      <div class="card">
+        <div class="card-header"><div class="card-title">Δ_P приост.>90</div><span class="card-badge badge-yellow">−5</span></div>
+        <p style="font-size:13px;color:var(--text-dim);margin-bottom:10px;">114 в W16, из них <strong>97 — эхо 12 января</strong>.</p>
+        <table style="font-size:12px;"><tbody>
+          <tr><td>Эхо 12.04 (от 12.01)</td><td class="num val-yellow">97</td></tr>
+          <tr><td>Остальные дни W16</td><td class="num">17</td></tr>
+          <tr><td colspan="2" style="color:var(--text-dim);font-size:11px;padding-top:8px;">В эхо: NSR 48, Временно 17, Нет необх.МБ 8, Переезд 8, ...</td></tr>
+        </tbody></table>
+        <div style="margin-top:10px;font-size:12px;color:var(--text-dim);">Без эхо W16 была бы 32 нетто — ниже W11 (март).</div>
+      </div>
+      <div class="card">
+        <div class="card-header"><div class="card-title">Δ_V возвраты</div><span class="card-badge badge-green">+27</span></div>
+        <p style="font-size:13px;color:var(--text-dim);margin-bottom:10px;">45 возвратов в W16.</p>
+        <table style="font-size:12px;"><tbody>
+          <tr><td>Квартира</td><td class="num val-green">29</td><td class="num val-green">+21 к W15</td></tr>
+          <tr><td>Коттедж</td><td class="num">13</td><td class="num">+5</td></tr>
+          <tr><td>Малый Бизнес</td><td class="num">3</td><td class="num">+1</td></tr>
+        </tbody></table>
+        <div style="margin-top:10px;font-size:12px;color:var(--text-dim);">78 % роста — Квартира. Причина требует уточнения у retention-команды.</div>
+      </div>
+    </div>
+
+    <div class="callout">
+      <strong>Итог атрибуции:</strong> Δ W16 = −58 (= улучшение). Расторжений −26, приост.>90 −5, возвратов +27. Из 129 нетто-оттока 97 — эхо 12 января (NSR-квартиры), 17 — нормальный фоновый поток приост.>90, ост. 15 — разница между новыми расторжениями и возвратами.
+    </div>
+  </div>
+</section>
+
+<!-- 05. MoM -->
+<section id="mom">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-number">05 — M-o-M по одинаковой по счёту неделе</div>
+      <h2>W16 (апрель) vs k=3 неделя прошлых месяцев</h2>
+      <p>Январь W3 = 160, февраль W7 = 103, март W11 = 76, апрель W16 = 129. Апрель хуже марта/февраля — но 97 из 129 = эхо 12 января. Без него W16 на уровне 32 — лучше всех.</p>
+    </div>
+
+    <div class="card">
+      <div class="chart-wrap"><canvas id="chartMoM"></canvas></div>
+    </div>
+
+    <div class="card">
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>k=3 неделя</th><th>Период</th><th class="num">R</th><th class="num">P</th><th class="num">V</th><th class="num">Нетто</th><th>Комментарий</th></tr></thead>
+          <tbody>
+            <tr><td>W3 янв</td><td>12–18 янв</td><td class="num">155</td><td class="num">41</td><td class="num">36</td><td class="num">160</td><td class="val-dim">Высокий из-за всплеска расторжений 155</td></tr>
+            <tr><td>W7 фев</td><td>9–15 фев</td><td class="num">75</td><td class="num">47</td><td class="num">19</td><td class="num">103</td><td class="val-dim">Норма</td></tr>
+            <tr><td>W11 мар</td><td>9–15 мар</td><td class="num">60</td><td class="num">36</td><td class="num">20</td><td class="num">76</td><td class="val-dim">Минимум, без эхо-дней</td></tr>
+            <tr style="background:var(--surface2);"><td><strong>W16 апр</strong></td><td>13–19 апр</td><td class="num">60</td><td class="num val-yellow">114</td><td class="num">45</td><td class="num"><strong>129</strong></td><td>Включает эхо 12 апр = 97 Приост.>90</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 06. SEGMENTS -->
+<section id="segments">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-number">06 — Сегменты</div>
+      <h2>Квартира -57 % · Коттедж -12 % · Малый Бизнес +7 %</h2>
+      <p>Весь позитив недели сделан Квартирой (97→42). МБ — единственный сегмент без улучшения: 41→44, при этом генерирует 47 % всех расторжений W16.</p>
+    </div>
+
+    <div class="grid-3">
+      <div class="card">
+        <div class="seg-title">🏠 Квартира (АКБ 30 051)</div>
+        <div class="seg-value">97 → <span class="val-green">42</span></div>
+        <div class="seg-sub">−55 (−57 %) · R 32→18 · П>90 73→53 · Возвр 8→<strong class="val-green">29</strong></div>
+        <div style="margin-top:10px;"><span class="card-badge badge-green">главный драйвер улучшения</span></div>
+      </div>
+      <div class="card">
+        <div class="seg-title">🏡 Коттедж (АКБ 21 791)</div>
+        <div class="seg-value">49 → 43</div>
+        <div class="seg-sub">−6 (−12 %) · R 23→14 · П>90 34→42 · Возвр 8→13</div>
+        <div style="margin-top:10px;"><span class="card-badge badge-blue">слабое улучшение</span></div>
+      </div>
+      <div class="card">
+        <div class="seg-title">🏢 Малый Бизнес (АКБ 10 203)</div>
+        <div class="seg-value" style="color:var(--red)">41 → 44</div>
+        <div class="seg-sub">+3 (+7 %) · R 31→28 · П>90 12→19 · Возвр 2→3</div>
+        <div style="margin-top:10px;"><span class="card-badge badge-red">структурная проблема</span></div>
+      </div>
+    </div>
+
+    <div class="callout callout-yellow">
+      <strong>МБ:</strong> 28 расторжений в W16 = 47 % от общих 60. При базе 10 203 (16 % АКБ) даёт почти половину оттока-недели. Топ-причины: «Съезд» (7), «Закрытие бизнеса» (6), «Съезд и перезаключение» (6). Программа удержания Квартиры на МБ не работает.
+    </div>
+  </div>
+</section>
+
+<!-- 07. REASONS -->
+<section id="reasons">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-number">07 — Причины расторжений и приостановок</div>
+      <h2>Причины W15 vs W16</h2>
+      <p>Слева: расторжения (75 в W16, 99 в W15). Справа: приостановки (174 в W16, 209 в W15). Приостановки с конверсией ≥70 % — красный, ≤15 % — зелёный.</p>
+    </div>
+
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">Топ причин расторжений</div>
+          <span class="card-badge badge-blue">W16 = 75 / W15 = 99</span>
+        </div>
+        <div id="reasonsRast"></div>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">Новые приостановки + конверсия в отток</div>
+          <span class="card-badge badge-yellow">W16 = 174 / W15 = 209</span>
+        </div>
+        <div id="susTable"></div>
+      </div>
+    </div>
+
+    <div class="callout callout-red">
+      <strong>🔴 Критический сигнал:</strong> «Нет связи с Клиентом» в новых приостановках выросло с 3 до 13 (×4,3) за неделю. Конверсия этой причины в отток = 92 %. Если не вмешаться — 12 из 13 уйдут в отток к концу июля.
+    </div>
+  </div>
+</section>
+
+<!-- 08. FUNNEL -->
+<section id="funnel">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-number">08 — Воронка «пауза → расторжение»</div>
+      <h2>42–46 % расторжений имели предшествующую паузу</h2>
+      <p>Это зона воздействия УР и retention-команды на этапе паузы. 77 таких пар за W15+W16. Распределение «дней между» показывает окно возможности.</p>
+    </div>
+
+    <div class="grid-4">
+      <div class="mini-stat"><div class="ms-label">W15 расторжений</div><div class="ms-value">99</div><div class="ms-sub">с паузой: <strong>45 (45,5 %)</strong></div></div>
+      <div class="mini-stat"><div class="ms-label">W16 расторжений</div><div class="ms-value">75</div><div class="ms-sub">с паузой: <strong>32 (42,7 %)</strong></div></div>
+      <div class="mini-stat"><div class="ms-label">Итого за 2 недели</div><div class="ms-value">77</div><div class="ms-sub">точек воздействия УР</div></div>
+      <div class="mini-stat"><div class="ms-label">Без паузы</div><div class="ms-value">97</div><div class="ms-sub">сразу расторжение, ~56 %</div></div>
+    </div>
+
+    <div class="grid-2" style="margin-top:14px;">
+      <div class="card">
+        <div class="card-header"><div class="card-title">Дней между паузой и расторжением</div></div>
+        <div class="chart-wrap sm"><canvas id="chartDays"></canvas></div>
+        <div style="font-size:12px;color:var(--text-dim);margin-top:8px;">57 % расторгаются в первые 60 дней · 35 % накануне 90-дневного порога · 8 % после конвертации в отток через П>90.</div>
+      </div>
+      <div class="card">
+        <div class="card-header"><div class="card-title">Цепочки «пауза → расторжение»</div></div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Причина паузы</th><th>Причина расторжения</th><th class="num">Случаев</th></tr></thead>
+            <tbody id="pathTable"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout callout-yellow">
+      <strong>Маскировка причин:</strong> «Задолженность» в паузе → «Нет необходимости в охране» в расторжении (3 случая). «Переезд/смена собственника» у МБ → «Закрытие бизнеса» / «Съезд и перезаключение» (6 случаев). Реальные причины искажаются при оформлении.
+    </div>
+  </div>
+</section>
+
+<!-- 09. ECHO -->
+<section id="echo">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-number">09 — Эхо 90-дневного правила</div>
+      <h2>12 апреля — 97 приост.>90 в один день. Все от 12 января.</h2>
+      <p>Это механическое эхо: 90 дней назад массово поставили приостановки, сегодня они синхронно пересекли порог. 49 % эха — NSR, 62 % — Квартира. Процессная потеря января, которая сегодня проявилась в оттоке.</p>
+    </div>
+
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-header"><div class="card-title">ТОП-дни апреля по Приост.>90</div></div>
+        <div class="chart-wrap sm"><canvas id="chartEchoDays"></canvas></div>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">Состав эха 12 апреля</div>
+          <span class="card-badge badge-red">97 событий</span>
+        </div>
+        <table>
+          <thead><tr><th>Причина исходной паузы</th><th class="num">Шт</th><th class="num">Доля</th></tr></thead>
+          <tbody>
+            <tr><td>NSR — No Signal Received</td><td class="num val-red">48</td><td class="num">49 %</td></tr>
+            <tr><td>Временно нет необходимости</td><td class="num">17</td><td class="num">18 %</td></tr>
+            <tr><td>Нет необходимости (МБ)</td><td class="num">8</td><td class="num">8 %</td></tr>
+            <tr><td>Переезд/смена собственника</td><td class="num">8</td><td class="num">8 %</td></tr>
+            <tr><td>Ремонт</td><td class="num">5</td><td class="num">5 %</td></tr>
+            <tr><td>Переоформление</td><td class="num">4</td><td class="num">4 %</td></tr>
+            <tr><td>Финансовые причины</td><td class="num">3</td><td class="num">3 %</td></tr>
+            <tr><td>Расторжение (как код паузы)</td><td class="num">3</td><td class="num">3 %</td></tr>
+          </tbody>
+        </table>
+        <div style="margin-top:10px;font-size:12px;color:var(--text-dim);">По сегментам: <strong>Квартира 60 (62 %)</strong>, Коттедж 28, МБ 9.</div>
+      </div>
+    </div>
+
+    <div class="callout callout-red">
+      <strong>Управленческий вывод:</strong> 12 января в NSR-пул попало 48 квартирных клиентов. За 90 дней компания не восстановила связь — все ушли в отток 12 апреля. Это процессный провал января (не недели W16). Требуется SLA на NSR: 7 дней без контакта → эскалация + выезд.
+    </div>
+  </div>
+</section>
+
+<!-- 10. DEBT -->
+<section id="debt">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-number">10 — Дебиторская задолженность (код 03)</div>
+      <h2>Апрель: 9 новых против 333 в марте (−97 %) · крупная победа коллекшна</h2>
+      <p>Компания не допустила накопления ДЗ у ~320 клиентов. Операционное улучшение на стороне работы с ДЗ. Ожидаемый обвал отточного хвоста в июле-августе.</p>
+    </div>
+
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-header"><div class="card-title">Новые приостановки «Задолженность» по месяцам</div></div>
+        <div class="chart-wrap sm"><canvas id="chartDebt"></canvas></div>
+      </div>
+      <div class="card">
+        <div class="card-header"><div class="card-title">Прогноз эхо-хвоста (M+3 мес, конверсия 89 %)</div></div>
+        <table>
+          <thead><tr><th>Блок</th><th>Сработает в</th><th class="num">Ожидаемый отток</th></tr></thead>
+          <tbody>
+            <tr><td>Январь 267</td><td>Апрель</td><td class="num val-yellow">~238 (частично сработал)</td></tr>
+            <tr><td>Февраль 279</td><td>Май</td><td class="num val-yellow">~248</td></tr>
+            <tr><td>Март 333</td><td>Июнь</td><td class="num val-red">~296</td></tr>
+            <tr style="background:var(--green-bg);"><td><strong>Апрель 9</strong></td><td><strong>Июль</strong></td><td class="num val-green"><strong>~8</strong></td></tr>
+            <tr style="background:var(--green-bg);"><td>Май 2 (на 21.04)</td><td>Август</td><td class="num val-green">~2</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="callout callout-green">
+      <strong>Стратегический выигрыш:</strong> если апрельский темп работы с ДЗ удержится, в июле–августе компонента «Приост.>90 по коду 03» обвалится на ~280–290 событий по сравнению с маем–июнем. Это ~0,45 п.п. АКБ в выигрыше за 2 месяца — крупное структурное улучшение с лагом 90 дней.
+    </div>
+  </div>
+</section>
+
+<!-- 11. RETENTION -->
+<section id="retention">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-number">11 — Удерживающие тарифы</div>
+      <h2>МОНИТОР2.0 139 в апреле · рекорд за 7 месяцев</h2>
+      <p>МОНИТОР2.0 — бесшовный переход без расторжения, скрытое удержание. УДЕРЖ-М — расторжение + новый договор, его объём ограничен остатком старых шаблонов (снижение механическое).</p>
+    </div>
+
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-header"><div class="card-title">Подключения МОНИТОР2.0 и УДЕРЖ-М</div></div>
+        <div class="chart-wrap sm"><canvas id="chartMon"></canvas></div>
+      </div>
+      <div class="card">
+        <div class="card-header"><div class="card-title">Механика</div></div>
+        <table>
+          <thead><tr><th>Тариф</th><th>Переход</th><th>Видимость в оттоке</th></tr></thead>
+          <tbody>
+            <tr><td><strong>МОНИТОР2.0</strong></td><td>Бесшовно, без расторжения</td><td><span class="card-badge badge-green">не виден — скрытое удержание</span></td></tr>
+            <tr><td>УДЕРЖ-М</td><td>Расторжение + новый договор</td><td><span class="card-badge badge-yellow">виден как расторжение</span></td></tr>
+          </tbody>
+        </table>
+        <div style="margin-top:14px;font-size:13px;color:var(--text-dim);">
+          <p><strong>МОНИТОР2.0:</strong> 139 в апреле, +15 % м/м, канал нарастает.</p>
+          <p style="margin-top:6px;"><strong>УДЕРЖ-М:</strong> 29 в апреле (−29 % к марту). Снижение механическое, не результат управленческой работы.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 12. UR -->
+<section id="ur">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-number">12 — Управление Рисками (УР)</div>
+      <h2>Две воронки · единственный управляемый компонент формулы</h2>
+      <p>С ДЗ: 98 оплат (26,2 %) + 63 возобновления (16,8 %), 661 тыс ₽. Без ДЗ: 48 возобновлений (7,7 %). Апрель неполный (на 21.04). <strong>Тренд «без ДЗ» снижается 4-й месяц подряд</strong>: Dec 14,5 % → Mar 8,1 %.</p>
+    </div>
+
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">Воронка с ДЗ</div>
+          <span class="card-badge badge-blue">фин. эффект</span>
+        </div>
+        <div class="chart-wrap sm"><canvas id="chartUrDz"></canvas></div>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">Воронка без ДЗ · конверсия возобновлений</div>
+          <span class="card-badge badge-red">падение Dec→Mar</span>
+        </div>
+        <div class="chart-wrap sm"><canvas id="chartUrNoDz"></canvas></div>
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-header"><div class="card-title">С ДЗ: помесячные показатели</div></div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Месяц</th><th class="num">База</th><th class="num">Оплаты</th><th class="num">%</th><th class="num">Возобн.</th><th class="num">%</th><th class="num">тыс ₽</th></tr></thead>
+            <tbody id="urDzTable"></tbody>
+          </table>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header"><div class="card-title">Без ДЗ: помесячные показатели</div></div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Месяц</th><th class="num">База</th><th class="num">Возобн.</th><th class="num">%</th></tr></thead>
+            <tbody id="urNoDzTable"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout callout-yellow">
+      <strong>КПД УР за апрель (на 21.04):</strong> 98+63 = 161 удержанных по ДЗ + 48 по без ДЗ = 209 возвратов в актив усилиями отдела. Финансовый эффект — 661 тыс ₽ возвращённой ДЗ. <strong>Тренд «без ДЗ» требует разбора</strong>: падение с Dec 14,5 % до Mar 8,1 % за 3 полных месяца (январь — сезонная пауза на каникулы, в тренде не учитываем).
+    </div>
+  </div>
+</section>
+
+<!-- 13. COHORTS -->
+<section id="cohorts">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-number">13 — Срок жизни ушедших</div>
+      <h2>«Более 5 лет» — 28 % расторжений W16</h2>
+      <p>Самая ценная когорта — и самая уязвимая. По сегментам распределение разное: у Квартиры половина в 5+ лет, у МБ — молодые 1-2 года и 6-9 мес.</p>
+    </div>
+
+    <div class="card">
+      <div class="chart-wrap"><canvas id="chartCohort"></canvas></div>
+    </div>
+
+    <div class="grid-3">
+      <div class="card">
+        <div class="seg-title">🏠 Квартира (27 расторжений W16)</div>
+        <table style="font-size:12px;margin-top:10px;"><tbody>
+          <tr><td>Более 5 лет</td><td class="num val-red">10 (37 %)</td></tr>
+          <tr><td>3-4 года</td><td class="num">7</td></tr>
+          <tr><td>6-9 мес.</td><td class="num">4</td></tr>
+          <tr><td>Прочие</td><td class="num">6</td></tr>
+        </tbody></table>
+      </div>
+      <div class="card">
+        <div class="seg-title">🏡 Коттедж (17 расторжений W16)</div>
+        <table style="font-size:12px;margin-top:10px;"><tbody>
+          <tr><td>Более 5 лет</td><td class="num val-red">6 (35 %)</td></tr>
+          <tr><td>1-2 года</td><td class="num">3</td></tr>
+          <tr><td>3-4 года</td><td class="num">3</td></tr>
+          <tr><td>Прочие</td><td class="num">5</td></tr>
+        </tbody></table>
+      </div>
+      <div class="card">
+        <div class="seg-title">🏢 Малый Бизнес (31 расторжений W16)</div>
+        <table style="font-size:12px;margin-top:10px;"><tbody>
+          <tr><td>1-2 года</td><td class="num val-red">14 (45 %)</td></tr>
+          <tr><td>6-9 мес.</td><td class="num">5</td></tr>
+          <tr><td>Более 5 лет</td><td class="num">5</td></tr>
+          <tr><td>Прочие</td><td class="num">7</td></tr>
+        </tbody></table>
+      </div>
+    </div>
+
+    <div class="callout callout-yellow">
+      <strong>Разные профили:</strong> у жилки (Кварт+Котт) уходят лояльные 5+ лет по причине «Нет необходимости в охране». У МБ уходят молодые 1-2 года и «новички» 6-9 мес. по причинам «Закрытие бизнеса» и «Переезд». Удержание требует разных сценариев.
+    </div>
+  </div>
+</section>
+
+<!-- 14. RISKS -->
+<section id="risks">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-number">14 — Риски недели</div>
+      <h2>5 сигналов для команды</h2>
+    </div>
+
+    <div class="card">
+      <ol style="list-style:none;padding:0;">
+        <li class="priority">
+          <div class="priority-num red">🔴</div>
+          <div class="priority-content">
+            <div class="p-title">«Нет связи с Клиентом»: 3 → 13 в новых приостановках W16</div>
+            <div class="p-desc">Конверсия 92 %. 12 потенциальных расторжений к концу июля. Требует немедленного разбора процесса обзвона.</div>
+          </div>
+        </li>
+        <li class="priority">
+          <div class="priority-num red">🔴</div>
+          <div class="priority-content">
+            <div class="p-title">NSR — 101 новая приостановка в апреле, 87 уйдёт в отток (конв. 86 %)</div>
+            <div class="p-desc">Процессная дыра: нет SLA на восстановление сигнала. Эхо 12 января показало 48 потерь в один день. В июле увидим эхо апрельского NSR.</div>
+          </div>
+        </li>
+        <li class="priority">
+          <div class="priority-num red">🔴</div>
+          <div class="priority-content">
+            <div class="p-title">Конверсия УР «без ДЗ» падает 4 месяца: Dec 14,5 % → Mar 8,1 %</div>
+            <div class="p-desc">Структурный провал эффективности. Нужен разбор причин: смена скриптов, дефицит ресурсов, «старение» базы?</div>
+          </div>
+        </li>
+        <li class="priority">
+          <div class="priority-num yellow">🟠</div>
+          <div class="priority-content">
+            <div class="p-title">Малый Бизнес — единственный сегмент без улучшения (+7 % W15→W16)</div>
+            <div class="p-desc">47 % расторжений W16 — МБ. Топ-причины: Съезд (7), Закрытие бизнеса (6), Съезд и перезаключение (6). Программа удержания жилки на МБ не работает.</div>
+          </div>
+        </li>
+        <li class="priority">
+          <div class="priority-num yellow">🟠</div>
+          <div class="priority-content">
+            <div class="p-title">Лояльные клиенты «5+ лет» — 28 % расторжений W16</div>
+            <div class="p-desc">21 потеря за неделю. У Квартиры 37 % расторжений — это когорта 5+ лет. Топ-причина: «Нет необходимости в охране» (клиенту больше не надо).</div>
+          </div>
+        </li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<!-- 15. ACTIONS -->
+<section id="actions">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-number">15 — Рекомендации</div>
+      <h2>9 действий приоритизированы</h2>
+    </div>
+
+    <div class="card">
+      <ol style="list-style:none;padding:0;">
+        <li class="priority">
+          <div class="priority-num red">1</div>
+          <div class="priority-content">
+            <div class="p-title">🔴 СРОЧНО · Разобрать 13 новых «Нет связи с Клиентом» W16</div>
+            <div class="p-desc">Альтернативные каналы (email, второй телефон, соседи/УК) в течение 7 дней. Конверсия 92 % = если не вмешаться, 12 уйдут в отток.<br><strong>Ожидаемый эффект:</strong> вернуть 4–6 в актив до конца мая.</div>
+          </div>
+        </li>
+        <li class="priority">
+          <div class="priority-num red">2</div>
+          <div class="priority-content">
+            <div class="p-title">🔴 СРОЧНО · Разобрать рост «пауза → расторжение» в первые 30 дней</div>
+            <div class="p-desc">29 из 77 (38 %) расторгаются в первые 30 дней паузы. Ввести триггер: retention-звонок на 5–7 день паузы с предложением МОНИТОР2.0.<br><strong>Ожидаемый эффект:</strong> −15–20 % «быстрых» расторжений, +4–6 возвратов/неделя.</div>
+          </div>
+        </li>
+        <li class="priority">
+          <div class="priority-num red">3</div>
+          <div class="priority-content">
+            <div class="p-title">🔴 СРОЧНО · Закрепить успех возвратов Квартиры W16 (+21)</div>
+            <div class="p-desc">Выяснить, что именно сработало в W16 — новая акция, скрипт, ресурс? Зафиксировать как стандарт и масштабировать.<br><strong>Ожидаемый эффект:</strong> устойчивое +20–25 квартирных возвратов/неделя.</div>
+          </div>
+        </li>
+        <li class="priority">
+          <div class="priority-num yellow">4</div>
+          <div class="priority-content">
+            <div class="p-title">🟠 СРЕДНЕЕ · Отдельный NSR-SLA</div>
+            <div class="p-desc">NSR старше 7 дней без контакта → эскалация супервайзеру + автоматический наряд на выезд. Цель: снизить конверсию NSR с 86 % до 60 %.<br><strong>Ожидаемый эффект:</strong> +25 клиентов/месяц.</div>
+          </div>
+        </li>
+        <li class="priority">
+          <div class="priority-num yellow">5</div>
+          <div class="priority-content">
+            <div class="p-title">🟠 СРЕДНЕЕ · Сценарий «Переезд» для МБ</div>
+            <div class="p-desc">При причине «Переезд»/«Переоформление» у МБ — по умолчанию перевод договора на нового собственника/юрлицо, не расторжение. 3 случая в W16 ушли в «Закрытие бизнеса» — могли бы остаться.<br><strong>Ожидаемый эффект:</strong> +3–5 МБ-договоров/неделя.</div>
+          </div>
+        </li>
+        <li class="priority">
+          <div class="priority-num yellow">6</div>
+          <div class="priority-content">
+            <div class="p-title">🟠 СРЕДНЕЕ · Разобрать провал УР «без ДЗ»</div>
+            <div class="p-desc">Падение конверсии Dec 14,5 % → Mar 8,1 %. Встреча с руководителем УР: ресурсы? скрипты? состав базы? Цель — вернуть к 10–12 % за май–июнь.<br><strong>Ожидаемый эффект:</strong> +10–15 возобновлений/месяц.</div>
+          </div>
+        </li>
+        <li class="priority">
+          <div class="priority-num blue">7</div>
+          <div class="priority-content">
+            <div class="p-title">🔵 СТРАТЕГ. · Майско-июньский эхо-хвост ДЗ</div>
+            <div class="p-desc">Феврал+март дадут ~540 приост.>90 в мае-июне. За 15–20 дней до 90-дневного порога — превентивный обзвон по риск-скорингу.<br><strong>Ожидаемый эффект:</strong> сохранить ~120 клиентов из 540.</div>
+          </div>
+        </li>
+        <li class="priority">
+          <div class="priority-num blue">8</div>
+          <div class="priority-content">
+            <div class="p-title">🔵 СТРАТЕГ. · Зафиксировать победу по ДЗ апреля</div>
+            <div class="p-desc">333 → 9 за месяц. Понять, что изменилось в коллекшн-процессе, оформить как стандартную практику.<br><strong>Ожидаемый эффект:</strong> в июле-августе отток −280–290 событий vs май-июнь (0,45 п.п. АКБ).</div>
+          </div>
+        </li>
+        <li class="priority">
+          <div class="priority-num blue">9</div>
+          <div class="priority-content">
+            <div class="p-title">🔵 СТРАТЕГ. · Масштабировать МОНИТОР2.0</div>
+            <div class="p-desc">Добавить оффер МОНИТОР2.0 в триггер «Временно нет необходимости» (407 приостановок в апреле — самая массовая причина).<br><strong>Ожидаемый эффект:</strong> +30–50 подключений МОНИТОР2.0 /месяц = минус столько же в расторжениях.</div>
+          </div>
+        </li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<footer>
+  Источники: <span class="mono">весь отток · данные по приостановкам · данные по всем расторжениям · данные по мониторингу · PPTX-трекинг W16 (слайды 3–4)</span><br>
+  Собрано 21.04.2026 · Sanity-check: расхождений с сводными не обнаружено.
+</footer>
+
+<script>
+// === ВСТРОЕННЫЕ ДАННЫЕ ===
+const DATA = {"meta":{"akb":62045,"akb_seg":{"Квартира":30051,"Коттедж":21791,"Малый Бизнес":10203},"report_date":"2026-04-21","week_n":16,"week_n1":15},"monthly":[{"ym":"2025-10","r":321,"p":618,"v":363,"net":576,"pct":0.928},{"ym":"2025-11","r":246,"p":593,"v":239,"net":600,"pct":0.967},{"ym":"2025-12","r":322,"p":641,"v":279,"net":684,"pct":1.102},{"ym":"2026-01","r":389,"p":394,"v":597,"net":186,"pct":0.3},{"ym":"2026-02","r":347,"p":334,"v":162,"net":519,"pct":0.836},{"ym":"2026-03","r":355,"p":361,"v":135,"net":581,"pct":0.936},{"ym":"2026-04","r":280,"p":509,"v":192,"net":597,"pct":0.962,"incomplete":true}],"weekly_ytd":[{"iso":1,"r":104,"p":197,"v":556,"net":-255,"cum":-255},{"iso":2,"r":16,"p":34,"v":20,"net":30,"cum":-225},{"iso":3,"r":155,"p":41,"v":36,"net":160,"cum":-65},{"iso":4,"r":83,"p":54,"v":21,"net":116,"cum":51},{"iso":5,"r":118,"p":215,"v":92,"net":241,"cum":292},{"iso":6,"r":91,"p":75,"v":34,"net":132,"cum":424},{"iso":7,"r":75,"p":47,"v":19,"net":103,"cum":527},{"iso":8,"r":57,"p":45,"v":20,"net":82,"cum":609},{"iso":9,"r":120,"p":192,"v":41,"net":271,"cum":880},{"iso":10,"r":81,"p":53,"v":30,"net":104,"cum":984},{"iso":11,"r":60,"p":36,"v":20,"net":76,"cum":1060},{"iso":12,"r":47,"p":39,"v":24,"net":62,"cum":1122},{"iso":13,"r":53,"p":190,"v":25,"net":218,"cum":1340},{"iso":14,"r":176,"p":63,"v":94,"net":145,"cum":1485},{"iso":15,"r":86,"p":119,"v":18,"net":187,"cum":1672},{"iso":16,"r":60,"p":114,"v":45,"net":129,"cum":1801}],"sus_w15":[{"r":"Временно нет необх.","t":99,"c":17.2},{"r":"NSR","t":40,"c":82.5},{"r":"Ремонт","t":28,"c":35.7},{"r":"Расторжение (код)","t":11,"c":81.8},{"r":"Финансовые","t":10,"c":10.0},{"r":"Переезд","t":7,"c":57.1},{"r":"Неудовл.","t":4,"c":0},{"r":"Нет связи","t":3,"c":100},{"r":"Переоформление","t":3,"c":100}],"sus_w16":[{"r":"Временно нет необх.","t":83,"c":12.0},{"r":"NSR","t":34,"c":88.2},{"r":"Нет связи","t":13,"c":92.3},{"r":"Ремонт","t":13,"c":46.2},{"r":"Финансовые","t":11,"c":9.1},{"r":"Переезд","t":7,"c":85.7},{"r":"Переоформление","t":4,"c":100},{"r":"Неудовл.","t":3,"c":0},{"r":"Расторжение (код)","t":3,"c":66.7}],"debt":[{"ym":"янв","n":267},{"ym":"фев","n":279},{"ym":"мар","n":333},{"ym":"апр","n":9}],"mon":[{"ym":"окт.25","m":24,"u":15},{"ym":"ноя.25","m":51,"u":14},{"ym":"дек.25","m":71,"u":22},{"ym":"янв.26","m":103,"u":34},{"ym":"фев","m":93,"u":30},{"ym":"мар","m":121,"u":41},{"ym":"апр","m":139,"u":29}],"ur_dz":[{"ym":"сен.25","base":578,"opl":132,"opl_p":22.8,"vozob":78,"vozob_p":13.5,"rub":1424.3},{"ym":"окт.25","base":542,"opl":153,"opl_p":28.2,"vozob":89,"vozob_p":16.4,"rub":1044.5},{"ym":"ноя.25","base":497,"opl":116,"opl_p":23.3,"vozob":65,"vozob_p":13.1,"rub":1028.7},{"ym":"дек.25","base":444,"opl":141,"opl_p":31.8,"vozob":92,"vozob_p":20.7,"rub":1095.4},{"ym":"янв.26","base":494,"opl":108,"opl_p":21.9,"vozob":56,"vozob_p":11.3,"rub":922.7},{"ym":"фев","base":357,"opl":96,"opl_p":26.9,"vozob":67,"vozob_p":18.8,"rub":921.6},{"ym":"мар","base":314,"opl":102,"opl_p":32.5,"vozob":49,"vozob_p":15.6,"rub":649.9},{"ym":"апр*","base":374,"opl":98,"opl_p":26.2,"vozob":63,"vozob_p":16.8,"rub":661.1,"inc":true}],"ur_nodz":[{"ym":"сен.25","base":812,"vozob":101,"vozob_p":12.4},{"ym":"окт.25","base":651,"vozob":67,"vozob_p":10.3},{"ym":"ноя.25","base":653,"vozob":62,"vozob_p":9.5},{"ym":"дек.25","base":883,"vozob":128,"vozob_p":14.5},{"ym":"янв.26","base":null,"vozob":null,"vozob_p":null,"season":true},{"ym":"фев","base":605,"vozob":54,"vozob_p":8.9},{"ym":"мар","base":565,"vozob":46,"vozob_p":8.1},{"ym":"апр*","base":621,"vozob":48,"vozob_p":7.7,"inc":true}],"path_chains":[{"s":"Временно нет необх.","r":"Нет необх. в охране","n":10},{"s":"Расторжение","r":"Нет необх. в охране","n":6},{"s":"NSR","r":"Нет необх. в охране","n":5},{"s":"Переезд","r":"Съезд и перезакл.","n":4},{"s":"Задолженность","r":"Нет необх. в охране","n":3},{"s":"Переезд","r":"Закрытие бизнеса","n":3},{"s":"Переезд","r":"Продажа помещения","n":3},{"s":"Временно нет необх.","r":"Продажа помещения","n":3},{"s":"NSR","r":"Съезд","n":2},{"s":"Расторжение","r":"Неудовл. услугой","n":2}],"days_between":{"total":{"<30":29,"30-60":15,"60-90":27,"90-120":6,"120-180":0,">180":0},"by_seg":{"Квартира":{"<30":5,"30-60":8,"60-90":11,"90-120":3,"120-180":0,">180":0},"Коттедж":{"<30":8,"30-60":5,"60-90":9,"90-120":2,"120-180":0,">180":0},"Малый Бизнес":{"<30":16,"30-60":2,"60-90":7,"90-120":1,"120-180":0,">180":0}}},"cohort_seg_w16":{"Квартира":{"0-3 мес.":1,"3-6 мес.":1,"6-9 мес.":4,"9-12 мес.":0,"1-2 года":1,"2-3 года":2,"3-4 года":7,"4-5 лет":1,"Более 5 лет":10},"Коттедж":{"0-3 мес.":0,"3-6 мес.":0,"6-9 мес.":2,"9-12 мес.":1,"1-2 года":3,"2-3 года":2,"3-4 года":3,"4-5 лет":0,"Более 5 лет":6},"Малый Бизнес":{"0-3 мес.":0,"3-6 мес.":2,"6-9 мес.":5,"9-12 мес.":1,"1-2 года":14,"2-3 года":0,"3-4 года":2,"4-5 лет":2,"Более 5 лет":5}},"age_order":["0-3 мес.","3-6 мес.","6-9 мес.","9-12 мес.","1-2 года","2-3 года","3-4 года","4-5 лет","Более 5 лет"],"echo_daily_p":[{"d":"01","p":39},{"d":"06","p":5},{"d":"07","p":1},{"d":"08","p":7},{"d":"09","p":5},{"d":"10","p":2},{"d":"11","p":2},{"d":"12","p":97},{"d":"13","p":22},{"d":"14","p":26},{"d":"15","p":19},{"d":"16","p":19},{"d":"17","p":10},{"d":"18","p":1},{"d":"19","p":17}]};
+
+// === Chart.js defaults ===
+Chart.defaults.font.family = '"Onest", sans-serif';
+Chart.defaults.font.size = 11;
+Chart.defaults.color = '#475569';
+Chart.defaults.borderColor = '#e2e8f0';
+Chart.defaults.plugins.tooltip.backgroundColor = 'rgba(15,23,42,0.95)';
+Chart.defaults.plugins.tooltip.titleColor = '#fff';
+Chart.defaults.plugins.tooltip.bodyColor = '#e2e8f0';
+Chart.defaults.plugins.legend.labels.boxWidth = 12;
+Chart.defaults.plugins.legend.labels.padding = 10;
+
+const COLORS = {
+  red: '#dc2626', yellow: '#d97706', green: '#059669', accent: '#2563eb',
+  redBg: 'rgba(220,38,38,0.15)', accentBg: 'rgba(37,99,235,0.15)',
+  incomplete: 'rgba(71,85,105,0.4)'
+};
+
+// === 1. Monthly (compound) ===
+(function(){
+  const m = DATA.monthly;
+  const labels = m.map(x => x.ym);
+  new Chart(document.getElementById('chartMonthly'), {
+    type: 'bar',
+    data: {
+      labels,
+      datasets: [
+        { label: 'Расторжения', data: m.map(x=>x.r), backgroundColor: COLORS.red, stack: 'a' },
+        { label: 'Приост.>90', data: m.map(x=>x.p), backgroundColor: COLORS.yellow, stack: 'a' },
+        { label: 'Возвраты (−)', data: m.map(x=>-x.v), backgroundColor: COLORS.green, stack: 'a' },
+        { label: 'Нетто-отток', data: m.map(x=>x.net), type: 'line', borderColor: '#0f172a', backgroundColor: '#0f172a', borderWidth: 2, tension: 0.2, pointRadius: 4 }
+      ]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { position: 'bottom' } },
+      scales: { x: { stacked: true, grid: { display: false } }, y: { stacked: true, grid: { color: '#f1f5f9' } } }
+    }
+  });
+})();
+
+// === 2. Monthly % ===
+(function(){
+  const m = DATA.monthly;
+  new Chart(document.getElementById('chartMonthlyPct'), {
+    type: 'line',
+    data: {
+      labels: m.map(x=>x.ym),
+      datasets: [{
+        label: '% от АКБ', data: m.map(x=>x.pct),
+        borderColor: COLORS.accent, backgroundColor: 'rgba(37,99,235,0.1)',
+        fill: true, tension: 0.3, pointRadius: 4, pointBackgroundColor: COLORS.accent
+      }]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { display: false }, tooltip: { callbacks: { label: c => c.parsed.y + ' %' } } },
+      scales: { y: { grid: { color: '#f1f5f9' }, ticks: { callback: v => v + ' %' } }, x: { grid: { display: false } } }
+    }
+  });
+})();
+
+// === 3. YTD weekly ===
+(function(){
+  const w = DATA.weekly_ytd;
+  new Chart(document.getElementById('chartYtd'), {
+    type: 'bar',
+    data: {
+      labels: w.map(x => 'W' + x.iso),
+      datasets: [
+        { label: 'Расторжения', data: w.map(x=>x.r), backgroundColor: COLORS.red, stack: 'a', order: 3 },
+        { label: 'Приост.>90', data: w.map(x=>x.p), backgroundColor: COLORS.yellow, stack: 'a', order: 3 },
+        { label: 'Возвраты (−)', data: w.map(x=>-x.v), backgroundColor: COLORS.green, stack: 'a', order: 3 },
+        { label: 'Нетто', data: w.map(x=>x.net), type: 'line', borderColor: '#0f172a', backgroundColor: '#0f172a', borderWidth: 2, tension: 0.1, pointRadius: 3, order: 1, yAxisID: 'y' },
+        { label: 'Нарастающий YTD', data: w.map(x=>x.cum), type: 'line', borderColor: COLORS.accent, backgroundColor: 'rgba(37,99,235,0.05)', borderWidth: 2, fill: false, tension: 0.1, pointRadius: 2, yAxisID: 'y1', order: 0 }
+      ]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { position: 'bottom' } },
+      scales: {
+        x: { stacked: true, grid: { display: false } },
+        y: { stacked: true, grid: { color: '#f1f5f9' }, title: { display: true, text: 'Недельно' } },
+        y1: { position: 'right', grid: { display: false }, title: { display: true, text: 'Нарастающий YTD' } }
+      }
+    }
+  });
+})();
+
+// === 4. W15 vs W16 ===
+(function(){
+  new Chart(document.getElementById('chartW15W16'), {
+    type: 'bar',
+    data: {
+      labels: ['Расторжения', 'Приост.>90', 'Возвраты', 'Нетто'],
+      datasets: [
+        { label: 'W15', data: [86, 119, 18, 187], backgroundColor: 'rgba(220,38,38,0.6)' },
+        { label: 'W16', data: [60, 114, 45, 129], backgroundColor: 'rgba(37,99,235,0.7)' }
+      ]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { position: 'bottom' } },
+      scales: { y: { grid: { color: '#f1f5f9' } }, x: { grid: { display: false } } }
+    }
+  });
+})();
+
+// === 5. MoM ===
+(function(){
+  new Chart(document.getElementById('chartMoM'), {
+    type: 'bar',
+    data: {
+      labels: ['W3 янв', 'W7 фев', 'W11 мар', 'W16 апр'],
+      datasets: [
+        { label: 'Расторжения', data: [155, 75, 60, 60], backgroundColor: COLORS.red, stack: 'a' },
+        { label: 'Приост.>90', data: [41, 47, 36, 114], backgroundColor: COLORS.yellow, stack: 'a' },
+        { label: 'Возвраты (−)', data: [-36, -19, -20, -45], backgroundColor: COLORS.green, stack: 'a' },
+        { label: 'Нетто', data: [160, 103, 76, 129], type: 'line', borderColor: '#0f172a', backgroundColor: '#0f172a', borderWidth: 2, tension: 0.2, pointRadius: 5 }
+      ]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { position: 'bottom' } },
+      scales: { x: { stacked: true, grid: { display: false } }, y: { stacked: true, grid: { color: '#f1f5f9' } } }
+    }
+  });
+})();
+
+// === 6. Reasons rast W15 vs W16 ===
+(function(){
+  const r15 = {"Нет необходимости в охране":36,"Съезд":18,"Съезд и перезакл.":10,"Закрытие бизнеса":7,"Продажа помещения":7,"Финансовые трудности":6,"Расторжение старых приост.":5,"Неудовл. услугой":4,"Переоформление":3};
+  const r16 = {"Нет необходимости в охране":27,"Съезд и перезакл.":11,"Продажа помещения":10,"Съезд":9,"Закрытие бизнеса":6,"Неудовл. услугой":4,"Переоформление":2,"Финансовые трудности":1};
+  const keys = Array.from(new Set([...Object.keys(r15), ...Object.keys(r16)]));
+  keys.sort((a,b) => (r16[b]||0)+(r15[b]||0) - (r16[a]||0) - (r15[a]||0));
+  const max = Math.max(...keys.map(k => Math.max(r15[k]||0, r16[k]||0)));
+  const container = document.getElementById('reasonsRast');
+  container.innerHTML = '<div style="font-size:12px;margin-bottom:10px;display:flex;gap:16px;color:var(--text-dim);"><span>🔴 W15</span> <span>🟦 W16</span></div>';
+  keys.forEach(k => {
+    const a = r15[k]||0, b = r16[k]||0;
+    const row = document.createElement('div');
+    row.className = 'cmp-row';
+    row.innerHTML = `<div class="cmp-label">${k}</div>
+      <div class="cmp-bars">
+        <div class="cmp-bar w15" style="width:${a/max*100}%"><span class="cmp-bar-val">${a}</span></div>
+        <div class="cmp-bar w16" style="width:${b/max*100}%"><span class="cmp-bar-val">${b}</span></div>
+      </div>`;
+    container.appendChild(row);
+  });
+})();
+
+// === 7. Sus table ===
+(function(){
+  const w15 = DATA.sus_w15, w16 = DATA.sus_w16;
+  const keys = Array.from(new Set([...w15.map(x=>x.r), ...w16.map(x=>x.r)]));
+  const m15 = Object.fromEntries(w15.map(x => [x.r, x]));
+  const m16 = Object.fromEntries(w16.map(x => [x.r, x]));
+  keys.sort((a,b) => ((m16[b]?.t||0) + (m15[b]?.t||0)) - ((m16[a]?.t||0) + (m15[a]?.t||0)));
+  const table = document.createElement('table');
+  table.innerHTML = '<thead><tr><th>Причина</th><th class="num">W15</th><th class="num">W16</th><th class="num">Δ</th><th class="num">Конверсия W16</th></tr></thead><tbody></tbody>';
+  const tbody = table.querySelector('tbody');
+  keys.forEach(k => {
+    const a = m15[k]?.t || 0, b = m16[k]?.t || 0;
+    const c = m16[k]?.c || m15[k]?.c || 0;
+    let color = 'val-dim';
+    if (c >= 70) color = 'val-red';
+    else if (c <= 15) color = 'val-green';
+    else if (c >= 30) color = 'val-yellow';
+    const diff = b - a;
+    const diffStr = diff > 0 ? `+${diff}` : diff;
+    const diffCol = diff > 0 && b > 5 ? 'val-red' : (diff < 0 ? 'val-green' : 'val-dim');
+    tbody.innerHTML += `<tr><td>${k}</td><td class="num">${a}</td><td class="num"><strong>${b}</strong></td><td class="num ${diffCol}">${diffStr}</td><td class="num ${color}">${c} %</td></tr>`;
+  });
+  document.getElementById('susTable').appendChild(table);
+})();
+
+// === 8. Days between ===
+(function(){
+  const d = DATA.days_between.total;
+  const labels = ['<30','30-60','60-90','90-120','120-180','>180'];
+  new Chart(document.getElementById('chartDays'), {
+    type: 'bar',
+    data: {
+      labels,
+      datasets: [{
+        label: 'Расторжений', data: labels.map(l => d[l]),
+        backgroundColor: labels.map(l => {
+          const v = d[l];
+          if (l === '<30') return COLORS.red;
+          if (l === '60-90') return COLORS.yellow;
+          return COLORS.accent;
+        })
+      }]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { display: false } },
+      scales: { y: { grid: { color: '#f1f5f9' } }, x: { grid: { display: false } } }
+    }
+  });
+})();
+
+// === 9. Path table ===
+(function(){
+  const tbody = document.getElementById('pathTable');
+  DATA.path_chains.slice(0,10).forEach(p => {
+    tbody.innerHTML += `<tr><td>${p.s}</td><td>${p.r}</td><td class="num"><strong>${p.n}</strong></td></tr>`;
+  });
+})();
+
+// === 10. Echo days ===
+(function(){
+  const d = DATA.echo_daily_p;
+  new Chart(document.getElementById('chartEchoDays'), {
+    type: 'bar',
+    data: {
+      labels: d.map(x => x.d),
+      datasets: [{
+        label: 'Приост.>90',
+        data: d.map(x => x.p),
+        backgroundColor: d.map(x => x.d === '12' ? COLORS.red : (x.p >= 20 ? COLORS.yellow : '#94a3b8'))
+      }]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { display: false } },
+      scales: { y: { grid: { color: '#f1f5f9' } }, x: { grid: { display: false }, title: { display: true, text: 'День апреля' } } }
+    }
+  });
+})();
+
+// === 11. Debt ===
+(function(){
+  const d = DATA.debt;
+  new Chart(document.getElementById('chartDebt'), {
+    type: 'bar',
+    data: {
+      labels: d.map(x => x.ym),
+      datasets: [{
+        label: 'Новых приост. "Задолженность"',
+        data: d.map(x => x.n),
+        backgroundColor: d.map(x => x.ym === 'апр' ? COLORS.green : (x.ym === 'мар' ? COLORS.red : '#94a3b8'))
+      }]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { display: false } },
+      scales: { y: { grid: { color: '#f1f5f9' } }, x: { grid: { display: false } } }
+    }
+  });
+})();
+
+// === 12. Monitor tariffs ===
+(function(){
+  const d = DATA.mon;
+  new Chart(document.getElementById('chartMon'), {
+    type: 'bar',
+    data: {
+      labels: d.map(x => x.ym),
+      datasets: [
+        { label: 'МОНИТОР2.0', data: d.map(x => x.m), backgroundColor: COLORS.green },
+        { label: 'УДЕРЖ-М', data: d.map(x => x.u), backgroundColor: COLORS.yellow }
+      ]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { position: 'bottom' } },
+      scales: { x: { grid: { display: false } }, y: { grid: { color: '#f1f5f9' } } }
+    }
+  });
+})();
+
+// === 13. UR with DZ ===
+(function(){
+  const d = DATA.ur_dz;
+  new Chart(document.getElementById('chartUrDz'), {
+    type: 'bar',
+    data: {
+      labels: d.map(x => x.ym),
+      datasets: [
+        { label: 'Оплаты шт', data: d.map(x => x.opl), backgroundColor: COLORS.green, stack: 's', type: 'bar' },
+        { label: 'Возобновления шт', data: d.map(x => x.vozob), backgroundColor: COLORS.accent, stack: 's', type: 'bar' },
+        { label: '% оплат', data: d.map(x => x.opl_p), type: 'line', borderColor: COLORS.red, backgroundColor: COLORS.red, yAxisID: 'y1', tension: 0.2, pointRadius: 3, borderWidth: 2 },
+        { label: '% возобн.', data: d.map(x => x.vozob_p), type: 'line', borderColor: COLORS.yellow, backgroundColor: COLORS.yellow, yAxisID: 'y1', tension: 0.2, pointRadius: 3, borderWidth: 2, borderDash: [4,4] }
+      ]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { position: 'bottom' } },
+      scales: {
+        x: { stacked: true, grid: { display: false } },
+        y: { stacked: true, grid: { color: '#f1f5f9' }, position: 'left' },
+        y1: { grid: { display: false }, position: 'right', ticks: { callback: v => v + ' %' } }
+      }
+    }
+  });
+})();
+
+// === 14. UR no DZ ===
+(function(){
+  const d = DATA.ur_nodz;
+  new Chart(document.getElementById('chartUrNoDz'), {
+    type: 'line',
+    data: {
+      labels: d.map(x => x.ym),
+      datasets: [{
+        label: '% возобновлений от базы',
+        data: d.map(x => x.vozob_p),
+        borderColor: COLORS.red, backgroundColor: 'rgba(220,38,38,0.1)',
+        fill: true, tension: 0.2, pointRadius: 5,
+        pointBackgroundColor: d.map(x => x.season ? COLORS.yellow : (x.inc ? COLORS.incomplete : COLORS.red)),
+        pointBorderWidth: 2, spanGaps: false
+      }]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: { callbacks: { afterLabel: c => {
+          const x = d[c.dataIndex];
+          if (x.season) return '⚠ январь — сезонная пауза (каникулы)';
+          if (x.inc) return '⚠ неполный месяц (на 21.04)';
+          return '';
+        }}}
+      },
+      scales: { y: { grid: { color: '#f1f5f9' }, ticks: { callback: v => v + ' %' } }, x: { grid: { display: false } } }
+    }
+  });
+})();
+
+// === 15. Cohort × segment ===
+(function(){
+  const ages = DATA.age_order;
+  const segs = ['Квартира', 'Коттедж', 'Малый Бизнес'];
+  const colors = { 'Квартира': COLORS.accent, 'Коттедж': '#8b5cf6', 'Малый Бизнес': COLORS.red };
+  new Chart(document.getElementById('chartCohort'), {
+    type: 'bar',
+    data: {
+      labels: ages,
+      datasets: segs.map(s => ({
+        label: s, data: ages.map(a => DATA.cohort_seg_w16[s][a] || 0),
+        backgroundColor: colors[s]
+      }))
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { position: 'bottom' }, title: { display: true, text: 'Расторжения W16 по возрастной когорте и сегменту' } },
+      scales: { x: { stacked: true, grid: { display: false } }, y: { stacked: true, grid: { color: '#f1f5f9' } } }
+    }
+  });
+})();
+
+// === 16. UR tables ===
+(function(){
+  const t1 = document.getElementById('urDzTable');
+  DATA.ur_dz.forEach(x => {
+    const cls = x.inc ? ' style="color:var(--incomplete-text);font-style:italic;"' : '';
+    t1.innerHTML += `<tr${cls}><td>${x.ym}</td><td class="num">${x.base}</td><td class="num">${x.opl}</td><td class="num">${x.opl_p} %</td><td class="num">${x.vozob}</td><td class="num">${x.vozob_p} %</td><td class="num">${x.rub}</td></tr>`;
+  });
+  const t2 = document.getElementById('urNoDzTable');
+  DATA.ur_nodz.forEach(x => {
+    if (x.season) {
+      t2.innerHTML += `<tr style="color:var(--text-muted);font-style:italic;"><td>${x.ym}</td><td class="num">—</td><td class="num">—</td><td class="num">каникулы</td></tr>`;
+    } else {
+      const cls = x.inc ? ' style="color:var(--incomplete-text);font-style:italic;"' : '';
+      t2.innerHTML += `<tr${cls}><td>${x.ym}</td><td class="num">${x.base}</td><td class="num">${x.vozob}</td><td class="num">${x.vozob_p} %</td></tr>`;
+    }
+  });
+})();
+
+// === Scroll spy nav ===
+(function(){
+  const links = document.querySelectorAll('nav a');
+  const sections = Array.from(document.querySelectorAll('section, #summary'));
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        links.forEach(l => l.classList.remove('active'));
+        const a = document.querySelector(`nav a[href="#${e.target.id}"]`);
+        if (a) a.classList.add('active');
+      }
+    });
+  }, { rootMargin: '-40% 0px -50% 0px' });
+  sections.forEach(s => { if (s.id) observer.observe(s); });
+})();
+</script>
+
+</body>
+</html>
