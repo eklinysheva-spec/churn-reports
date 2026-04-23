@@ -187,6 +187,7 @@ th {
 td { padding: 8px 10px; border-bottom: 1px solid var(--border); }
 tr:last-child td { border-bottom: none; }
 td.num, th.num { text-align: right; font-family: 'JetBrains Mono', monospace; }
+.quote { font-size: 12px; font-style: italic; color: var(--text-dim); max-width: 360px; }
 .val-green { color: var(--green); font-weight: 600; }
 .val-red { color: var(--red); font-weight: 600; }
 .val-yellow { color: var(--yellow); font-weight: 600; }
@@ -283,31 +284,6 @@ footer {
 }
 </style>
 
-<style>
-/* NN Analysis section */
-#nn-analysis .charts-row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-#nn-analysis .insight-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-#nn-analysis .insight-card { background: var(--surface); border-radius: 12px; padding: 20px; border-left: 4px solid #e2e8f0; }
-#nn-analysis .insight-card.insight-red { border-left-color: var(--red); }
-#nn-analysis .insight-card.insight-yellow { border-left-color: var(--yellow); }
-#nn-analysis .insight-card.insight-blue { border-left-color: var(--accent); }
-#nn-analysis .insight-card.insight-green { border-left-color: var(--green); }
-#nn-analysis .insight-icon { font-size: 20px; margin-bottom: 8px; }
-#nn-analysis .insight-title { font-weight: 700; color: var(--text); margin-bottom: 8px; }
-#nn-analysis .insight-body { font-size: 13px; color: var(--text-dim); line-height: 1.5; }
-#nn-analysis .quote-cell { font-size: 12px; font-style: italic; color: var(--text-dim); max-width: 400px; }
-#nn-analysis .recs-table { width: 100%; border-collapse: collapse; font-size: 13px; }
-#nn-analysis .recs-table th { background: var(--surface2); padding: 8px 12px; text-align: left; }
-#nn-analysis .recs-table td { padding: 10px 12px; border-bottom: 1px solid var(--border); vertical-align: top; }
-#nn-analysis .recs-card { background: var(--surface); border-radius: 12px; padding: 24px; box-shadow: 0 1px 3px rgba(15,23,42,0.04); }
-.badge { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 12px; font-weight: 600; }
-.badge-red { background: var(--red-bg); color: var(--red); }
-.badge-orange { background: var(--yellow-bg); color: var(--yellow); }
-.badge-blue { background: var(--accent-bg); color: var(--accent); }
-@media (max-width: 768px) {
-  #nn-analysis .charts-row-2, #nn-analysis .insight-grid { grid-template-columns: 1fr; }
-}
-</style>
 </head>
 <body>
 
@@ -1487,173 +1463,185 @@ const COLORS = {
 
 <!-- ═══════════════════════════════════════════════════════════ SECTION: NN -->
 <section id="nn-analysis">
-<div class="section-header">
-  <h2>Разбор: «Нет необходимости» — что стоит за этой причиной</h2>
-  <p class="section-sub">
-    Анализ <strong>1,922</strong> расторжений с 01.01.2025 с причиной «Нет необходимости в охране (услуге)».<br>
-    Для каждого договора восстановлена полная история: приостановки, комментарии операторов и клиентские фразы.
-  </p>
+<div class="container">
+
+  <div class="section-header">
+    <div class="section-number">16 — Углублённый анализ</div>
+    <h2>«Нет необходимости» — что стоит за этой причиной</h2>
+    <p>Анализ <strong>1 922</strong> расторжений с 01.01.2025 с причиной «Нет необходимости в охране (услуге)». Для каждого договора восстановлена полная история: приостановки, комментарии операторов и клиентские фразы.</p>
+  </div>
+
+  <!-- KPI row -->
+  <div class="hero-metrics" style="margin-bottom:28px;">
+    <div class="hero-metric neutral">
+      <div class="label">Расторжений с 01.01.2025</div>
+      <div class="value">1 922</div>
+      <div class="delta dim">причина: Нет необходимости</div>
+    </div>
+    <div class="hero-metric warning">
+      <div class="label">Имели паузу в истории</div>
+      <div class="value">1 398</div>
+      <div class="delta yellow">72,7% — отток был предсказуем</div>
+    </div>
+    <div class="hero-metric negative">
+      <div class="label">Прямое расторжение</div>
+      <div class="value">524</div>
+      <div class="delta red">27,3% — без предшествующих пауз</div>
+    </div>
+    <div class="hero-metric positive">
+      <div class="label">Договоров с живым текстом</div>
+      <div class="value">587</div>
+      <div class="delta green">из 1 922 — есть прямые слова клиента</div>
+    </div>
+  </div>
+
+  <!-- Callout -->
+  <div class="callout" style="margin-bottom:32px;">
+    «Нет необходимости» — это <strong>корзина-невидимка</strong>: за ней скрывается минимум 8 принципиально разных ситуаций.
+    69% расторгнувших не имели ни одной предшествующей паузы и ни одного комментария — их уход невозможно было предсказать по текущим данным.
+    Оставшиеся 31% имели сигналы: NSR, временные паузы, жалобы на цену — но они не были связаны с причиной расторжения в системе.
+  </div>
+
+  <!-- Charts: pie + bar -->
+  <div class="grid-2" style="margin-bottom:14px;">
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">Структура кластеров (договоров)</div>
+      </div>
+      <div class="chart-wrap"><canvas id="nnClusterPie"></canvas></div>
+    </div>
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">Кластеры по количеству договоров</div>
+      </div>
+      <div class="chart-wrap"><canvas id="nnClusterBar"></canvas></div>
+    </div>
+  </div>
+
+  <!-- Cohort chart -->
+  <div class="card" style="margin-bottom:14px;">
+    <div class="card-header">
+      <div class="card-title">Распределение по сроку жизни (когортам)</div>
+      <span class="card-badge badge-red">когорта 5+ лет — наибольший вес</span>
+    </div>
+    <div class="chart-wrap sm"><canvas id="nnCohortBar"></canvas></div>
+    <p style="margin-top:12px;font-size:13px;color:var(--text-dim);">Когорта «Более 5 лет» — самая массовая и самая ценная. Её уход под маркой «Нет необходимости» требует отдельного анализа мотивов.</p>
+  </div>
+
+  <!-- Quotes table -->
+  <div class="card" style="margin-bottom:14px;">
+    <div class="card-header">
+      <div class="card-title">Живые фразы клиентов — что реально стоит за «Нет необходимости»</div>
+      <span class="card-badge badge-blue">587 договоров с текстом</span>
+    </div>
+    <div class="table-wrap">
+      <table id="nnQuotesTable">
+        <thead>
+          <tr>
+            <th>Реальный кластер</th>
+            <th>Сегмент</th>
+            <th>Когорта</th>
+            <th>Слова клиента (из CRM)</th>
+          </tr>
+        </thead>
+        <tbody>
+<tr><td>Неопределено</td><td>Расторжение</td><td>Более 5 лет</td><td class="quote">Работа в подзадаче | коллеги, просьба принять расторжение с 31 марта. &lt;img src="data:image/png;base64, | Спасибо за ожидание, ваш договор расторгнут с 31 марта. Мы были рады работать для вас. Надеемся</td></tr>
+<tr><td>Неопределено</td><td>Расторжение</td><td>6-9 мес.</td><td class="quote">Добрый день!&nbsp;Спасибо за ожидание, ваш договор 4950520441&nbsp; расторгнут с 14 апреля 2026 года. Мы были рады работать для вас. Надеемся увидеть  | &lt;img src="data:image/png;base64, | &lt;img src="da</td></tr>
+<tr><td>Задолженность → отток</td><td>Расторжение</td><td>9-12 мес.</td><td class="quote">Счета для физических лиц не направляются. Произвести оплату вы можете перейдя по ссылке &nbsp; &nbsp;указав сумму и номер договора.&nbsp; По остальным | Отправитель: m.pilyukova@r4s.ru Получатель: zab</td></tr>
+<tr><td>Неопределено</td><td>Расторжение</td><td>3-4 года</td><td class="quote">Направляем вам счет на оплату в формате PDF во вложении. | Отправитель: buh.latuk@mail.ru Получатель: zabota@Gulfstream.ru Дата отправки: 12.01.2026 16:37:10 Тема письма: Re: Fwd: По Вашему обращению </td></tr>
+<tr><td>Временная пауза → не вернулся</td><td>Расторжение</td><td>2-3 года</td><td class="quote">Мы готовы в любой момент ответить на интересующие вас вопросы. Для этого напишите в чат или позвоните по номеру 8-800-737-7777. | Уточните, пожалуйста, у вас остались какие-либо вопросы? | Уточнили ин</td></tr>
+<tr><td>Задолженность → отток</td><td>Расторжение</td><td>Более 5 лет</td><td class="quote">14817477 | Отправитель: Elmakeeva@icloud.com Получатель: zabota@Gulfstream.ru Дата отправки: 11.01.2026 19:02:33 Тема письма: Заказ обратного звонка из личного к</td></tr>
+<tr><td>Задолженность → отток</td><td>Расторжение</td><td>Более 5 лет</td><td class="quote">Добрый день! Сожалеем о вашем решении. Расторжение договора возможно только после демонтажа оборудования. Уточните, пожалуйста, удобную дату и время д | не отвечает | Звонок на номер ru-RU. +7 (981) 8</td></tr>
+<tr><td>Временная пауза → не вернулся</td><td>Расторжение</td><td>Более 5 лет</td><td class="quote">Если понадобится помощь, пишите, будем рады помочь._x000D_ _x000D_ | Отправитель: 79185544402 Получатель: 79185544402 Дата отправки: 09.10.2025 19:10:13 Тема письма: Gulfstream_WA Текст письма: Нет, б</td></tr>
+<tr><td>Временная пауза → не вернулся</td><td>Расторжение</td><td>9-12 мес.</td><td class="quote">Добрый день! Необходим возврат остатка ДС по&nbsp;8120213983 Реквизиты во вкладке для клиентов | Отправитель: marina_petrukhina@icloud.com Получатель: zabota@Gulfstream.ru;zabota@Gulfstream.ru Дата от</td></tr>
+<tr><td>Пауза >90 дн → автоотток</td><td>Расторжение</td><td>Более 5 лет</td><td class="quote">если проблема актуальна, просьба создать новый тикет</td></tr>
+<tr><td>NSR (потеря сигнала)</td><td>Расторжение</td><td>Более 5 лет</td><td class="quote">Хотели бы рассказать вам об уникальной акции, которая предоставляет приятный бонус. Всё очень просто: пригласите вашего друга подключить нашу охранную | Благодарю вас! | Если понадобится помощь, пишит</td></tr>
+<tr><td>Цена / дорого</td><td>Расторжение</td><td>1-2 года</td><td class="quote">Добрый день! Договор 3430209114 расторгнут с 01.01.2026 года. Благодарим за сотрудничество. | &lt;img src="data:image/png;base64, | директор сказал только расторжение тарифы не интересуют&nbsp; | Звонок </td></tr>
+<tr><td>NSR (потеря сигнала)</td><td>Расторжение</td><td>2-3 года</td><td class="quote">Добрый день!&nbsp; Счет на остаточную стоимость оборудования во вложении. | Готово | Добрый день, прошу прикрепить счет на ост стоимость | 4950299684 | Звонок на номер ru-RU. +7 (963) 390-2328 - | Доб</td></tr>
+<tr><td>Пауза >90 дн → автоотток</td><td>Расторжение</td><td>Более 5 лет</td><td class="quote">&lt;img src="data:image/png;base64, | Благодарим вас за обратную связь! Если понадобится помощь, пишите, будем рады помочь._x000D_ Мы были рады работать для вас. Надеемся увидеть вас в чис | Отправитель:</td></tr>
+<tr><td>Цена / дорого</td><td>Расторжение</td><td>0-3 мес.</td><td class="quote">Добрый день!_x000D_ К сожалению, мы не получили от вас обратной связи. Мы закроем текущее обращение. Если ваш вопрос ещё актуален, мы готовы в любой м | Добрый день! Задолженность по договору №63/0273</td></tr>
+<tr><td>Пауза >90 дн → автоотток</td><td>Расторжение</td><td>Более 5 лет</td><td class="quote">&nbsp;обратился | Отправитель: lexx1985@yandex.ru Получатель: zabota@Gulfstream.ru;zabota@Gulfstream.ru;menshutina.nv@gulfstream.ru Дата отправки: 27.01.2026 10:04:53 Т</td></tr>
+<tr><td>NSR (потеря сигнала)</td><td>Расторжение</td><td>Более 5 лет</td><td class="quote">Если понадобится помощь, пишите, будем рады помочь. | Тикет открыт заново с ответом клиента | Отправитель: heller201403@mail.ru Получатель: zabota@Gulfstream.ru;zabota@Gulfstream.ru Дата отправки: 20.</td></tr>
+<tr><td>Цена / дорого</td><td>Расторжение</td><td>1-2 года</td><td class="quote">К сожалению, мы не получили от вас обратной связи. Мы закроем текущее обращение. Если ваш вопрос ещё актуален, мы готовы в любой момент ответить на ин | Добрый день! Уточните, пожалуйста, с какого чис</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Insights 2x2 -->
+  <div class="grid-2" style="margin-bottom:14px;">
+    <div class="callout callout-red">
+      <strong>NSR — незаметный убийца договоров</strong><br>
+      Клиент теряет сигнал → пауза с кодом NSR → через 90 дней уходит в отток.
+      В системе фиксируется «Нет необходимости», хотя реальная причина — технический сбой.
+      <strong>Эти клиенты обратимы на этапе паузы.</strong>
+    </div>
+    <div class="callout callout-yellow">
+      <strong>Временная пауза как прощание</strong><br>
+      Клиент ставит паузу «Временно нет необходимости» и не возвращается.
+      За 90 дней никто не делает попытки удержания — и пауза конвертируется в расторжение.
+      <strong>Окно удержания: первые 2–3 недели паузы.</strong>
+    </div>
+    <div class="callout">
+      <strong>МБ: «Нет необходимости» = закрытие бизнеса</strong><br>
+      Для сегмента Малый Бизнес эта причина почти всегда означает закрытие или смену объекта.
+      Удержать невозможно — но можно предложить перенос договора или переоформление на физлицо.
+      <strong>Сценарий «переезд МБ» конвертирует ~20% таких клиентов.</strong>
+    </div>
+    <div class="callout callout-green">
+      <strong>69% — «чёрный ящик» без данных</strong><br>
+      Большинство расторжений с этой причиной происходит без паузы и без обращений.
+      Клиент уходит через приложение, не оставляя следов. Решение: <strong>exit-survey при расторжении через МПК</strong> — обязательный вопрос о причине (1 экран, 5 вариантов).
+    </div>
+  </div>
+
+  <!-- Recommendations -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title">Рекомендации по работе с кластером «Нет необходимости»</div>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Приоритет</th><th>Кластер</th><th>Действие</th><th>Ожидаемый эффект</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="card-badge badge-red">Срочно</span></td>
+            <td>NSR → расторжение</td>
+            <td>При паузе NSR >14 дней — автоматический триггер выезда инженера или звонка</td>
+            <td>Вернуть до 40% NSR-клиентов до 90-го дня</td>
+          </tr>
+          <tr>
+            <td><span class="card-badge badge-red">Срочно</span></td>
+            <td>69% прямых расторжений</td>
+            <td>Добавить exit-survey в МПК при выборе расторжения (5 вариантов + «другое»)</td>
+            <td>Расшифровать «тёмную лошадку»; часть клиентов передумает в процессе</td>
+          </tr>
+          <tr>
+            <td><span class="card-badge badge-yellow">Средний</span></td>
+            <td>Временная пауза → нет возврата</td>
+            <td>Автотриггер УР на 14-й день паузы «Временно нет необходимости»</td>
+            <td>+10–15 возвратов в месяц по этому кластеру</td>
+          </tr>
+          <tr>
+            <td><span class="card-badge badge-yellow">Средний</span></td>
+            <td>Закрытие бизнеса (МБ)</td>
+            <td>При расторжении МБ с этой причиной — оффер переноса оборудования на физлицо</td>
+            <td>Сохранить ~20% клиентов через переоформление</td>
+          </tr>
+          <tr>
+            <td><span class="card-badge badge-blue">Стратег.</span></td>
+            <td>Когорта 5+ лет</td>
+            <td>Разработать программу лояльности для клиентов 5+ лет (скидка, расширенный сервис)</td>
+            <td>Снизить долю 5+ лет в «Нет необходимости» с текущего уровня на 20–30%</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
 </div>
-
-<!-- KPI row -->
-<div class="kpi-grid" style="margin-bottom:24px;">
-  <div class="kpi-card">
-    <div class="kpi-label">Расторжений с 01.01.2025</div>
-    <div class="kpi-value">1,922</div>
-    <div class="kpi-sub">причина: Нет необходимости</div>
-  </div>
-  <div class="kpi-card">
-    <div class="kpi-label">Имели паузу в истории</div>
-    <div class="kpi-value">1,398</div>
-    <div class="kpi-sub">72.7% — отток был предсказуем</div>
-  </div>
-  <div class="kpi-card">
-    <div class="kpi-label">Прямое расторжение</div>
-    <div class="kpi-value">524</div>
-    <div class="kpi-sub">27.299999999999997% — без предшествующих паузы</div>
-  </div>
-  <div class="kpi-card">
-    <div class="kpi-label">Договоров с живым текстом</div>
-    <div class="kpi-value">587</div>
-    <div class="kpi-sub">из 1,922 — есть прямые слова клиента</div>
-  </div>
-</div>
-
-<!-- CALLOUT -->
-<div class="callout callout-accent" style="margin-bottom:32px;">
-  «Нет необходимости» — это <strong>корзина-невидимка</strong>: за ней скрывается минимум 8 принципиально разных ситуаций.
-  69% расторгнувших не имели ни одной предшествующей паузы и ни одного комментария — их уход невозможно было предсказать по текущим данным.
-  Оставшиеся 31% имели сигналы: NSR, временные паузы, жалобы на цену — но они не были связаны с причиной расторжения в системе.
-</div>
-
-<!-- ROW: pie + bar -->
-<div class="charts-row-2" style="margin-bottom:32px;">
-  <div class="chart-card">
-    <div class="chart-title">Структура кластеров (договоров)</div>
-    <canvas id="nnClusterPie" height="260"></canvas>
-  </div>
-  <div class="chart-card">
-    <div class="chart-title">Кластеры по количеству договоров</div>
-    <canvas id="nnClusterBar" height="260"></canvas>
-  </div>
-</div>
-
-<!-- Когорты -->
-<div class="chart-card" style="margin-bottom:32px;">
-  <div class="chart-title">Распределение по сроку жизни (когортам)</div>
-  <canvas id="nnCohortBar" height="180"></canvas>
-  <p class="chart-note">Когорта «Более 5 лет» — самая массовая и самая ценная. Её уход под маркой «Нет необходимости» требует отдельного анализа мотивов.</p>
-</div>
-
-<!-- Таблица с примерами фраз -->
-<div class="table-card" style="margin-bottom:32px;">
-  <div class="chart-title">Живые фразы клиентов — что реально стоит за «Нет необходимости»</div>
-  <div class="table-scroll">
-  <table class="sortable-table" id="nnQuotesTable">
-    <thead>
-      <tr>
-        <th>Реальный кластер</th>
-        <th>Сегмент</th>
-        <th>Когорта</th>
-        <th>Слова клиента (из CRM)</th>
-      </tr>
-    </thead>
-    <tbody>
-<tr><td>Неопределено</td><td>Расторжение</td><td>Более 5 лет</td><td class="quote-cell">Работа в подзадаче | коллеги, просьба принять расторжение с 31 марта. &lt;img src="data:image/png;base64, | Спасибо за ожидание, ваш договор расторгнут с 31 марта. Мы были рады работать для вас. Надеемся</td></tr>
-<tr><td>Неопределено</td><td>Расторжение</td><td>6-9 мес.</td><td class="quote-cell">Добрый день!&nbsp;Спасибо за ожидание, ваш договор 4950520441&nbsp; расторгнут с 14 апреля 2026 года. Мы были рады работать для вас. Надеемся увидеть  | &lt;img src="data:image/png;base64, | &lt;img src="da</td></tr>
-<tr><td>Задолженность → отток</td><td>Расторжение</td><td>9-12 мес.</td><td class="quote-cell">Счета для физических лиц не направляются. Произвести оплату вы можете перейдя по ссылке &nbsp; &nbsp;указав сумму и номер договора.&nbsp; По остальным | Отправитель: m.pilyukova@r4s.ru Получатель: zab</td></tr>
-<tr><td>Неопределено</td><td>Расторжение</td><td>3-4 года</td><td class="quote-cell">Направляем вам счет на оплату в формате PDF во вложении. | Отправитель: buh.latuk@mail.ru Получатель: zabota@Gulfstream.ru Дата отправки: 12.01.2026 16:37:10 Тема письма: Re: Fwd: По Вашему обращению </td></tr>
-<tr><td>Временная пауза → не вернулся</td><td>Расторжение</td><td>2-3 года</td><td class="quote-cell">Мы готовы в любой момент ответить на интересующие вас вопросы. Для этого напишите в чат или позвоните по номеру 8-800-737-7777. | Уточните, пожалуйста, у вас остались какие-либо вопросы? | Уточнили ин</td></tr>
-<tr><td>Задолженность → отток</td><td>Расторжение</td><td>Более 5 лет</td><td class="quote-cell">14817477 | Отправитель: Elmakeeva@icloud.com Получатель: zabota@Gulfstream.ru Дата отправки: 11.01.2026 19:02:33 Тема письма: Заказ обратного звонка из личного к</td></tr>
-<tr><td>Задолженность → отток</td><td>Расторжение</td><td>Более 5 лет</td><td class="quote-cell">Добрый день! Сожалеем о вашем решении. Расторжение договора возможно только после демонтажа оборудования. Уточните, пожалуйста, удобную дату и время д | не отвечает | Звонок на номер ru-RU. +7 (981) 8</td></tr>
-<tr><td>Временная пауза → не вернулся</td><td>Расторжение</td><td>Более 5 лет</td><td class="quote-cell">Если понадобится помощь, пишите, будем рады помочь._x000D_ _x000D_ | Отправитель: 79185544402 Получатель: 79185544402 Дата отправки: 09.10.2025 19:10:13 Тема письма: Gulfstream_WA Текст письма: Нет, б</td></tr>
-<tr><td>Временная пауза → не вернулся</td><td>Расторжение</td><td>9-12 мес.</td><td class="quote-cell">Добрый день! Необходим возврат остатка ДС по&nbsp;8120213983 Реквизиты во вкладке для клиентов | Отправитель: marina_petrukhina@icloud.com Получатель: zabota@Gulfstream.ru;zabota@Gulfstream.ru Дата от</td></tr>
-<tr><td>Пауза >90 дн → автоотток</td><td>Расторжение</td><td>Более 5 лет</td><td class="quote-cell">если проблема актуальна, просьба создать новый тикет</td></tr>
-<tr><td>NSR (потеря сигнала)</td><td>Расторжение</td><td>Более 5 лет</td><td class="quote-cell">Хотели бы рассказать вам об уникальной акции, которая предоставляет приятный бонус. Всё очень просто: пригласите вашего друга подключить нашу охранную | Благодарю вас! | Если понадобится помощь, пишит</td></tr>
-<tr><td>Цена / дорого</td><td>Расторжение</td><td>1-2 года</td><td class="quote-cell">Добрый день! Договор 3430209114 расторгнут с 01.01.2026 года. Благодарим за сотрудничество. | &lt;img src="data:image/png;base64, | директор сказал только расторжение тарифы не интересуют&nbsp; | Звонок </td></tr>
-<tr><td>NSR (потеря сигнала)</td><td>Расторжение</td><td>2-3 года</td><td class="quote-cell">Добрый день!&nbsp; Счет на остаточную стоимость оборудования во вложении. | Готово | Добрый день, прошу прикрепить счет на ост стоимость | 4950299684 | Звонок на номер ru-RU. +7 (963) 390-2328 - | Доб</td></tr>
-<tr><td>Пауза >90 дн → автоотток</td><td>Расторжение</td><td>Более 5 лет</td><td class="quote-cell">&lt;img src="data:image/png;base64, | Благодарим вас за обратную связь! Если понадобится помощь, пишите, будем рады помочь._x000D_ Мы были рады работать для вас. Надеемся увидеть вас в чис | Отправитель:</td></tr>
-<tr><td>Цена / дорого</td><td>Расторжение</td><td>0-3 мес.</td><td class="quote-cell">Добрый день!_x000D_ К сожалению, мы не получили от вас обратной связи. Мы закроем текущее обращение. Если ваш вопрос ещё актуален, мы готовы в любой м | Добрый день! Задолженность по договору №63/0273</td></tr>
-<tr><td>Пауза >90 дн → автоотток</td><td>Расторжение</td><td>Более 5 лет</td><td class="quote-cell">&nbsp;обратился | Отправитель: lexx1985@yandex.ru Получатель: zabota@Gulfstream.ru;zabota@Gulfstream.ru;menshutina.nv@gulfstream.ru Дата отправки: 27.01.2026 10:04:53 Т</td></tr>
-<tr><td>NSR (потеря сигнала)</td><td>Расторжение</td><td>Более 5 лет</td><td class="quote-cell">Если понадобится помощь, пишите, будем рады помочь. | Тикет открыт заново с ответом клиента | Отправитель: heller201403@mail.ru Получатель: zabota@Gulfstream.ru;zabota@Gulfstream.ru Дата отправки: 20.</td></tr>
-<tr><td>Цена / дорого</td><td>Расторжение</td><td>1-2 года</td><td class="quote-cell">К сожалению, мы не получили от вас обратной связи. Мы закроем текущее обращение. Если ваш вопрос ещё актуален, мы готовы в любой момент ответить на ин | Добрый день! Уточните, пожалуйста, с какого чис</td></tr>
-
-    </tbody>
-  </table>
-  </div>
-</div>
-
-<!-- Выводы -->
-<div class="insight-grid" style="margin-bottom:32px;">
-  <div class="insight-card insight-red">
-    <div class="insight-icon">🔴</div>
-    <div class="insight-title">NSR — незаметный убийца договоров</div>
-    <div class="insight-body">Клиент теряет сигнал → пауза с кодом NSR → через 90 дней уходит в отток.
-    В системе фиксируется «Нет необходимости», хотя реальная причина — технический сбой.
-    <strong>Эти клиенты обратимы на этапе паузы.</strong></div>
-  </div>
-  <div class="insight-card insight-yellow">
-    <div class="insight-icon">🟡</div>
-    <div class="insight-title">Временная пауза как прощание</div>
-    <div class="insight-body">Клиент ставит паузу «Временно нет необходимости» и не возвращается.
-    За 90 дней никто не делает попытки удержания — и пауза конвертируется в расторжение.
-    <strong>Окно удержания: первые 2–3 недели паузы.</strong></div>
-  </div>
-  <div class="insight-card insight-blue">
-    <div class="insight-icon">🔵</div>
-    <div class="insight-title">МБ: «Нет необходимости» = закрытие бизнеса</div>
-    <div class="insight-body">Для сегмента Малый Бизнес эта причина почти всегда означает закрытие или смену объекта.
-    Удержать невозможно — но можно предложить перенос договора или переоформление на физлицо.
-    <strong>Сценарий «переезд МБ» конвертирует ~20% таких клиентов.</strong></div>
-  </div>
-  <div class="insight-card insight-green">
-    <div class="insight-icon">🟢</div>
-    <div class="insight-title">69% — «чёрный ящик» без данных</div>
-    <div class="insight-body">Большинство расторжений с этой причиной происходит без паузы и без обращений.
-    Клиент уходит через приложение, не оставляя следов. Решение: <strong>exit-survey при расторжении через МПК</strong> — обязательный вопрос о причине (1 экран, 5 вариантов).</div>
-  </div>
-</div>
-
-<!-- Рекомендации -->
-<div class="recs-card" style="margin-bottom:16px;">
-  <div class="chart-title">Рекомендации по работе с кластером «Нет необходимости»</div>
-  <table class="recs-table">
-    <thead><tr><th>Приоритет</th><th>Кластер</th><th>Действие</th><th>Ожидаемый эффект</th></tr></thead>
-    <tbody>
-      <tr>
-        <td><span class="badge badge-red">🔴 Срочно</span></td>
-        <td>NSR → расторжение</td>
-        <td>При паузе NSR >14 дней — автоматический триггер выезда инженера или звонка</td>
-        <td>Вернуть до 40% NSR-клиентов до 90-го дня</td>
-      </tr>
-      <tr>
-        <td><span class="badge badge-red">🔴 Срочно</span></td>
-        <td>69% прямых расторжений</td>
-        <td>Добавить exit-survey в МПК при выборе расторжения (5 вариантов + «другое»)</td>
-        <td>Расшифровать «тёмную лошадку»; часть клиентов передумает в процессе</td>
-      </tr>
-      <tr>
-        <td><span class="badge badge-orange">🟠 Средний</span></td>
-        <td>Временная пауза → нет возврата</td>
-        <td>Автотриггер УР на 14-й день паузы «Временно нет необходимости»</td>
-        <td>+10–15 возвратов в месяц по этому кластеру</td>
-      </tr>
-      <tr>
-        <td><span class="badge badge-orange">🟠 Средний</span></td>
-        <td>Закрытие бизнеса (МБ)</td>
-        <td>При расторжении МБ с этой причиной — оффер переноса оборудования на физлицо</td>
-        <td>Сохранить ~20% клиентов через переоформление</td>
-      </tr>
-      <tr>
-        <td><span class="badge badge-blue">🔵 Стратег.</span></td>
-        <td>Когорта 5+ лет</td>
-        <td>Разработать программу лояльности для клиентов 5+ лет (скидка, расширенный сервис)</td>
-        <td>Снизить долю 5+ лет в «Нет необходимости» с текущего уровня на 20–30%</td>
-      </tr>
-    </tbody>
-  </table>
-</div>
-
 </section>
 <!-- ══════════════════════════════════════════════════════════ /SECTION: NN -->
 
