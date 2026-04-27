@@ -808,8 +808,8 @@ footer {
   <div class="container">
     <div class="section-header">
       <div class="section-number">12 — Управление Рисками (УР)</div>
-      <h2>Две воронки · единственный управляемый компонент формулы</h2>
-      <p>За W17 — 24 удержания через УР (МОНИТОР2.0). За апрель (1–26) — 180 возвратов через УР, новый рекорд года. Подробные воронки «с ДЗ» и «без ДЗ» — на 21.04 (свежие выгрузки на 26.04 будут в трекинге). Тренд «без ДЗ» по-прежнему требует разбора: Dec 14,5 % → Mar 8,1 %.</p>
+      <h2>Три воронки · единственный управляемый компонент формулы</h2>
+      <p>УР работает по трём направлениям: «с ДЗ» (фокус на оплате+возобновлении), «без ДЗ» (только возобновление), Soft (работа с активными должниками без приостановки). За апрель (1–26): 180 возвратов через МОНИТОР2.0, 661 тыс ₽ возвращённой ДЗ через УР с ДЗ, ещё 2 456 тыс ₽ через Soft. Тренд «без ДЗ» падает 4-й месяц подряд: Dec 14,5 % → Mar 8,1 %.</p>
     </div>
 
     <div class="grid-2">
@@ -850,8 +850,49 @@ footer {
       </div>
     </div>
 
-    <div class="callout callout-yellow">
-      <strong>КПД УР за апрель (на 21.04):</strong> 98+63 = 161 удержанных по ДЗ + 48 по без ДЗ = 209 возвратов в актив усилиями отдела. Финансовый эффект — 661 тыс ₽ возвращённой ДЗ. <strong>Тренд «без ДЗ» требует разбора</strong>: падение с Dec 14,5 % до Mar 8,1 % за 3 полных месяца (январь — сезонная пауза на каникулы, в тренде не учитываем).
+    <div class="grid-2" style="margin-top:14px;">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">Soft — работа с ДЗ активных клиентов</div>
+          <span class="card-badge badge-blue">slide 5 PPTX W17</span>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Месяц</th><th class="num">База, шт</th><th class="num">Взаим.</th><th class="num">Оплаты</th><th class="num">% опл.</th><th class="num">Сумма опл., тыс ₽</th></tr></thead>
+            <tbody>
+              <tr><td>Янв.26</td><td class="num">3 145</td><td class="num">3 039 (97 %)</td><td class="num">1 753</td><td class="num">57,7 %</td><td class="num">14 914</td></tr>
+              <tr><td>Фев.26</td><td class="num">3 227</td><td class="num">3 227 (100 %)</td><td class="num">1 965</td><td class="num">60,9 %</td><td class="num">18 045</td></tr>
+              <tr><td>Мар.26</td><td class="num">3 945</td><td class="num">3 945 (100 %)</td><td class="num val-green">2 388</td><td class="num val-green">60,5 %</td><td class="num val-green">22 979</td></tr>
+              <tr style="background:var(--surface2);"><td><strong>Апр.26*</strong></td><td class="num">3 653</td><td class="num val-yellow">701 (19,2 %)</td><td class="num">364</td><td class="num">51,9 %</td><td class="num">2 456</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div style="margin-top:8px;font-size:12px;color:var(--text-dim);">* апрель неполный (на 26.04). Низкий % взаимодействий — это рабочий процесс ещё в ходу.</div>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">Общая ДЗ компании</div>
+          <span class="card-badge badge-yellow">slide 7 PPTX</span>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Месяц</th><th class="num">Общий долг, тыс ₽</th><th class="num">Δ м/м</th></tr></thead>
+            <tbody>
+              <tr><td>Окт.25</td><td class="num">66 669</td><td class="num val-dim">+0,01 %</td></tr>
+              <tr><td>Ноя.25</td><td class="num">63 977</td><td class="num val-green">−4,04 %</td></tr>
+              <tr><td>Дек.25</td><td class="num">63 627</td><td class="num val-green">−0,55 %</td></tr>
+              <tr><td>Янв.26</td><td class="num">65 739</td><td class="num val-red">+3,32 %</td></tr>
+              <tr><td>Фев.26</td><td class="num">66 099</td><td class="num val-red">+0,55 %</td></tr>
+              <tr style="background:var(--red-bg);"><td><strong>Мар.26</strong></td><td class="num"><strong>69 611</strong></td><td class="num val-red"><strong>+5,31 %</strong></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div style="margin-top:8px;font-size:12px;color:var(--text-dim);">Структура мар.26: 0–90 дн = 17,9 млн (рост +15,4 % к фев), 91–365 = 15,4 млн, 365+ = 36,3 млн. Сегментно: Кварт 16,6 / Котт 22,8 / МБ 30,2 млн ₽.</div>
+      </div>
+    </div>
+
+    <div class="callout callout-yellow" style="margin-top:14px;">
+      <strong>КПД УР за апрель (на 26.04):</strong> 98 оплат + 63 возобновления = 161 (с ДЗ) + 48 (без ДЗ) + 364 (Soft-оплат) = 573 ценных событий. Финансовый эффект — <strong>661 тыс ₽ (УР с ДЗ) + 2 456 тыс ₽ (Soft) = 3,12 млн ₽</strong> возвращённой ДЗ. <strong>Тренд «без ДЗ» требует разбора:</strong> падение с Dec 14,5 % до Mar 8,1 % за 3 полных месяца (январь — сезонная пауза, в тренде не учитываем). <strong>Общая ДЗ растёт</strong>: за Q1 +5,9 млн ₽ (с 63,6 до 69,6 млн ₽), это и объясняет 397 пауз «Задолженность» в апреле.
     </div>
   </div>
 </section>
