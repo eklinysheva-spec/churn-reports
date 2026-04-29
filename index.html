@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Анализ оттока — W17 · 28.04.2026</title>
+<title>Анализ оттока — W16 · 21.04.2026</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Onest:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.js"></script>
@@ -290,12 +290,13 @@ footer {
 <!-- NAV -->
 <nav>
   <div class="inner">
-    <span class="brand">АНАЛИЗ ОТТОКА · W17</span>
+    <span class="brand">АНАЛИЗ ОТТОКА · W16</span>
     <a href="#summary">Итоги</a>
     <a href="#monthly">Помесячно</a>
     <a href="#retro">Ретро 2025</a>
     <a href="#dynamics">Недельно</a>
-    <a href="#weekly">W16→W17</a>
+    <a href="#structure">Структура оттока</a>
+    <a href="#weekly">W15→W16</a>
     <a href="#attribution">Атрибуция</a>
     <a href="#mom">M-o-M</a>
     <a href="#segments">Сегменты</a>
@@ -315,47 +316,39 @@ footer {
 <!-- HERO -->
 <div class="hero" id="summary">
   <div class="container">
-    <div class="hero-badge"><span class="dot"></span> Отчёт на 28.04.2026 · Неделя W17 · Апрель — событийный отток 1–30.04 (включая авто-фиксации 29.04)</div>
-    <h1>W17 нетто <span class="green">76</span> <span style="font-size:22px;color:var(--text-dim);font-weight:500">(−28 % к W16)</span> · Апрель <span class="accent">658</span> (нетто 478 с УР)</h1>
-    <p class="hero-sub">W17 (закрытая неделя 20–26.04): нетто-отток 100 без УР / 76 с УР, против 131 / 106 в W16. Главный драйвер — резкое падение эха &gt;90 дн (с 114 до 67, −41 %): январские паузы оказались легче декабрьских. Контр-сигналы: <strong>расторжения выросли</strong> с 61 до 70 (+15 %), возвраты упали с 44 до 37 (−16 %). По апрелю в целом — <strong>658 событий (348 расторж + 509 приост&gt;90 − 199 возврат)</strong>: 29.04 случился авто-всплеск 147 приост.&gt;90 (эхо от 29.01).</p>
+    <div class="hero-badge"><span class="dot"></span> Отчёт на 21.04.2026 · Неделя W16 · Апрель неполный (на 21 из 30 дней)</div>
+    <h1>Отток апреля <span class="accent">597</span> · W16 нетто <span class="green">129</span> <span style="font-size:22px;color:var(--text-dim);font-weight:500">(−31% к W15)</span></h1>
+    <p class="hero-sub">W16 прошла качественно лучше W15 по всем компонентам: расторжения −30 %, возвраты +150 %, приост.>90 почти без изменений. Прирост апрельского итога +40 за неделю — в рамках плановой механики. Главный тревожный сигнал — рост приостановок «Нет связи с Клиентом» с 3 до 13 (×4).</p>
 
     <div class="hero-metrics">
-      <div class="hero-metric positive">
-        <div class="label">Нетто W17 vs W16 (с УР)</div>
-        <div class="value">76 ← 106</div>
-        <div class="delta green">−30 (−28 %)</div>
-      </div>
       <div class="hero-metric warning">
-        <div class="label">Расторжения W17</div>
-        <div class="value">70 ← 61</div>
-        <div class="delta yellow">+9 (+15 %) — рост требует внимания</div>
+        <div class="label">Отток апреля (итог)</div>
+        <div class="value">597</div>
+        <div class="delta yellow">0,962 % АКБ · +40 к прошлой неделе</div>
       </div>
       <div class="hero-metric positive">
-        <div class="label">Эхо &gt;90 дн W17</div>
-        <div class="value">67 ← 114</div>
-        <div class="delta green">−47 (−41 %) — главный драйвер</div>
+        <div class="label">Нетто W16 vs W15</div>
+        <div class="value">129 ← 187</div>
+        <div class="delta green">−58 (−31 %)</div>
+      </div>
+      <div class="hero-metric positive">
+        <div class="label">Возвраты W16</div>
+        <div class="value">45 ← 18</div>
+        <div class="delta green">+150 % — главный драйвер улучшения</div>
       </div>
       <div class="hero-metric neutral">
         <div class="label">МОНИТОР2.0 апрель</div>
-        <div class="value">180</div>
-        <div class="delta dim">+24 за W17 · скрытое удержание</div>
+        <div class="value">139</div>
+        <div class="delta dim">Рекорд 7 мес. · скрытое удержание</div>
       </div>
     </div>
 
     <div class="callout" style="margin-top:24px;">
-      <strong>Ключ к пониманию недели:</strong> из 100 нетто-оттока W17 (без УР) <strong>67 событий — эхо 20–26 января</strong>: приостановки, поставленные 90 дней назад, синхронно пересекли порог и ушли в отток. В составе — <strong>20 NSR (30 %)</strong> и 14 «Временно нет необходимости». Сегментно эхо распределилось: Квартира 38 (57 %), Коттедж 20 (30 %), МБ 9 (13 %). Без эхо W17 была бы ~33 события (расторжения − возвраты).
-    </div>
-
-    <div class="callout callout-red" style="margin-top:12px;">
-      <strong>Эхо-всплеск 29.04 — 147 авто-фиксаций «Приост.&gt;90» в один день</strong> (это эхо постановок 29 января, когда массово прошёл коллекшн). Вместе с другими событиями 27–30.04 (179 шт.) они уже учтены в апрельском итоге 658, хотя календарно неделя ещё не закрыта. В W18 эти события сформируют первый удар.
-    </div>
-
-    <div class="callout callout-yellow" style="margin-top:12px;">
-      <strong>Сигнал к работе:</strong> новых приостановок за W17 — <strong>574</strong>, из них 392 (68 %) с причиной «Задолженность». Это означает, что эхо через 90 дней (т.е. в W30, 20–26 июля) автоматически конвертируется в массовый отток, если коллекшн не сработает. Сейчас — окно для интервенций по 392 договорам с задолженностью.
+      <strong>Ключ к пониманию недели:</strong> из 129 нетто-оттока W16 <strong>97 событий (75 %) — эхо 12 января</strong>: приостановки, поставленные 90 дней назад, сегодня синхронно пересекли порог и ушли в отток. В составе — 48 NSR (49 %), в основном по Квартире (60 из 97). Это <strong>не новое клиентское поведение</strong>, а механическое срабатывание 90-дневного правила. Без этого эхо W16 была бы ~32 события — ниже W11 (март, 76).
     </div>
 
     <div class="callout callout-green" style="margin-top:12px;">
-      <strong>Контекст:</strong> Апрель в целом — 658 нетто без УР (или 478 с УР, после вычета 180 МОНИТОР2.0). Это ниже апреля 2025 (858) на 23 %. Q1 2026 (1 287) против Q1 2025 (1 576) — улучшение −18 %. Тренд года остаётся позитивным, но апрельский темп выше Q1 за счёт эхо-всплеска 29.04.
+      <strong>Контекст 2025 → 2026:</strong> за полный 2025 отток составил <strong>7 696 (12,4 % АКБ)</strong>, среднее 641/мес. Q1 2026 прошёл на <strong>18 % лучше Q1 2025</strong>, апрель 2026 (597) на <strong>30 % ниже апреля 2025</strong> (858 — максимум прошлого года). Если тренд удержится, прогноз 2026 ≈ <strong>6 300 (10,2 % АКБ)</strong> — на 1,4 п.п. АКБ лучше.
     </div>
   </div>
 </div>
@@ -365,22 +358,22 @@ footer {
   <div class="container">
     <div class="section-header">
       <div class="section-number">01 — Помесячная динамика</div>
-      <h2>Отток по месяцам · апрель = 658 нетто без УР (включая эхо-всплеск 29.04)</h2>
-      <p>Январь 2026 (186) аномально низкий за счёт массовых возвратов (597 в W1). Февраль 520, март 581. Апрель (полный 1–30) — <strong>658 нетто без УР</strong> (348 расторж + 509 приост&gt;90 − 199 возврат), 478 с УР. Внимание: 29.04 случился авто-всплеск 147 событий «Приост.&gt;90» (эхо 29 января). Тренд Q1 2026 (1 287) против Q1 2025 (1 576) — улучшение −18 %. Источник: cache 3 по полю «Дата оттока».</p>
+      <h2>Отток по месяцам · апрель 597 = локальный максимум 2026</h2>
+      <p>Январь (186) аномально низкий за счёт массовых возвратов (597 в W1). С февраля видно плавный рост: 519 → 581 → 597. Хвост мая–июня выше на графике — это прогнозные данные (неполные), в анализе не используются.</p>
     </div>
 
     <div class="grid-2">
       <div class="card">
         <div class="card-header">
-          <div class="card-title">Отток (компоненты) · 16 месяцев</div>
-          <span class="card-badge badge-yellow">факт</span>
+          <div class="card-title">Отток (компоненты) · 9 месяцев</div>
+          <span class="card-badge badge-yellow">факт + прогноз</span>
         </div>
         <div class="chart-wrap"><canvas id="chartMonthly"></canvas></div>
       </div>
       <div class="card">
         <div class="card-header">
           <div class="card-title">% от АКБ</div>
-          <span class="card-badge badge-blue">апрель 1,06 %</span>
+          <span class="card-badge badge-blue">апрель 0,962 %</span>
         </div>
         <div class="chart-wrap"><canvas id="chartMonthlyPct"></canvas></div>
       </div>
@@ -393,8 +386,8 @@ footer {
   <div class="container">
     <div class="section-header">
       <div class="section-number">01-bis — Ретро-анализ 2025</div>
-      <h2>2025 год: 7 697 оттока (12,4 % АКБ) · среднее 641/мес · апрель 2026 на 23 % ниже апреля 2025</h2>
-      <p>Полный 2025 как baseline для 2026. Q1 2026 (1 287) на 18 % лучше Q1 2025 (1 576). Апрель 2026 = <strong>658</strong> нетто без УР (или 478 с УР) — ниже апреля 2025 (858) на 23 %. Месячные пики 2025 — март, апрель, август (800–966). Минимумы — январь, февраль, июнь, сентябрь (386–509).</p>
+      <h2>2025 год: 7 696 оттока (12,4 % АКБ) · среднее 641/мес · апрель 2026 идёт на 30 % ниже апреля 2025</h2>
+      <p>Полный 2025 как baseline для 2026. Q1 2026 (1 286) на 18 % лучше Q1 2025 (1 576). Апрель 2026 (597) на 30 % ниже апреля 2025 (858). Месячные пики 2025 — март, апрель, август (800–960). Минимумы — январь, февраль, июнь, сентябрь (380–510).</p>
     </div>
 
     <div class="grid-2">
@@ -412,12 +405,12 @@ footer {
             <thead><tr><th>Мес</th><th class="num">2025 нетто</th><th class="num">2026 нетто</th><th class="num">Δ</th></tr></thead>
             <tbody>
               <tr><td>Январь</td><td class="num">398</td><td class="num">186</td><td class="num val-green">−53 %</td></tr>
-              <tr><td>Февраль</td><td class="num">386</td><td class="num">520</td><td class="num val-red">+35 %</td></tr>
+              <tr><td>Февраль</td><td class="num">386</td><td class="num">519</td><td class="num val-red">+34 %</td></tr>
               <tr><td>Март</td><td class="num">792</td><td class="num">581</td><td class="num val-green">−27 %</td></tr>
-              <tr style="background:var(--green-bg);"><td><strong>Апрель</strong></td><td class="num">858</td><td class="num"><strong>658</strong></td><td class="num val-green"><strong>−23 %</strong></td></tr>
+              <tr style="background:var(--green-bg);"><td><strong>Апрель</strong></td><td class="num">858</td><td class="num"><strong>597</strong></td><td class="num val-green"><strong>−30 %</strong></td></tr>
               <tr><td>Май–Дек 2025</td><td class="num">5 262</td><td class="num val-dim">—</td><td class="num val-dim">впереди</td></tr>
-              <tr style="background:var(--surface2);"><td><strong>Q1 2025 vs 2026</strong></td><td class="num"><strong>1 576</strong></td><td class="num"><strong>1 287</strong></td><td class="num val-green"><strong>−18 %</strong></td></tr>
-              <tr style="background:var(--surface2);"><td><strong>Год полн. 2025</strong></td><td class="num"><strong>7 697</strong></td><td class="num val-dim">—</td><td class="num">12,40 % АКБ</td></tr>
+              <tr style="background:var(--surface2);"><td><strong>Q1 2025 vs 2026</strong></td><td class="num"><strong>1 576</strong></td><td class="num"><strong>1 286</strong></td><td class="num val-green"><strong>−18 %</strong></td></tr>
+              <tr style="background:var(--surface2);"><td><strong>Год полн. 2025</strong></td><td class="num"><strong>7 696</strong></td><td class="num val-dim">—</td><td class="num">12,40 % АКБ</td></tr>
             </tbody>
           </table>
         </div>
@@ -455,8 +448,8 @@ footer {
   <div class="container">
     <div class="section-header">
       <div class="section-number">02 — Недельная динамика YTD 2026</div>
-      <h2>За 17 недель накоплено 1 903 нетто (3,07 % АКБ) · W17 — лучшая неделя апреля</h2>
-      <p>W16 и W17 подсвечены. Будущие недели — в серой зоне (прогнозно). Пики W5 (+241), W9 (+271), W13 (+218) — эхо 90-дневных волн от ноября-декабря-января. W17 — снижение до 100 (без УР), главным образом за счёт спада эха (114 → 67). По cache 5 «Чистый отток».</p>
+      <h2>За 16 недель отдано 2,90 % АКБ · W16 в середине диапазона</h2>
+      <p>W15 и W16 подсвечены. Прогнозные недели W17+ — в серой зоне, в сравнения не включаются. Пики W5 (+241), W9 (+271), W13 (+218) — эхо 90-дневных волн от ноября-декабря-января.</p>
     </div>
 
     <div class="card">
@@ -468,13 +461,78 @@ footer {
   </div>
 </section>
 
-<!-- 03. W16 vs W17 -->
+<!-- 02-bis. STRUCTURE -->
+<section id="structure">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-number">02-bis — Структура оттока понедельно</div>
+      <h2>Из чего состоит нетто-отток каждой недели — три компоненты в динамике</h2>
+      <p>Один и тот же отток на разной неделе складывается по-разному. На пиковых неделях (W5, W9, W13, W16) драйвер — Приост.>90 (эхо 90-дневных волн). На спокойных неделях — расторжения. Высокие возвраты гасят отток (W1 даёт −255 за счёт 556 возвратов 1 января).</p>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">Тренды компонентов оттока (16 закрытых недель 2026)</div>
+        <span class="card-badge badge-blue">три линии: R · П>90 · V</span>
+      </div>
+      <div class="chart-wrap"><canvas id="chartStructLines"></canvas></div>
+      <div style="font-size:13px;color:var(--text-dim);margin-top:10px;">
+        <strong>Что видно:</strong>
+        <ul style="margin:8px 0 0 20px;padding:0;">
+          <li><strong>Приост.>90</strong> — самая волатильная компонента, пики 190–215 на W5, W9, W13 (эхо январь-март-май прошлых волн).</li>
+          <li><strong>Расторжения</strong> — относительно стабильны 50–120/нед, заметные пики в W3 (155) и W14 (176).</li>
+          <li><strong>Возвраты</strong> — обычно 18–45/нед, аномалия W1 (556 — массовое разблокирование 1 января).</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">Структура притока в отток (R + П>90)</div>
+          <span class="card-badge badge-yellow">100 %-стек</span>
+        </div>
+        <div class="chart-wrap sm"><canvas id="chartStructStack100"></canvas></div>
+        <div style="font-size:12px;color:var(--text-dim);margin-top:8px;">
+          Доля каждого источника в общем притоке оттока за неделю (без учёта возвратов).
+          Высокая доля П>90 = эхо-неделя; высокая доля R = «обычный» отток.
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">Чистый вклад в нетто-отток</div>
+          <span class="card-badge badge-blue">R + П>90 − V</span>
+        </div>
+        <div class="chart-wrap sm"><canvas id="chartStructNet"></canvas></div>
+        <div style="font-size:12px;color:var(--text-dim);margin-top:8px;">
+          R и П>90 идут вверх (вклад в отток), Возвраты идут вниз (гасят отток). Линия наверху — итоговый нетто-отток недели.
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header"><div class="card-title">Доли компонентов в нетто-оттоке за месяц</div></div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Месяц</th><th class="num">R</th><th class="num">П>90</th><th class="num">V</th><th class="num">Нетто</th><th class="num">Доля R в притоке</th><th class="num">Доля П>90</th><th class="num">% возвратов</th></tr></thead>
+          <tbody id="structTable"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="callout">
+      <strong>Главное наблюдение для W16:</strong> в текущей неделе доля Приост.>90 в притоке = 65 % (114 из 174 = R+П>90), это <strong>выше нормы</strong> (в полных месяцах 2026 ~50–60 %). Подтверждает: W16 — эхо-неделя, не отражает текущее клиентское поведение.
+    </div>
+  </div>
+</section>
+
+<!-- 03. W15 vs W16 -->
 <section id="weekly">
   <div class="container">
     <div class="section-header">
-      <div class="section-number">03 — W17 vs W16</div>
+      <div class="section-number">03 — W16 vs W15</div>
       <h2>Декомпозиция компонентов формулы оттока</h2>
-      <p>Нетто-отток (без УР) 131 → 100 (−24 %). Главный драйвер — резкое падение эха &gt;90 дн (114 → 67, −41 %). Контр-сигналы: расторжения выросли (61 → 70, +15 %), возвраты упали (44 → 37, −16 %).</p>
+      <p>Нетто-отток 187 → 129 (−31 %). Улучшение по трём компонентам: расторжения −26, приост.>90 −5, возвраты +27.</p>
     </div>
 
     <div class="grid-2">
@@ -486,23 +544,21 @@ footer {
         <div class="card-header"><div class="card-title">Значения</div></div>
         <div class="table-wrap">
           <table>
-            <thead><tr><th>Компонента</th><th class="num">W16</th><th class="num">W17</th><th class="num">Δ</th><th class="num">%</th></tr></thead>
+            <thead><tr><th>Компонента</th><th class="num">W15</th><th class="num">W16</th><th class="num">Δ</th><th class="num">%</th></tr></thead>
             <tbody>
-              <tr><td>Расторжения</td><td class="num">61</td><td class="num">70</td><td class="num val-red">+9</td><td class="num val-red">+14,8 %</td></tr>
-              <tr><td>Эхо &gt;90 дн</td><td class="num">114</td><td class="num">67</td><td class="num val-green">−47</td><td class="num val-green">−41,2 %</td></tr>
-              <tr><td>Возвраты</td><td class="num">44</td><td class="num">37</td><td class="num val-red">−7</td><td class="num val-red">−15,9 %</td></tr>
-              <tr><td>УР возвраты</td><td class="num">25</td><td class="num">24</td><td class="num val-dim">−1</td><td class="num val-dim">−4,0 %</td></tr>
-              <tr><td>Нетто без УР</td><td class="num">131</td><td class="num">100</td><td class="num val-green">−31</td><td class="num val-green">−23,7 %</td></tr>
-              <tr style="background:var(--surface2);"><td><strong>Нетто-отток (с УР)</strong></td><td class="num"><strong>106</strong></td><td class="num"><strong>76</strong></td><td class="num val-green"><strong>−30</strong></td><td class="num val-green"><strong>−28,3 %</strong></td></tr>
-              <tr><td>% АКБ неделя</td><td class="num">0,171 %</td><td class="num">0,122 %</td><td class="num val-green">−0,05 п.п.</td><td class="num val-dim">—</td></tr>
+              <tr><td>Расторжения</td><td class="num">86</td><td class="num">60</td><td class="num val-green">−26</td><td class="num val-green">−30 %</td></tr>
+              <tr><td>Приост.>90</td><td class="num">119</td><td class="num">114</td><td class="num val-green">−5</td><td class="num val-green">−4 %</td></tr>
+              <tr><td>Возвраты</td><td class="num">18</td><td class="num">45</td><td class="num val-green">+27</td><td class="num val-green">+150 %</td></tr>
+              <tr style="background:var(--surface2);"><td><strong>Нетто-отток</strong></td><td class="num"><strong>187</strong></td><td class="num"><strong>129</strong></td><td class="num val-green"><strong>−58</strong></td><td class="num val-green"><strong>−31 %</strong></td></tr>
+              <tr><td>% АКБ неделя</td><td class="num">0,301 %</td><td class="num">0,208 %</td><td class="num val-green">−0,09 п.п.</td><td class="num val-dim">—</td></tr>
             </tbody>
           </table>
         </div>
       </div>
     </div>
 
-    <div class="callout callout-yellow">
-      <strong>W17 нетто лучше W16</strong>, но качество улучшения смешанное: эхо упало (хорошо — мене 90-дневных автоконверсий), но новые расторжения выросли на 20 % (плохо — больше реальных уходов). Возвраты тоже снизились. Сигнал: в W17 поставлено 392 паузы «Задолженность» — через 90 дней (W30, июль) они дадут эхо ~270, если коллекшн не сработает.
+    <div class="callout callout-green">
+      <strong>W16 качественно лучше W15</strong> по всем компонентам. Главный драйвер — рост возвратов +150 % (преимущественно Квартира, +21 из +27). Расторжения упали на треть.
     </div>
   </div>
 </section>
@@ -511,52 +567,46 @@ footer {
 <section id="attribution">
   <div class="container">
     <div class="section-header">
-      <div class="section-number">04 — Атрибуция: что изменилось в W17</div>
-      <h2>W17 нетто 76 (с УР) — на 30 событий лучше W16</h2>
-      <p>Δ W17 = −30 (улучшение). Эхо упало на 47, но компенсировано ростом расторжений (+9) и падением возвратов (−7). Реальное «качество» улучшения — спорное: системный фон стал лучше, клиентское поведение — хуже.</p>
+      <div class="section-number">04 — Атрибуция прироста итога</div>
+      <h2>Почему апрельский итог вырос с 557 до 597 (+40)</h2>
+      <p>+40 в апрельском итоге за неделю ≈ новые 129 нетто-событий W16 − 89 уже учтённых в прогнозе прошлой недели. Остаток +40 — «сюрпризы». Основной вклад в W16 — эхо 12 января.</p>
     </div>
 
     <div class="grid-3">
       <div class="card">
-        <div class="card-header"><div class="card-title">Δ_R расторжения</div><span class="card-badge badge-red">+9</span></div>
-        <p style="font-size:13px;color:var(--text-dim);margin-bottom:10px;">70 расторжений в W17 (cache 5/3, идущих в отток).</p>
+        <div class="card-header"><div class="card-title">Δ_R расторжения</div><span class="card-badge badge-green">−26</span></div>
+        <p style="font-size:13px;color:var(--text-dim);margin-bottom:10px;">60 расторжений в W16.</p>
         <table style="font-size:12px;"><tbody>
-          <tr><td>Нет необходимости</td><td class="num val-red">~26</td><td class="num">37 %</td></tr>
-          <tr><td>Съезд</td><td class="num">14</td><td class="num">20 %</td></tr>
-          <tr><td>Продажа помещения</td><td class="num">10</td><td class="num">14 %</td></tr>
-          <tr><td>Съезд + перезаключение</td><td class="num">7</td><td class="num">10 %</td></tr>
-          <tr><td>Закрытие бизнеса</td><td class="num">5</td><td class="num">7 %</td></tr>
-          <tr><td>Неудовлетворённость / прочее</td><td class="num val-yellow">8</td><td class="num">12 %</td></tr>
+          <tr><td>Малый Бизнес</td><td class="num">31</td><td class="num val-red">41 %</td></tr>
+          <tr><td>Квартира</td><td class="num">27</td><td class="num">36 %</td></tr>
+          <tr><td>Коттедж</td><td class="num">17</td><td class="num">23 %</td></tr>
         </tbody></table>
-        <div style="margin-top:10px;font-size:12px;color:var(--text-dim);">«Съезд» и «Продажа» — 34 % всех уходов (24/70). Это смена собственника объектов. <em>Cache 2 показывает 91 — разница в 21 не идёт в отток (переоформления УДЕРЖ-М).</em></div>
+        <div style="margin-top:10px;font-size:12px;color:var(--text-dim);">МБ даёт почти половину расторжений при базе в 3× меньше Квартиры — <strong>структурная проблема</strong>.</div>
       </div>
       <div class="card">
-        <div class="card-header"><div class="card-title">Δ_P эхо &gt;90 дн</div><span class="card-badge badge-green">−47</span></div>
-        <p style="font-size:13px;color:var(--text-dim);margin-bottom:10px;">67 эхо-событий в W17 (от 20–26 января).</p>
+        <div class="card-header"><div class="card-title">Δ_P приост.>90</div><span class="card-badge badge-yellow">−5</span></div>
+        <p style="font-size:13px;color:var(--text-dim);margin-bottom:10px;">114 в W16, из них <strong>97 — эхо 12 января</strong>.</p>
         <table style="font-size:12px;"><tbody>
-          <tr><td>NSR (потеря сигнала)</td><td class="num val-red">20</td><td class="num">30 %</td></tr>
-          <tr><td>Временно нет необходимости</td><td class="num">14</td><td class="num">21 %</td></tr>
-          <tr><td>Нет необходимости (МБ)</td><td class="num">6</td><td class="num">9 %</td></tr>
-          <tr><td>Ремонт</td><td class="num">6</td><td class="num">9 %</td></tr>
-          <tr><td>Нет связи с Клиентом</td><td class="num">6</td><td class="num">9 %</td></tr>
-          <tr><td>Задолженность</td><td class="num">5</td><td class="num">7 %</td></tr>
+          <tr><td>Эхо 12.04 (от 12.01)</td><td class="num val-yellow">97</td></tr>
+          <tr><td>Остальные дни W16</td><td class="num">17</td></tr>
+          <tr><td colspan="2" style="color:var(--text-dim);font-size:11px;padding-top:8px;">В эхо: NSR 48, Временно 17, Нет необх.МБ 8, Переезд 8, ...</td></tr>
         </tbody></table>
-        <div style="margin-top:10px;font-size:12px;color:var(--text-dim);">Сегментно: Квартира 38, Коттедж 20, МБ 9. NSR доминирует — 30 %.</div>
+        <div style="margin-top:10px;font-size:12px;color:var(--text-dim);">Без эхо W16 была бы 32 нетто — ниже W11 (март).</div>
       </div>
       <div class="card">
-        <div class="card-header"><div class="card-title">Δ_V возвраты</div><span class="card-badge badge-red">−7</span></div>
-        <p style="font-size:13px;color:var(--text-dim);margin-bottom:10px;">37 возвратов в W17 (W16: 44).</p>
+        <div class="card-header"><div class="card-title">Δ_V возвраты</div><span class="card-badge badge-green">+27</span></div>
+        <p style="font-size:13px;color:var(--text-dim);margin-bottom:10px;">45 возвратов в W16.</p>
         <table style="font-size:12px;"><tbody>
-          <tr><td>УР возвраты</td><td class="num">24</td><td class="num val-dim">−1</td></tr>
-          <tr><td>Обычные</td><td class="num val-red">37</td><td class="num val-red">−7</td></tr>
-          <tr><td colspan="2" style="color:var(--text-dim);font-size:11px;padding-top:8px;">МОНИТОР2.0 апрель: 175 (рекорд года, +24 к W16).</td></tr>
+          <tr><td>Квартира</td><td class="num val-green">29</td><td class="num val-green">+21 к W15</td></tr>
+          <tr><td>Коттедж</td><td class="num">13</td><td class="num">+5</td></tr>
+          <tr><td>Малый Бизнес</td><td class="num">3</td><td class="num">+1</td></tr>
         </tbody></table>
-        <div style="margin-top:10px;font-size:12px;color:var(--text-dim);">УР удерживается на хорошем уровне, но обычные возвраты падают второй неделю подряд.</div>
+        <div style="margin-top:10px;font-size:12px;color:var(--text-dim);">78 % роста — Квартира. Причина требует уточнения у retention-команды.</div>
       </div>
     </div>
 
     <div class="callout">
-      <strong>Итог атрибуции:</strong> улучшение −24 — почти полностью за счёт эха (−47), которое компенсировано ростом расторжений (+15) и падением возвратов (−7−1). <strong>Клиенты активнее уходят добровольно</strong>, но автоматических конверсий через 90-дневный порог стало меньше — это редкая комбинация, требующая разделения трендов на следующих неделях.
+      <strong>Итог атрибуции:</strong> Δ W16 = −58 (= улучшение). Расторжений −26, приост.>90 −5, возвратов +27. Из 129 нетто-оттока 97 — эхо 12 января (NSR-квартиры), 17 — нормальный фоновый поток приост.>90, ост. 15 — разница между новыми расторжениями и возвратами.
     </div>
   </div>
 </section>
@@ -566,8 +616,8 @@ footer {
   <div class="container">
     <div class="section-header">
       <div class="section-number">05 — M-o-M по одинаковой по счёту неделе</div>
-      <h2>W17 (апрель) vs k=4 неделя прошлых месяцев</h2>
-      <p>Январь W4 = 116, февраль W8 = 82, март W13 = 218 (вспышка эха 190), апрель W17 = 100. W17 — на уровне февраля и заметно лучше марта. Без эха: апрель 33 (ras−v), февраль 37 — фоновый поток ~35.</p>
+      <h2>W16 (апрель) vs k=3 неделя прошлых месяцев</h2>
+      <p>Январь W3 = 160, февраль W7 = 103, март W11 = 76, апрель W16 = 129. Апрель хуже марта/февраля — но 97 из 129 = эхо 12 января. Без него W16 на уровне 32 — лучше всех.</p>
     </div>
 
     <div class="card">
@@ -577,12 +627,12 @@ footer {
     <div class="card">
       <div class="table-wrap">
         <table>
-          <thead><tr><th>k=4 неделя</th><th>Период</th><th class="num">R</th><th class="num">P</th><th class="num">V</th><th class="num">Нетто</th><th>Комментарий</th></tr></thead>
+          <thead><tr><th>k=3 неделя</th><th>Период</th><th class="num">R</th><th class="num">P</th><th class="num">V</th><th class="num">Нетто</th><th>Комментарий</th></tr></thead>
           <tbody>
-            <tr><td>W4 янв</td><td>19–25 янв</td><td class="num">83</td><td class="num">54</td><td class="num">21</td><td class="num">116</td><td class="val-dim">Норма января, без эхо-пиков</td></tr>
-            <tr><td>W8 фев</td><td>16–22 фев</td><td class="num">57</td><td class="num">45</td><td class="num">20</td><td class="num">82</td><td class="val-dim">Минимум, фоновый поток</td></tr>
-            <tr><td>W13 мар</td><td>23–29 мар</td><td class="num">53</td><td class="num val-red">190</td><td class="num">25</td><td class="num">218</td><td class="val-dim">Вспышка эха 190 (от декабря)</td></tr>
-            <tr style="background:var(--surface2);"><td><strong>W17 апр</strong></td><td>20–26 апр</td><td class="num">70</td><td class="num val-yellow">67</td><td class="num">37</td><td class="num"><strong>100</strong></td><td>Эхо ниже среднего, расторжений выше</td></tr>
+            <tr><td>W3 янв</td><td>12–18 янв</td><td class="num">155</td><td class="num">41</td><td class="num">36</td><td class="num">160</td><td class="val-dim">Высокий из-за всплеска расторжений 155</td></tr>
+            <tr><td>W7 фев</td><td>9–15 фев</td><td class="num">75</td><td class="num">47</td><td class="num">19</td><td class="num">103</td><td class="val-dim">Норма</td></tr>
+            <tr><td>W11 мар</td><td>9–15 мар</td><td class="num">60</td><td class="num">36</td><td class="num">20</td><td class="num">76</td><td class="val-dim">Минимум, без эхо-дней</td></tr>
+            <tr style="background:var(--surface2);"><td><strong>W16 апр</strong></td><td>13–19 апр</td><td class="num">60</td><td class="num val-yellow">114</td><td class="num">45</td><td class="num"><strong>129</strong></td><td>Включает эхо 12 апр = 97 Приост.>90</td></tr>
           </tbody>
         </table>
       </div>
@@ -595,33 +645,33 @@ footer {
   <div class="container">
     <div class="section-header">
       <div class="section-number">06 — Сегменты</div>
-      <h2>Квартира +16 % · Коттедж −48 % · МБ −39 %</h2>
-      <p>В W17 сегментная картина перевернулась: Квартира впервые ухудшилась (+7 событий), всё улучшение пришло от Коттеджа (−21) и МБ (−17). Это значит, что прошлонедельный позитив Квартиры (+150 % возвратов W16) был кратковременным.</p>
+      <h2>Квартира -57 % · Коттедж -12 % · Малый Бизнес +7 %</h2>
+      <p>Весь позитив недели сделан Квартирой (97→42). МБ — единственный сегмент без улучшения: 41→44, при этом генерирует 47 % всех расторжений W16.</p>
     </div>
 
     <div class="grid-3">
       <div class="card">
         <div class="seg-title">🏠 Квартира (АКБ 30 051)</div>
-        <div class="seg-value" style="color:var(--red)">43 → 50</div>
-        <div class="seg-sub">+7 (+16 %) · R 19→<strong>32</strong> · Эхо 53→38 · Возвр <strong>29→20</strong></div>
-        <div style="margin-top:10px;"><span class="card-badge badge-red">единственное ухудшение W17</span></div>
-      </div>
-      <div class="card">
-        <div class="seg-title">🏡 Коттедж (АКБ 21 791)</div>
-        <div class="seg-value"><span class="val-green">44 → 23</span></div>
-        <div class="seg-sub">−21 (−48 %) · R 14→17 · Эхо 42→<strong class="val-green">20</strong> · Возвр 12→14</div>
+        <div class="seg-value">97 → <span class="val-green">42</span></div>
+        <div class="seg-sub">−55 (−57 %) · R 32→18 · П>90 73→53 · Возвр 8→<strong class="val-green">29</strong></div>
         <div style="margin-top:10px;"><span class="card-badge badge-green">главный драйвер улучшения</span></div>
       </div>
       <div class="card">
+        <div class="seg-title">🏡 Коттедж (АКБ 21 791)</div>
+        <div class="seg-value">49 → 43</div>
+        <div class="seg-sub">−6 (−12 %) · R 23→14 · П>90 34→42 · Возвр 8→13</div>
+        <div style="margin-top:10px;"><span class="card-badge badge-blue">слабое улучшение</span></div>
+      </div>
+      <div class="card">
         <div class="seg-title">🏢 Малый Бизнес (АКБ 10 203)</div>
-        <div class="seg-value"><span class="val-green">44 → 27</span></div>
-        <div class="seg-sub">−17 (−39 %) · R 28→21 · Эхо 19→9 · Возвр 3→3</div>
-        <div style="margin-top:10px;"><span class="card-badge badge-green">сильное улучшение</span></div>
+        <div class="seg-value" style="color:var(--red)">41 → 44</div>
+        <div class="seg-sub">+3 (+7 %) · R 31→28 · П>90 12→19 · Возвр 2→3</div>
+        <div style="margin-top:10px;"><span class="card-badge badge-red">структурная проблема</span></div>
       </div>
     </div>
 
     <div class="callout callout-yellow">
-      <strong>Квартира — новый риск.</strong> Расторжения в Квартире выросли с 19 до 32 (+68 %), возвраты упали с 29 до 20 (−31 %). Эхо снизилось (53 → 38), но рост расторжений и падение возвратов перекрывают этот эффект. Если тенденция продолжится — Квартира станет сегментом-проблемой в W18. <strong>МБ:</strong> 21 расторжение в W17 (30 % от 70), причины: «Съезд» (8), «Закрытие бизнеса» (5), «Продажа помещения» (3). Структурная проблема МБ снижается.
+      <strong>МБ:</strong> 28 расторжений в W16 = 47 % от общих 60. При базе 10 203 (16 % АКБ) даёт почти половину оттока-недели. Топ-причины: «Съезд» (7), «Закрытие бизнеса» (6), «Съезд и перезаключение» (6). Программа удержания Квартиры на МБ не работает.
     </div>
   </div>
 </section>
@@ -631,22 +681,22 @@ footer {
   <div class="container">
     <div class="section-header">
       <div class="section-number">07 — Причины расторжений и приостановок</div>
-      <h2>Причины W16 vs W17</h2>
-      <p>Слева: расторжения (70 в W17, 61 в W16) — данные cache 5 (только записи, идущие в отток). Справа: приостановки. В W17 поставлено <strong>574 новых приостановок</strong>, из них 392 — «Задолженность» (системные паузы за неуплату, выделены отдельной строкой). Сопоставимый клиентский поток (без задолженности) — 182 в W17 vs 199 в W16. Cache 2 показывает 91 расторжение в W17 — но 21 запись приходится на УДЕРЖ-М переоформления, которые не идут в отток.</p>
+      <h2>Причины W15 vs W16</h2>
+      <p>Слева: расторжения (75 в W16, 99 в W15). Справа: приостановки (174 в W16, 209 в W15). Приостановки с конверсией ≥70 % — красный, ≤15 % — зелёный.</p>
     </div>
 
     <div class="grid-2">
       <div class="card">
         <div class="card-header">
           <div class="card-title">Топ причин расторжений</div>
-          <span class="card-badge badge-blue">W17 = 70 / W16 = 61 (cache 5)</span>
+          <span class="card-badge badge-blue">W16 = 75 / W15 = 99</span>
         </div>
         <div id="reasonsRast"></div>
       </div>
       <div class="card">
         <div class="card-header">
           <div class="card-title">Новые приостановки + конверсия в отток</div>
-          <span class="card-badge badge-yellow">W17 = 182 (+ 392 Задолж.) / W16 = 174</span>
+          <span class="card-badge badge-yellow">W16 = 174 / W15 = 209</span>
         </div>
         <div id="susTable"></div>
       </div>
@@ -663,22 +713,22 @@ footer {
   <div class="container">
     <div class="section-header">
       <div class="section-number">08 — Воронка «пауза → расторжение»</div>
-      <h2>69–72 % расторжений имели предшествующую паузу</h2>
-      <p>Если считать всю историю с 01.01.2025 (Код договора как ключ), почти 70 % расторгающихся клиентов прошли через паузу. Это зона воздействия УР и retention. Распределение «дней между» показывает окно возможности.</p>
+      <h2>42–46 % расторжений имели предшествующую паузу</h2>
+      <p>Это зона воздействия УР и retention-команды на этапе паузы. 77 таких пар за W15+W16. Распределение «дней между» показывает окно возможности.</p>
     </div>
 
     <div class="grid-4">
-      <div class="mini-stat"><div class="ms-label">W16 расторжений</div><div class="ms-value">61</div><div class="ms-sub">с паузой: <strong>44 (72 %)</strong></div></div>
-      <div class="mini-stat"><div class="ms-label">W17 расторжений</div><div class="ms-value">70</div><div class="ms-sub">с паузой: <strong>49 (70 %)</strong></div></div>
-      <div class="mini-stat"><div class="ms-label">Итого за W16+W17</div><div class="ms-value">93</div><div class="ms-sub">точек воздействия УР</div></div>
-      <div class="mini-stat"><div class="ms-label">Без паузы</div><div class="ms-value">38</div><div class="ms-sub">сразу расторжение, ~30 %</div></div>
+      <div class="mini-stat"><div class="ms-label">W15 расторжений</div><div class="ms-value">99</div><div class="ms-sub">с паузой: <strong>45 (45,5 %)</strong></div></div>
+      <div class="mini-stat"><div class="ms-label">W16 расторжений</div><div class="ms-value">75</div><div class="ms-sub">с паузой: <strong>32 (42,7 %)</strong></div></div>
+      <div class="mini-stat"><div class="ms-label">Итого за 2 недели</div><div class="ms-value">77</div><div class="ms-sub">точек воздействия УР</div></div>
+      <div class="mini-stat"><div class="ms-label">Без паузы</div><div class="ms-value">97</div><div class="ms-sub">сразу расторжение, ~56 %</div></div>
     </div>
 
     <div class="grid-2" style="margin-top:14px;">
       <div class="card">
-        <div class="card-header"><div class="card-title">Дней между последней паузой и расторжением (W17)</div></div>
+        <div class="card-header"><div class="card-title">Дней между паузой и расторжением</div></div>
         <div class="chart-wrap sm"><canvas id="chartDays"></canvas></div>
-        <div style="font-size:12px;color:var(--text-dim);margin-top:8px;">29 % &lt; 30 дней (свежие паузы) · 14 % в окне 90-дневной автоконверсии · <strong>44 % старше 180 дней</strong> — давние клиенты с прерывистой историей.</div>
+        <div style="font-size:12px;color:var(--text-dim);margin-top:8px;">57 % расторгаются в первые 60 дней · 35 % накануне 90-дневного порога · 8 % после конвертации в отток через П>90.</div>
       </div>
       <div class="card">
         <div class="card-header"><div class="card-title">Цепочки «пауза → расторжение»</div></div>
@@ -692,7 +742,7 @@ footer {
     </div>
 
     <div class="callout callout-yellow">
-      <strong>Маскировка причин:</strong> в W17 у 63 расторжений с паузой 30 (47 %) расторглись с причиной «Нет необходимости» — но в их паузах была «Задолженность», «NSR», «Временно нет необходимости». Реальная причина искажается на этапе оформления расторжения. Системе нужен <strong>обязательный exit-survey в МПК</strong>.
+      <strong>Маскировка причин:</strong> «Задолженность» в паузе → «Нет необходимости в охране» в расторжении (3 случая). «Переезд/смена собственника» у МБ → «Закрытие бизнеса» / «Съезд и перезаключение» (6 случаев). Реальные причины искажаются при оформлении.
     </div>
   </div>
 </section>
@@ -702,39 +752,39 @@ footer {
   <div class="container">
     <div class="section-header">
       <div class="section-number">09 — Эхо 90-дневного правила</div>
-      <h2>W17 эхо 67 событий — равномерно распределено по 7 дням</h2>
-      <p>В отличие от W16 (где 12 апреля «выстрелило» 97 событиями от 12 января), W17 эхо размазано: пики 14 событий (20 и 23 апреля). Это значит, что в неделе 20–26 января не было одного дня массовых постановок пауз — поток был ровный.</p>
+      <h2>12 апреля — 97 приост.>90 в один день. Все от 12 января.</h2>
+      <p>Это механическое эхо: 90 дней назад массово поставили приостановки, сегодня они синхронно пересекли порог. 49 % эха — NSR, 62 % — Квартира. Процессная потеря января, которая сегодня проявилась в оттоке.</p>
     </div>
 
     <div class="grid-2">
       <div class="card">
-        <div class="card-header"><div class="card-title">Эхо по дням W17 (от 20–26 января)</div></div>
+        <div class="card-header"><div class="card-title">ТОП-дни апреля по Приост.>90</div></div>
         <div class="chart-wrap sm"><canvas id="chartEchoDays"></canvas></div>
       </div>
       <div class="card">
         <div class="card-header">
-          <div class="card-title">Состав эха W17 (20–26.04)</div>
-          <span class="card-badge badge-red">67 событий</span>
+          <div class="card-title">Состав эха 12 апреля</div>
+          <span class="card-badge badge-red">97 событий</span>
         </div>
         <table>
           <thead><tr><th>Причина исходной паузы</th><th class="num">Шт</th><th class="num">Доля</th></tr></thead>
           <tbody>
-            <tr><td>NSR — No Signal Received</td><td class="num val-red">20</td><td class="num">30 %</td></tr>
-            <tr><td>Временно нет необходимости</td><td class="num">14</td><td class="num">21 %</td></tr>
-            <tr><td>Нет необходимости (МБ)</td><td class="num">6</td><td class="num">9 %</td></tr>
-            <tr><td>Ремонт</td><td class="num">6</td><td class="num">9 %</td></tr>
-            <tr><td>Нет связи с Клиентом</td><td class="num">6</td><td class="num">9 %</td></tr>
-            <tr><td>Задолженность</td><td class="num">5</td><td class="num">7 %</td></tr>
-            <tr><td>Финансовые причины</td><td class="num">3</td><td class="num">5 %</td></tr>
-            <tr><td>Расторжение/Переезд/Переоформление/Неудовл.</td><td class="num">7</td><td class="num">10 %</td></tr>
+            <tr><td>NSR — No Signal Received</td><td class="num val-red">48</td><td class="num">49 %</td></tr>
+            <tr><td>Временно нет необходимости</td><td class="num">17</td><td class="num">18 %</td></tr>
+            <tr><td>Нет необходимости (МБ)</td><td class="num">8</td><td class="num">8 %</td></tr>
+            <tr><td>Переезд/смена собственника</td><td class="num">8</td><td class="num">8 %</td></tr>
+            <tr><td>Ремонт</td><td class="num">5</td><td class="num">5 %</td></tr>
+            <tr><td>Переоформление</td><td class="num">4</td><td class="num">4 %</td></tr>
+            <tr><td>Финансовые причины</td><td class="num">3</td><td class="num">3 %</td></tr>
+            <tr><td>Расторжение (как код паузы)</td><td class="num">3</td><td class="num">3 %</td></tr>
           </tbody>
         </table>
-        <div style="margin-top:10px;font-size:12px;color:var(--text-dim);">По сегментам: <strong>Квартира 38 (57 %)</strong>, Коттедж 20 (30 %), МБ 9 (13 %).</div>
+        <div style="margin-top:10px;font-size:12px;color:var(--text-dim);">По сегментам: <strong>Квартира 60 (62 %)</strong>, Коттедж 28, МБ 9.</div>
       </div>
     </div>
 
-    <div class="callout callout-yellow">
-      <strong>Управленческий вывод:</strong> доля NSR в эхо снизилась с 49 % (W16) до 30 % (W17) — позитив, но абсолютная цифра 20 NSR-уходов всё ещё значимая. <strong>Будущий риск:</strong> в W17 поставлено 392 паузы «Задолженность» — через 90 дней (W30, июль) они дадут эхо, если коллекшн не сработает. Уже сейчас открывайте окно для интервенций по 392 договорам с долгом.
+    <div class="callout callout-red">
+      <strong>Управленческий вывод:</strong> 12 января в NSR-пул попало 48 квартирных клиентов. За 90 дней компания не восстановила связь — все ушли в отток 12 апреля. Это процессный провал января (не недели W16). Требуется SLA на NSR: 7 дней без контакта → эскалация + выезд.
     </div>
   </div>
 </section>
@@ -743,9 +793,9 @@ footer {
 <section id="debt">
   <div class="container">
     <div class="section-header">
-      <div class="section-number">10 — Дебиторская задолженность (паузы «Задолженность»)</div>
-      <h2>Апрель 2026 (1–26): 397 новых пауз «Задолженность» — рекорд года</h2>
-      <p>До мая 2025 процесс блокировки по ДЗ вёлся нерегулярно вручную. Системный процесс работает с мая 2025 — медиана = <strong>283 шт/мес</strong>, диапазон 211–431. Март 2026 = 362, апрель 2026 (на 26) = <strong>397</strong> — выше всех месяцев года. Только за W17 — 392 паузы. Это означает массовую активизацию коллекшна — но также массовый риск: если эти 397 договоров не вернутся в платящий статус, через 90 дней (в W30, июль) они дадут эхо ~270.</p>
+      <div class="section-number">10 — Дебиторская задолженность (код 03)</div>
+      <h2>Апрель 2026: 9 новых (на 21.04) — требует проверки, не победа</h2>
+      <p>До мая 2025 процесс блокировки по ДЗ вёлся нерегулярно вручную (в апреле 2025 не было вообще). Системный процесс работает только с мая 2025 — на нём и считаем норму. По этим 11 месяцам медиана = <strong>283 шт/мес</strong>, диапазон 211–431. Март 2026 = 361 (выше нормы). Апрель 2026 = 9 — аномалия, требует уточнения (возможно, опять ручной сбой).</p>
     </div>
 
     <div class="grid-2">
@@ -781,8 +831,8 @@ footer {
   <div class="container">
     <div class="section-header">
       <div class="section-number">11 — Удерживающие тарифы</div>
-      <h2>МОНИТОР2.0 180 в апреле (1–26) · новый рекорд</h2>
-      <p>МОНИТОР2.0 — бесшовный переход без расторжения, скрытое удержание. За W17 — 24 подключения, апрельский темп выходит на ~210 за полный месяц. Канал устойчиво растёт 5 месяцев подряд: ноя 64 → дек 91 → янв 134 → мар 160 → апр 180.</p>
+      <h2>МОНИТОР2.0 139 в апреле · рекорд за 7 месяцев</h2>
+      <p>МОНИТОР2.0 — бесшовный переход без расторжения, скрытое удержание. УДЕРЖ-М — расторжение + новый договор, его объём ограничен остатком старых шаблонов (снижение механическое).</p>
     </div>
 
     <div class="grid-2">
@@ -800,8 +850,8 @@ footer {
           </tbody>
         </table>
         <div style="margin-top:14px;font-size:13px;color:var(--text-dim);">
-          <p><strong>МОНИТОР2.0:</strong> 180 в апреле (на 26.04), темп +12 % м/м, канал устойчиво нарастает.</p>
-          <p style="margin-top:6px;"><strong>УДЕРЖ-М:</strong> снижение продолжается, ограничено остатком старых шаблонов.</p>
+          <p><strong>МОНИТОР2.0:</strong> 139 в апреле, +15 % м/м, канал нарастает.</p>
+          <p style="margin-top:6px;"><strong>УДЕРЖ-М:</strong> 29 в апреле (−29 % к марту). Снижение механическое, не результат управленческой работы.</p>
         </div>
       </div>
     </div>
@@ -813,8 +863,8 @@ footer {
   <div class="container">
     <div class="section-header">
       <div class="section-number">12 — Управление Рисками (УР)</div>
-      <h2>Три воронки · единственный управляемый компонент формулы</h2>
-      <p>УР работает по трём направлениям: «с ДЗ» (фокус на оплате+возобновлении), «без ДЗ» (только возобновление), Soft (работа с активными должниками без приостановки). За апрель: 180 возвратов через МОНИТОР2.0, 661 тыс ₽ возвращённой ДЗ через УР с ДЗ, ещё 2 456 тыс ₽ через Soft. Тренд «без ДЗ» падает 4-й месяц подряд: Dec 14,5 % → Mar 8,1 %.</p>
+      <h2>Две воронки · единственный управляемый компонент формулы</h2>
+      <p>С ДЗ: 98 оплат (26,2 %) + 63 возобновления (16,8 %), 661 тыс ₽. Без ДЗ: 48 возобновлений (7,7 %). Апрель неполный (на 21.04). <strong>Тренд «без ДЗ» снижается 4-й месяц подряд</strong>: Dec 14,5 % → Mar 8,1 %.</p>
     </div>
 
     <div class="grid-2">
@@ -855,49 +905,8 @@ footer {
       </div>
     </div>
 
-    <div class="grid-2" style="margin-top:14px;">
-      <div class="card">
-        <div class="card-header">
-          <div class="card-title">Soft — работа с ДЗ активных клиентов</div>
-          <span class="card-badge badge-blue">slide 5 PPTX W17</span>
-        </div>
-        <div class="table-wrap">
-          <table>
-            <thead><tr><th>Месяц</th><th class="num">База, шт</th><th class="num">Взаим.</th><th class="num">Оплаты</th><th class="num">% опл.</th><th class="num">Сумма опл., тыс ₽</th></tr></thead>
-            <tbody>
-              <tr><td>Янв.26</td><td class="num">3 145</td><td class="num">3 039 (97 %)</td><td class="num">1 753</td><td class="num">57,7 %</td><td class="num">14 914</td></tr>
-              <tr><td>Фев.26</td><td class="num">3 227</td><td class="num">3 227 (100 %)</td><td class="num">1 965</td><td class="num">60,9 %</td><td class="num">18 045</td></tr>
-              <tr><td>Мар.26</td><td class="num">3 945</td><td class="num">3 945 (100 %)</td><td class="num val-green">2 388</td><td class="num val-green">60,5 %</td><td class="num val-green">22 979</td></tr>
-              <tr style="background:var(--surface2);"><td><strong>Апр.26*</strong></td><td class="num">3 653</td><td class="num val-yellow">701 (19,2 %)</td><td class="num">364</td><td class="num">51,9 %</td><td class="num">2 456</td></tr>
-            </tbody>
-          </table>
-        </div>
-        <div style="margin-top:8px;font-size:12px;color:var(--text-dim);">* апрель неполный (на 26.04). Низкий % взаимодействий — это рабочий процесс ещё в ходу.</div>
-      </div>
-      <div class="card">
-        <div class="card-header">
-          <div class="card-title">Общая ДЗ компании</div>
-          <span class="card-badge badge-yellow">slide 7 PPTX</span>
-        </div>
-        <div class="table-wrap">
-          <table>
-            <thead><tr><th>Месяц</th><th class="num">Общий долг, тыс ₽</th><th class="num">Δ м/м</th></tr></thead>
-            <tbody>
-              <tr><td>Окт.25</td><td class="num">66 669</td><td class="num val-dim">+0,01 %</td></tr>
-              <tr><td>Ноя.25</td><td class="num">63 977</td><td class="num val-green">−4,04 %</td></tr>
-              <tr><td>Дек.25</td><td class="num">63 627</td><td class="num val-green">−0,55 %</td></tr>
-              <tr><td>Янв.26</td><td class="num">65 739</td><td class="num val-red">+3,32 %</td></tr>
-              <tr><td>Фев.26</td><td class="num">66 099</td><td class="num val-red">+0,55 %</td></tr>
-              <tr style="background:var(--red-bg);"><td><strong>Мар.26</strong></td><td class="num"><strong>69 611</strong></td><td class="num val-red"><strong>+5,31 %</strong></td></tr>
-            </tbody>
-          </table>
-        </div>
-        <div style="margin-top:8px;font-size:12px;color:var(--text-dim);">Структура мар.26: 0–90 дн = 17,9 млн (рост +15,4 % к фев), 91–365 = 15,4 млн, 365+ = 36,3 млн. Сегментно: Кварт 16,6 / Котт 22,8 / МБ 30,2 млн ₽.</div>
-      </div>
-    </div>
-
-    <div class="callout callout-yellow" style="margin-top:14px;">
-      <strong>КПД УР за апрель (на 26.04):</strong> 98 оплат + 63 возобновления = 161 (с ДЗ) + 48 (без ДЗ) + 364 (Soft-оплат) = 573 ценных событий. Финансовый эффект — <strong>661 тыс ₽ (УР с ДЗ) + 2 456 тыс ₽ (Soft) = 3,12 млн ₽</strong> возвращённой ДЗ. <strong>Тренд «без ДЗ» требует разбора:</strong> падение с Dec 14,5 % до Mar 8,1 % за 3 полных месяца (январь — сезонная пауза, в тренде не учитываем). <strong>Общая ДЗ растёт</strong>: за Q1 +5,9 млн ₽ (с 63,6 до 69,6 млн ₽), это и объясняет 397 пауз «Задолженность» в апреле.
+    <div class="callout callout-yellow">
+      <strong>КПД УР за апрель (на 21.04):</strong> 98+63 = 161 удержанных по ДЗ + 48 по без ДЗ = 209 возвратов в актив усилиями отдела. Финансовый эффект — 661 тыс ₽ возвращённой ДЗ. <strong>Тренд «без ДЗ» требует разбора</strong>: падение с Dec 14,5 % до Mar 8,1 % за 3 полных месяца (январь — сезонная пауза на каникулы, в тренде не учитываем).
     </div>
   </div>
 </section>
@@ -907,8 +916,8 @@ footer {
   <div class="container">
     <div class="section-header">
       <div class="section-number">13 — Срок жизни ушедших</div>
-      <h2>«Более 5 лет» — 34 % расторжений W17 (24 из 70)</h2>
-      <p>В W17 ушло 24 «лояльных» клиента (5+ лет) из 70 — заметная доля. Картина по сегментам: у Квартиры 41 % в 5+ лет, у Коттеджа почти половина 5+ лет, у МБ — пёстрый состав с фокусом на 2-3 года и 3-6 мес.</p>
+      <h2>«Более 5 лет» — 28 % расторжений W16</h2>
+      <p>Самая ценная когорта — и самая уязвимая. По сегментам распределение разное: у Квартиры половина в 5+ лет, у МБ — молодые 1-2 года и 6-9 мес.</p>
     </div>
 
     <div class="card">
@@ -917,40 +926,36 @@ footer {
 
     <div class="grid-3">
       <div class="card">
-        <div class="seg-title">🏠 Квартира (32 расторжения W17)</div>
+        <div class="seg-title">🏠 Квартира (27 расторжений W16)</div>
         <table style="font-size:12px;margin-top:10px;"><tbody>
-          <tr><td>Более 5 лет</td><td class="num val-red">13 (41 %)</td></tr>
-          <tr><td>1-2 года</td><td class="num">5</td></tr>
-          <tr><td>3-4 года</td><td class="num">4</td></tr>
-          <tr><td>4-5 лет</td><td class="num">3</td></tr>
-          <tr><td>Прочие (0-3 мес. – 9-12 мес.)</td><td class="num">7</td></tr>
+          <tr><td>Более 5 лет</td><td class="num val-red">10 (37 %)</td></tr>
+          <tr><td>3-4 года</td><td class="num">7</td></tr>
+          <tr><td>6-9 мес.</td><td class="num">4</td></tr>
+          <tr><td>Прочие</td><td class="num">6</td></tr>
         </tbody></table>
       </div>
       <div class="card">
-        <div class="seg-title">🏡 Коттедж (17 расторжений W17)</div>
+        <div class="seg-title">🏡 Коттедж (17 расторжений W16)</div>
         <table style="font-size:12px;margin-top:10px;"><tbody>
-          <tr><td>Более 5 лет</td><td class="num val-red">8 (47 %)</td></tr>
+          <tr><td>Более 5 лет</td><td class="num val-red">6 (35 %)</td></tr>
           <tr><td>1-2 года</td><td class="num">3</td></tr>
-          <tr><td>2-3 года</td><td class="num">2</td></tr>
-          <tr><td>4-5 лет</td><td class="num">2</td></tr>
-          <tr><td>Прочие</td><td class="num">2</td></tr>
+          <tr><td>3-4 года</td><td class="num">3</td></tr>
+          <tr><td>Прочие</td><td class="num">5</td></tr>
         </tbody></table>
       </div>
       <div class="card">
-        <div class="seg-title">🏢 Малый Бизнес (21 расторжение W17)</div>
+        <div class="seg-title">🏢 Малый Бизнес (31 расторжений W16)</div>
         <table style="font-size:12px;margin-top:10px;"><tbody>
-          <tr><td>2-3 года</td><td class="num val-red">4 (19 %)</td></tr>
-          <tr><td>3-6 мес.</td><td class="num">4</td></tr>
-          <tr><td>1-2 года</td><td class="num">3</td></tr>
-          <tr><td>6-9 мес.</td><td class="num">3</td></tr>
-          <tr><td>Более 5 лет</td><td class="num">3</td></tr>
-          <tr><td>Прочие</td><td class="num">4</td></tr>
+          <tr><td>1-2 года</td><td class="num val-red">14 (45 %)</td></tr>
+          <tr><td>6-9 мес.</td><td class="num">5</td></tr>
+          <tr><td>Более 5 лет</td><td class="num">5</td></tr>
+          <tr><td>Прочие</td><td class="num">7</td></tr>
         </tbody></table>
       </div>
     </div>
 
     <div class="callout callout-yellow">
-      <strong>Когорта 5+ лет:</strong> 24 из 70 (34 %) — высокий показатель. В Коттедже 47 % уходов — клиенты 5+ лет, в Квартире — 41 %. У МБ массовых уходов «давних» нет — там доминируют молодые когорты. Программа удержания «5+ лет» (скидка/расширенный сервис) актуальна для жилых сегментов.
+      <strong>Разные профили:</strong> у жилки (Кварт+Котт) уходят лояльные 5+ лет по причине «Нет необходимости в охране». У МБ уходят молодые 1-2 года и «новички» 6-9 мес. по причинам «Закрытие бизнеса» и «Переезд». Удержание требует разных сценариев.
     </div>
   </div>
 </section>
@@ -968,36 +973,36 @@ footer {
         <li class="priority">
           <div class="priority-num red">🔴</div>
           <div class="priority-content">
-            <div class="p-title">392 новых паузы «Задолженность» за W17 — рекорд недели и месяца</div>
-            <div class="p-desc">Если коллекшн не вернёт хотя бы 30 % этих клиентов в платящий статус — через 90 дней (W30, июль) увидим эхо ~270 расторжений с маркой «Нет необходимости». Это будущий пик оттока, который сейчас можно снизить.</div>
+            <div class="p-title">«Нет связи с Клиентом»: 3 → 13 в новых приостановках W16</div>
+            <div class="p-desc">Конверсия 92 %. 12 потенциальных расторжений к концу июля. Требует немедленного разбора процесса обзвона.</div>
           </div>
         </li>
         <li class="priority">
           <div class="priority-num red">🔴</div>
           <div class="priority-content">
-            <div class="p-title">Квартира впервые ухудшилась: +7 событий W17 (43→50, +16 %)</div>
-            <div class="p-desc">Расторжения в Квартире выросли с 19 до 32 (+68 %), возвраты упали с 29 до 20 (−31 %). Прошлонедельный позитив (+150 % возвратов W16) был кратковременным. Если тренд продолжится — Квартира станет сегментом-проблемой в W18.</div>
+            <div class="p-title">NSR — 101 новая приостановка в апреле, 87 уйдёт в отток (конв. 86 %)</div>
+            <div class="p-desc">Процессная дыра: нет SLA на восстановление сигнала. Эхо 12 января показало 48 потерь в один день. В июле увидим эхо апрельского NSR.</div>
           </div>
         </li>
         <li class="priority">
           <div class="priority-num red">🔴</div>
           <div class="priority-content">
-            <div class="p-title">Лояльные «5+ лет» — 34 % расторжений W17 (24 из 70)</div>
-            <div class="p-desc">У Коттеджа 47 % уходов — клиенты 5+ лет, у Квартиры 41 %. Лояльная база теряется быстрее средней. Это значит: классическая «причина уходит» (клиент стал старше, объект продал, переехал) и удержание тут возможно только через программу лояльности и проактивный контакт ДО первой паузы.</div>
+            <div class="p-title">Конверсия УР «без ДЗ» падает 4 месяца: Dec 14,5 % → Mar 8,1 %</div>
+            <div class="p-desc">Структурный провал эффективности. Нужен разбор причин: смена скриптов, дефицит ресурсов, «старение» базы?</div>
           </div>
         </li>
         <li class="priority">
           <div class="priority-num yellow">🟠</div>
           <div class="priority-content">
-            <div class="p-title">NSR в эхо снизился (49 % → 30 %), но абсолютное число 20 всё ещё значимо</div>
-            <div class="p-desc">В W17 эхо ушло 20 NSR-договоров. Это были паузы 20–26 января, не восстановленные за 90 дней. Нужен SLA на NSR: 7 дней без сигнала → автонаряд на выезд инженера, не дожидаясь обращения клиента.</div>
+            <div class="p-title">Малый Бизнес — единственный сегмент без улучшения (+7 % W15→W16)</div>
+            <div class="p-desc">47 % расторжений W16 — МБ. Топ-причины: Съезд (7), Закрытие бизнеса (6), Съезд и перезаключение (6). Программа удержания жилки на МБ не работает.</div>
           </div>
         </li>
         <li class="priority">
           <div class="priority-num yellow">🟠</div>
           <div class="priority-content">
-            <div class="p-title">Возвраты падают вторую неделю: 44 (W16) → 37 (W17)</div>
-            <div class="p-desc">Особенно в Квартире: 29 → 20. УР держится на уровне (24 vs 25), значит проблема в обычных возвратах. Нужно посмотреть, что делал retention в первой половине апреля (когда был всплеск +150 %) и почему перестало работать.</div>
+            <div class="p-title">Лояльные клиенты «5+ лет» — 28 % расторжений W16</div>
+            <div class="p-desc">21 потеря за неделю. У Квартиры 37 % расторжений — это когорта 5+ лет. Топ-причина: «Нет необходимости в охране» (клиенту больше не надо).</div>
           </div>
         </li>
       </ol>
@@ -1018,64 +1023,64 @@ footer {
         <li class="priority">
           <div class="priority-num red">1</div>
           <div class="priority-content">
-            <div class="p-title">🔴 СРОЧНО · Открыть окно для 397 апрельских должников</div>
-            <div class="p-desc">В апреле (на 26.04) поставлено 397 пауз «Задолженность», из них 392 за W17. Это максимум года. Если 30 % из них вернутся в платящий статус до 90-дневного порога — июльское эхо снизится с ~270 до ~190. Команда коллекшна должна получить чёткий список и план звонков на ближайшие 30 дней.<br><strong>Ожидаемый эффект:</strong> сохранить 80–120 договоров до конца июля.</div>
+            <div class="p-title">🔴 СРОЧНО · Разобрать 13 новых «Нет связи с Клиентом» W16</div>
+            <div class="p-desc">Альтернативные каналы (email, второй телефон, соседи/УК) в течение 7 дней. Конверсия 92 % = если не вмешаться, 12 уйдут в отток.<br><strong>Ожидаемый эффект:</strong> вернуть 4–6 в актив до конца мая.</div>
           </div>
         </li>
         <li class="priority">
           <div class="priority-num red">2</div>
           <div class="priority-content">
-            <div class="p-title">🔴 СРОЧНО · Разобрать ухудшение Квартиры W17</div>
-            <div class="p-desc">Расторжения в Квартире выросли на 43 % (28 → 40), возвраты упали на 31 % (29 → 20). Проверить: что изменилось в работе retention с Квартирой между W16 и W17? Скрипты? Ресурсы? Сезонность? Без вмешательства — эффект из W16 (+150 % возвратов) был разовым.<br><strong>Ожидаемый эффект:</strong> вернуть Квартиру на уровень W16 (52 событий/неделю), сохранить ~6/неделю.</div>
+            <div class="p-title">🔴 СРОЧНО · Разобрать рост «пауза → расторжение» в первые 30 дней</div>
+            <div class="p-desc">29 из 77 (38 %) расторгаются в первые 30 дней паузы. Ввести триггер: retention-звонок на 5–7 день паузы с предложением МОНИТОР2.0.<br><strong>Ожидаемый эффект:</strong> −15–20 % «быстрых» расторжений, +4–6 возвратов/неделя.</div>
           </div>
         </li>
         <li class="priority">
           <div class="priority-num red">3</div>
           <div class="priority-content">
-            <div class="p-title">🔴 СРОЧНО · Программа удержания «Более 5 лет»</div>
-            <div class="p-desc">36 % уходов W17 — клиенты с историей 5+ лет. Это самая ценная и обычно «спящая» когорта. Нужна проактивная программа: чек-ин раз в полгода, скидка за лояльность, расширенный сервис без доплаты, персональный менеджер для топ-сегмента.<br><strong>Ожидаемый эффект:</strong> снизить долю 5+ лет в оттоке до 25 %, экономия ~10/неделю.</div>
+            <div class="p-title">🔴 СРОЧНО · Закрепить успех возвратов Квартиры W16 (+21)</div>
+            <div class="p-desc">Выяснить, что именно сработало в W16 — новая акция, скрипт, ресурс? Зафиксировать как стандарт и масштабировать.<br><strong>Ожидаемый эффект:</strong> устойчивое +20–25 квартирных возвратов/неделя.</div>
           </div>
         </li>
         <li class="priority">
           <div class="priority-num yellow">4</div>
           <div class="priority-content">
-            <div class="p-title">🟠 СРЕДНЕЕ · NSR-SLA: 7 дней без сигнала → автонаряд</div>
-            <div class="p-desc">В эхо W17 — 20 NSR-договоров (30 % всего эха). Это паузы 20–26 января, по которым за 90 дней никто не приехал. SLA 7 дней + автонаряд на выезд снизит конверсию NSR в отток.<br><strong>Ожидаемый эффект:</strong> сохранить ~10–15 NSR-договоров/неделя.</div>
+            <div class="p-title">🟠 СРЕДНЕЕ · Отдельный NSR-SLA</div>
+            <div class="p-desc">NSR старше 7 дней без контакта → эскалация супервайзеру + автоматический наряд на выезд. Цель: снизить конверсию NSR с 86 % до 60 %.<br><strong>Ожидаемый эффект:</strong> +25 клиентов/месяц.</div>
           </div>
         </li>
         <li class="priority">
           <div class="priority-num yellow">5</div>
           <div class="priority-content">
-            <div class="p-title">🟠 СРЕДНЕЕ · Сценарий «Переезд/Продажа» для всех сегментов</div>
-            <div class="p-desc">В W17 расторжения «Съезд» (19) + «Продажа помещения» (13) + «Съезд и перезаключение» (8) = 40 из 91 (44 %). По умолчанию — оффер переноса оборудования/договора на нового собственника, а не расторжение.<br><strong>Ожидаемый эффект:</strong> сохранить 5–8 договоров/неделя через переоформление.</div>
+            <div class="p-title">🟠 СРЕДНЕЕ · Сценарий «Переезд» для МБ</div>
+            <div class="p-desc">При причине «Переезд»/«Переоформление» у МБ — по умолчанию перевод договора на нового собственника/юрлицо, не расторжение. 3 случая в W16 ушли в «Закрытие бизнеса» — могли бы остаться.<br><strong>Ожидаемый эффект:</strong> +3–5 МБ-договоров/неделя.</div>
           </div>
         </li>
         <li class="priority">
           <div class="priority-num yellow">6</div>
           <div class="priority-content">
-            <div class="p-title">🟠 СРЕДНЕЕ · Восстановить темп возвратов</div>
-            <div class="p-desc">Возвраты упали 44 → 37, в Квартире 29 → 20. УР держится (24 vs 25), значит retention обычных возвратов перестал работать. Нужно: сравнить скрипты W15-W16 (+150%) и W17, восстановить лучшие практики.<br><strong>Ожидаемый эффект:</strong> +5–10 возвратов/неделя.</div>
+            <div class="p-title">🟠 СРЕДНЕЕ · Разобрать провал УР «без ДЗ»</div>
+            <div class="p-desc">Падение конверсии Dec 14,5 % → Mar 8,1 %. Встреча с руководителем УР: ресурсы? скрипты? состав базы? Цель — вернуть к 10–12 % за май–июнь.<br><strong>Ожидаемый эффект:</strong> +10–15 возобновлений/месяц.</div>
           </div>
         </li>
         <li class="priority">
           <div class="priority-num blue">7</div>
           <div class="priority-content">
-            <div class="p-title">🔵 СТРАТЕГ. · Подготовка к июльскому эхо-пику</div>
-            <div class="p-desc">В апреле поставлено 397 «Задолженность» + 78 «Временно нет необходимости» + 34 NSR. К июлю — потенциал ~340 эхо-событий, если работа на этапе паузы не усилится. Нужен план превентивных интервенций за 30/60 дней до 90-дневного порога.<br><strong>Ожидаемый эффект:</strong> снизить июльское эхо с ~340 до ~200.</div>
+            <div class="p-title">🔵 СТРАТЕГ. · Майско-июньский эхо-хвост ДЗ</div>
+            <div class="p-desc">Феврал+март дадут ~540 приост.>90 в мае-июне. За 15–20 дней до 90-дневного порога — превентивный обзвон по риск-скорингу.<br><strong>Ожидаемый эффект:</strong> сохранить ~120 клиентов из 540.</div>
           </div>
         </li>
         <li class="priority">
           <div class="priority-num blue">8</div>
           <div class="priority-content">
-            <div class="p-title">🔵 СТРАТЕГ. · Закрепить рост МОНИТОР2.0</div>
-            <div class="p-desc">МОНИТОР2.0 — 180 в апреле (новый рекорд), стабильный рост 5 месяцев. Это бесшовное удержание без расторжения. Перевести в стандартный сценарий: при первой паузе автоматически предлагать МОНИТОР2.0 как альтернативу.<br><strong>Ожидаемый эффект:</strong> устойчивые 200+ /месяц, скрытое удержание.</div>
+            <div class="p-title">🔵 СТРАТЕГ. · Зафиксировать победу по ДЗ апреля</div>
+            <div class="p-desc">333 → 9 за месяц. Понять, что изменилось в коллекшн-процессе, оформить как стандартную практику.<br><strong>Ожидаемый эффект:</strong> в июле-августе отток −280–290 событий vs май-июнь (0,45 п.п. АКБ).</div>
           </div>
         </li>
         <li class="priority">
           <div class="priority-num blue">9</div>
           <div class="priority-content">
-            <div class="p-title">🔵 СТРАТЕГ. · Расследование «Нет необходимости» как корзины-невидимки</div>
-            <div class="p-desc">Из углублённого анализа 1 922 расторжений: 64 % — системный отток (автопауза &gt;90 или долг), 13 % — тёмный ящик. Это значит, что сама атрибуция в системе не отражает реальные мотивы. Нужен exit-survey в МПК и пересмотр кодов причин.<br><strong>Ожидаемый эффект:</strong> прозрачность мотивов, точечные программы удержания.</div>
+            <div class="p-title">🔵 СТРАТЕГ. · Масштабировать МОНИТОР2.0</div>
+            <div class="p-desc">Добавить оффер МОНИТОР2.0 в триггер «Временно нет необходимости» (407 приостановок в апреле — самая массовая причина).<br><strong>Ожидаемый эффект:</strong> +30–50 подключений МОНИТОР2.0 /месяц = минус столько же в расторжениях.</div>
           </div>
         </li>
       </ol>
@@ -1084,13 +1089,13 @@ footer {
 </section>
 
 <footer>
-  Источники: <span class="mono">Отток ver.2 детализированный 17 неделя · pivot-cache 1 (приост.) · 2 (расторж.) · 6 (возвраты) · 7 (мониторинг) · PPTX-трекинг W17</span><br>
-  Собрано 28.04.2026 · Ключ джойна: Код договора · Окно W17: 20–26.04.2026 · Апрель неполный (1–26 из 30).
+  Источники: <span class="mono">весь отток · данные по приостановкам · данные по всем расторжениям · данные по мониторингу · PPTX-трекинг W16 (слайды 3–4)</span><br>
+  Собрано 21.04.2026 · Sanity-check: расхождений с сводными не обнаружено.
 </footer>
 
 <script>
 // === ВСТРОЕННЫЕ ДАННЫЕ ===
-const DATA = {"meta":{"akb":62045,"akb_seg":{"Квартира":30051,"Коттедж":21791,"Малый Бизнес":10203},"report_date":"2026-04-28","week_n":17,"week_n1":16},"monthly":[{"ym":"2025-10","r":321,"p":618,"v":363,"net":576,"pct":0.928},{"ym":"2025-11","r":246,"p":594,"v":239,"net":601,"pct":0.969},{"ym":"2025-12","r":322,"p":641,"v":279,"net":684,"pct":1.102},{"ym":"2026-01","r":389,"p":394,"v":597,"net":186,"pct":0.300},{"ym":"2026-02","r":347,"p":335,"v":162,"net":520,"pct":0.838},{"ym":"2026-03","r":355,"p":361,"v":135,"net":581,"pct":0.936},{"ym":"2026-04","r":348,"p":509,"v":199,"net":658,"pct":1.060,"incomplete":true}],"weekly_ytd":[{"iso":1,"r":104,"p":197,"v":556,"net":-255,"cum":-255},{"iso":2,"r":16,"p":34,"v":20,"net":30,"cum":-225},{"iso":3,"r":155,"p":41,"v":36,"net":160,"cum":-65},{"iso":4,"r":83,"p":54,"v":21,"net":116,"cum":51},{"iso":5,"r":118,"p":215,"v":92,"net":241,"cum":292},{"iso":6,"r":91,"p":75,"v":34,"net":132,"cum":424},{"iso":7,"r":75,"p":47,"v":19,"net":104,"cum":528},{"iso":8,"r":57,"p":45,"v":20,"net":82,"cum":609},{"iso":9,"r":120,"p":192,"v":41,"net":271,"cum":880},{"iso":10,"r":81,"p":53,"v":30,"net":104,"cum":984},{"iso":11,"r":60,"p":36,"v":20,"net":76,"cum":1060},{"iso":12,"r":47,"p":39,"v":24,"net":62,"cum":1122},{"iso":13,"r":53,"p":190,"v":25,"net":218,"cum":1340},{"iso":14,"r":176,"p":63,"v":94,"net":145,"cum":1485},{"iso":15,"r":86,"p":119,"v":18,"net":187,"cum":1672},{"iso":16,"r":61,"p":114,"v":44,"net":131,"cum":1803},{"iso":17,"r":70,"p":67,"v":37,"net":100,"cum":1903}],"sus_w15":[{"r":"Временно нет необх.","t":98,"c":null},{"r":"NSR","t":35,"c":null},{"r":"Ремонт","t":17,"c":null},{"r":"Нет связи","t":13,"c":null},{"r":"Финансовые","t":12,"c":null},{"r":"Переезд","t":8,"c":null},{"r":"Расторжение (код)","t":6,"c":null},{"r":"Переоформление","t":4,"c":null},{"r":"Неудовл.","t":3,"c":null},{"r":"Имущ. спор","t":1,"c":null},{"r":"Нет необх. (МБ)","t":1,"c":null},{"r":"Получил выгод. предлож.","t":1,"c":null}],"sus_w16":[{"r":"Временно нет необх.","t":78,"c":null},{"r":"NSR","t":34,"c":null},{"r":"Ремонт","t":23,"c":null},{"r":"Переезд","t":14,"c":null},{"r":"Нет связи","t":13,"c":null},{"r":"Финансовые","t":10,"c":null},{"r":"Переоформление","t":5,"c":null},{"r":"Расторжение (код)","t":3,"c":null},{"r":"Неудовл.","t":1,"c":null},{"r":"Получил выгод. предлож.","t":1,"c":null}],"debt":[{"ym":"янв","n":272},{"ym":"фев","n":298},{"ym":"мар","n":362},{"ym":"апр*","n":397,"inc":true}],"mon":[{"ym":"окт.25","m":39,"u":15},{"ym":"ноя.25","m":64,"u":14},{"ym":"дек.25","m":91,"u":22},{"ym":"янв.26","m":134,"u":34},{"ym":"фев","m":121,"u":30},{"ym":"мар","m":160,"u":41},{"ym":"апр*","m":180,"u":29,"inc":true}],"ur_dz":[{"ym":"сен.25","base":578,"opl":132,"opl_p":22.8,"vozob":78,"vozob_p":13.5,"rub":1424.3},{"ym":"окт.25","base":542,"opl":153,"opl_p":28.2,"vozob":89,"vozob_p":16.4,"rub":1044.5},{"ym":"ноя.25","base":497,"opl":116,"opl_p":23.3,"vozob":65,"vozob_p":13.1,"rub":1028.7},{"ym":"дек.25","base":444,"opl":141,"opl_p":31.8,"vozob":92,"vozob_p":20.7,"rub":1095.4},{"ym":"янв.26","base":494,"opl":108,"opl_p":21.9,"vozob":56,"vozob_p":11.3,"rub":922.7},{"ym":"фев","base":357,"opl":96,"opl_p":26.9,"vozob":67,"vozob_p":18.8,"rub":921.6},{"ym":"мар","base":314,"opl":102,"opl_p":32.5,"vozob":49,"vozob_p":15.6,"rub":649.9},{"ym":"апр*","base":374,"opl":98,"opl_p":26.2,"vozob":63,"vozob_p":16.8,"rub":661.1,"inc":true}],"ur_nodz":[{"ym":"сен.25","base":812,"vozob":101,"vozob_p":12.4},{"ym":"окт.25","base":651,"vozob":67,"vozob_p":10.3},{"ym":"ноя.25","base":653,"vozob":62,"vozob_p":9.5},{"ym":"дек.25","base":883,"vozob":128,"vozob_p":14.5},{"ym":"янв.26","base":null,"vozob":null,"vozob_p":null,"season":true},{"ym":"фев","base":605,"vozob":54,"vozob_p":8.9},{"ym":"мар","base":565,"vozob":46,"vozob_p":8.1},{"ym":"апр*","base":621,"vozob":48,"vozob_p":7.7,"inc":true}],"path_chains":[{"s":"Временно нет необх.","r":"Нет необх. в охране","n":10},{"s":"Расторжение","r":"Нет необх. в охране","n":6},{"s":"NSR","r":"Нет необх. в охране","n":5},{"s":"Переезд","r":"Съезд и перезакл.","n":4},{"s":"Задолженность","r":"Нет необх. в охране","n":3},{"s":"Переезд","r":"Закрытие бизнеса","n":3},{"s":"Переезд","r":"Продажа помещения","n":3},{"s":"Временно нет необх.","r":"Продажа помещения","n":3},{"s":"NSR","r":"Съезд","n":2},{"s":"Расторжение","r":"Неудовл. услугой","n":2}],"days_between":{"total":{"<30":18,"30-60":3,"60-90":6,"90-120":7,"120-180":1,">180":28},"by_seg":{"Квартира":{"<30":7,"30-60":1,"60-90":2,"90-120":3,"120-180":0,">180":13},"Коттедж":{"<30":4,"30-60":1,"60-90":2,"90-120":2,"120-180":1,">180":7},"Малый Бизнес":{"<30":7,"30-60":1,"60-90":2,"90-120":2,"120-180":0,">180":8}}},"cohort_seg_w16":{"Квартира":{"0-3 мес.":1,"3-6 мес.":1,"6-9 мес.":2,"9-12 мес.":2,"1-2 года":5,"2-3 года":1,"3-4 года":4,"4-5 лет":3,"Более 5 лет":13},"Коттедж":{"0-3 мес.":1,"3-6 мес.":0,"6-9 мес.":0,"9-12 мес.":0,"1-2 года":3,"2-3 года":2,"3-4 года":1,"4-5 лет":2,"Более 5 лет":8},"Малый Бизнес":{"0-3 мес.":1,"3-6 мес.":4,"6-9 мес.":3,"9-12 мес.":0,"1-2 года":3,"2-3 года":4,"3-4 года":1,"4-5 лет":2,"Более 5 лет":3}},"age_order":["0-3 мес.","3-6 мес.","6-9 мес.","9-12 мес.","1-2 года","2-3 года","3-4 года","4-5 лет","Более 5 лет"],"echo_daily_p":[{"d":"01","p":39},{"d":"06","p":5},{"d":"07","p":1},{"d":"08","p":7},{"d":"09","p":5},{"d":"10","p":2},{"d":"11","p":2},{"d":"12","p":97},{"d":"13","p":22},{"d":"14","p":26},{"d":"15","p":19},{"d":"16","p":19},{"d":"17","p":10},{"d":"18","p":1},{"d":"19","p":17},{"d":"20","p":14},{"d":"21","p":11},{"d":"22","p":4},{"d":"23","p":14},{"d":"24","p":12},{"d":"25","p":3},{"d":"26","p":9}],"retro25":[{"ym":"янв","r":193,"p":645,"v":440,"net":398,"pct":0.64},{"ym":"фев","r":230,"p":339,"v":183,"net":386,"pct":0.62},{"ym":"мар","r":226,"p":743,"v":177,"net":792,"pct":1.28},{"ym":"апр","r":253,"p":912,"v":307,"net":858,"pct":1.38},{"ym":"май","r":168,"p":893,"v":307,"net":754,"pct":1.22},{"ym":"июн","r":195,"p":610,"v":296,"net":509,"pct":0.82},{"ym":"июл","r":212,"p":697,"v":237,"net":672,"pct":1.08},{"ym":"авг","r":220,"p":959,"v":213,"net":966,"pct":1.56},{"ym":"сен","r":284,"p":679,"v":462,"net":501,"pct":0.81},{"ym":"окт","r":321,"p":618,"v":363,"net":576,"pct":0.93},{"ym":"ноя","r":246,"p":593,"v":239,"net":600,"pct":0.97},{"ym":"дек","r":322,"p":641,"v":279,"net":684,"pct":1.10}],"debt_full":[{"ym":"янв.25","n":254,"pre":true},{"ym":"фев.25","n":288,"pre":true},{"ym":"мар.25","n":225,"pre":true},{"ym":"апр.25","n":108,"pre":true},{"ym":"май.25","n":431},{"ym":"июн.25","n":303},{"ym":"июл.25","n":290},{"ym":"авг.25","n":216},{"ym":"сен.25","n":227},{"ym":"окт.25","n":211},{"ym":"ноя.25","n":271},{"ym":"дек.25","n":283},{"ym":"янв.26","n":272},{"ym":"фев.26","n":298},{"ym":"мар.26","n":362},{"ym":"апр.26*","n":397,"inc":true}]};
+const DATA = {"meta":{"akb":62045,"akb_seg":{"Квартира":30051,"Коттедж":21791,"Малый Бизнес":10203},"report_date":"2026-04-21","week_n":16,"week_n1":15},"monthly":[{"ym":"2025-10","r":321,"p":618,"v":363,"net":576,"pct":0.928},{"ym":"2025-11","r":246,"p":593,"v":239,"net":600,"pct":0.967},{"ym":"2025-12","r":322,"p":641,"v":279,"net":684,"pct":1.102},{"ym":"2026-01","r":389,"p":394,"v":597,"net":186,"pct":0.3},{"ym":"2026-02","r":347,"p":334,"v":162,"net":519,"pct":0.836},{"ym":"2026-03","r":355,"p":361,"v":135,"net":581,"pct":0.936},{"ym":"2026-04","r":280,"p":509,"v":192,"net":597,"pct":0.962,"incomplete":true}],"weekly_ytd":[{"iso":1,"r":104,"p":197,"v":556,"net":-255,"cum":-255},{"iso":2,"r":16,"p":34,"v":20,"net":30,"cum":-225},{"iso":3,"r":155,"p":41,"v":36,"net":160,"cum":-65},{"iso":4,"r":83,"p":54,"v":21,"net":116,"cum":51},{"iso":5,"r":118,"p":215,"v":92,"net":241,"cum":292},{"iso":6,"r":91,"p":75,"v":34,"net":132,"cum":424},{"iso":7,"r":75,"p":47,"v":19,"net":103,"cum":527},{"iso":8,"r":57,"p":45,"v":20,"net":82,"cum":609},{"iso":9,"r":120,"p":192,"v":41,"net":271,"cum":880},{"iso":10,"r":81,"p":53,"v":30,"net":104,"cum":984},{"iso":11,"r":60,"p":36,"v":20,"net":76,"cum":1060},{"iso":12,"r":47,"p":39,"v":24,"net":62,"cum":1122},{"iso":13,"r":53,"p":190,"v":25,"net":218,"cum":1340},{"iso":14,"r":176,"p":63,"v":94,"net":145,"cum":1485},{"iso":15,"r":86,"p":119,"v":18,"net":187,"cum":1672},{"iso":16,"r":60,"p":114,"v":45,"net":129,"cum":1801}],"sus_w15":[{"r":"Временно нет необх.","t":99,"c":17.2},{"r":"NSR","t":40,"c":82.5},{"r":"Ремонт","t":28,"c":35.7},{"r":"Расторжение (код)","t":11,"c":81.8},{"r":"Финансовые","t":10,"c":10.0},{"r":"Переезд","t":7,"c":57.1},{"r":"Неудовл.","t":4,"c":0},{"r":"Нет связи","t":3,"c":100},{"r":"Переоформление","t":3,"c":100}],"sus_w16":[{"r":"Временно нет необх.","t":83,"c":12.0},{"r":"NSR","t":34,"c":88.2},{"r":"Нет связи","t":13,"c":92.3},{"r":"Ремонт","t":13,"c":46.2},{"r":"Финансовые","t":11,"c":9.1},{"r":"Переезд","t":7,"c":85.7},{"r":"Переоформление","t":4,"c":100},{"r":"Неудовл.","t":3,"c":0},{"r":"Расторжение (код)","t":3,"c":66.7}],"debt":[{"ym":"янв","n":267},{"ym":"фев","n":279},{"ym":"мар","n":333},{"ym":"апр","n":9}],"mon":[{"ym":"окт.25","m":24,"u":15},{"ym":"ноя.25","m":51,"u":14},{"ym":"дек.25","m":71,"u":22},{"ym":"янв.26","m":103,"u":34},{"ym":"фев","m":93,"u":30},{"ym":"мар","m":121,"u":41},{"ym":"апр","m":139,"u":29}],"ur_dz":[{"ym":"сен.25","base":578,"opl":132,"opl_p":22.8,"vozob":78,"vozob_p":13.5,"rub":1424.3},{"ym":"окт.25","base":542,"opl":153,"opl_p":28.2,"vozob":89,"vozob_p":16.4,"rub":1044.5},{"ym":"ноя.25","base":497,"opl":116,"opl_p":23.3,"vozob":65,"vozob_p":13.1,"rub":1028.7},{"ym":"дек.25","base":444,"opl":141,"opl_p":31.8,"vozob":92,"vozob_p":20.7,"rub":1095.4},{"ym":"янв.26","base":494,"opl":108,"opl_p":21.9,"vozob":56,"vozob_p":11.3,"rub":922.7},{"ym":"фев","base":357,"opl":96,"opl_p":26.9,"vozob":67,"vozob_p":18.8,"rub":921.6},{"ym":"мар","base":314,"opl":102,"opl_p":32.5,"vozob":49,"vozob_p":15.6,"rub":649.9},{"ym":"апр*","base":374,"opl":98,"opl_p":26.2,"vozob":63,"vozob_p":16.8,"rub":661.1,"inc":true}],"ur_nodz":[{"ym":"сен.25","base":812,"vozob":101,"vozob_p":12.4},{"ym":"окт.25","base":651,"vozob":67,"vozob_p":10.3},{"ym":"ноя.25","base":653,"vozob":62,"vozob_p":9.5},{"ym":"дек.25","base":883,"vozob":128,"vozob_p":14.5},{"ym":"янв.26","base":null,"vozob":null,"vozob_p":null,"season":true},{"ym":"фев","base":605,"vozob":54,"vozob_p":8.9},{"ym":"мар","base":565,"vozob":46,"vozob_p":8.1},{"ym":"апр*","base":621,"vozob":48,"vozob_p":7.7,"inc":true}],"path_chains":[{"s":"Временно нет необх.","r":"Нет необх. в охране","n":10},{"s":"Расторжение","r":"Нет необх. в охране","n":6},{"s":"NSR","r":"Нет необх. в охране","n":5},{"s":"Переезд","r":"Съезд и перезакл.","n":4},{"s":"Задолженность","r":"Нет необх. в охране","n":3},{"s":"Переезд","r":"Закрытие бизнеса","n":3},{"s":"Переезд","r":"Продажа помещения","n":3},{"s":"Временно нет необх.","r":"Продажа помещения","n":3},{"s":"NSR","r":"Съезд","n":2},{"s":"Расторжение","r":"Неудовл. услугой","n":2}],"days_between":{"total":{"<30":29,"30-60":15,"60-90":27,"90-120":6,"120-180":0,">180":0},"by_seg":{"Квартира":{"<30":5,"30-60":8,"60-90":11,"90-120":3,"120-180":0,">180":0},"Коттедж":{"<30":8,"30-60":5,"60-90":9,"90-120":2,"120-180":0,">180":0},"Малый Бизнес":{"<30":16,"30-60":2,"60-90":7,"90-120":1,"120-180":0,">180":0}}},"cohort_seg_w16":{"Квартира":{"0-3 мес.":1,"3-6 мес.":1,"6-9 мес.":4,"9-12 мес.":0,"1-2 года":1,"2-3 года":2,"3-4 года":7,"4-5 лет":1,"Более 5 лет":10},"Коттедж":{"0-3 мес.":0,"3-6 мес.":0,"6-9 мес.":2,"9-12 мес.":1,"1-2 года":3,"2-3 года":2,"3-4 года":3,"4-5 лет":0,"Более 5 лет":6},"Малый Бизнес":{"0-3 мес.":0,"3-6 мес.":2,"6-9 мес.":5,"9-12 мес.":1,"1-2 года":14,"2-3 года":0,"3-4 года":2,"4-5 лет":2,"Более 5 лет":5}},"age_order":["0-3 мес.","3-6 мес.","6-9 мес.","9-12 мес.","1-2 года","2-3 года","3-4 года","4-5 лет","Более 5 лет"],"echo_daily_p":[{"d":"01","p":39},{"d":"06","p":5},{"d":"07","p":1},{"d":"08","p":7},{"d":"09","p":5},{"d":"10","p":2},{"d":"11","p":2},{"d":"12","p":97},{"d":"13","p":22},{"d":"14","p":26},{"d":"15","p":19},{"d":"16","p":19},{"d":"17","p":10},{"d":"18","p":1},{"d":"19","p":17}],"retro25":[{"ym":"янв","r":193,"p":645,"v":440,"net":398,"pct":0.64},{"ym":"фев","r":230,"p":339,"v":183,"net":386,"pct":0.62},{"ym":"мар","r":226,"p":743,"v":177,"net":792,"pct":1.28},{"ym":"апр","r":253,"p":912,"v":307,"net":858,"pct":1.38},{"ym":"май","r":168,"p":893,"v":307,"net":754,"pct":1.22},{"ym":"июн","r":195,"p":610,"v":296,"net":509,"pct":0.82},{"ym":"июл","r":212,"p":697,"v":237,"net":672,"pct":1.08},{"ym":"авг","r":220,"p":959,"v":213,"net":966,"pct":1.56},{"ym":"сен","r":284,"p":679,"v":462,"net":501,"pct":0.81},{"ym":"окт","r":321,"p":618,"v":363,"net":576,"pct":0.93},{"ym":"ноя","r":246,"p":593,"v":239,"net":600,"pct":0.97},{"ym":"дек","r":322,"p":641,"v":279,"net":684,"pct":1.10}],"debt_full":[{"ym":"янв.25","n":254,"pre":true},{"ym":"фев.25","n":287,"pre":true},{"ym":"мар.25","n":225,"pre":true},{"ym":"апр.25","n":108,"pre":true},{"ym":"май.25","n":431},{"ym":"июн.25","n":303},{"ym":"июл.25","n":290},{"ym":"авг.25","n":216},{"ym":"сен.25","n":226},{"ym":"окт.25","n":211},{"ym":"ноя.25","n":271},{"ym":"дек.25","n":283},{"ym":"янв.26","n":272},{"ym":"фев.26","n":298},{"ym":"мар.26","n":361},{"ym":"апр.26*","n":9,"inc":true}]};
 
 // === Chart.js defaults ===
 Chart.defaults.font.family = '"Onest", sans-serif';
@@ -1180,15 +1185,15 @@ const COLORS = {
   });
 })();
 
-// === 4. W16 vs W17 ===
+// === 4. W15 vs W16 ===
 (function(){
   new Chart(document.getElementById('chartW15W16'), {
     type: 'bar',
     data: {
-      labels: ['Расторжения', 'Эхо >90', 'Возвраты', 'УР', 'Нетто (с УР)'],
+      labels: ['Расторжения', 'Приост.>90', 'Возвраты', 'Нетто'],
       datasets: [
-        { label: 'W16', data: [61, 114, 44, 25, 106], backgroundColor: 'rgba(220,38,38,0.6)' },
-        { label: 'W17', data: [70, 67, 37, 24, 76], backgroundColor: 'rgba(37,99,235,0.7)' }
+        { label: 'W15', data: [86, 119, 18, 187], backgroundColor: 'rgba(220,38,38,0.6)' },
+        { label: 'W16', data: [60, 114, 45, 129], backgroundColor: 'rgba(37,99,235,0.7)' }
       ]
     },
     options: {
@@ -1204,12 +1209,12 @@ const COLORS = {
   new Chart(document.getElementById('chartMoM'), {
     type: 'bar',
     data: {
-      labels: ['W4 янв', 'W8 фев', 'W13 мар', 'W17 апр'],
+      labels: ['W3 янв', 'W7 фев', 'W11 мар', 'W16 апр'],
       datasets: [
-        { label: 'Расторжения', data: [83, 57, 53, 70], backgroundColor: COLORS.red, stack: 'a' },
-        { label: 'Эхо >90', data: [54, 45, 190, 67], backgroundColor: COLORS.yellow, stack: 'a' },
-        { label: 'Возвраты (−)', data: [-21, -20, -25, -37], backgroundColor: COLORS.green, stack: 'a' },
-        { label: 'Нетто (без УР)', data: [116, 82, 218, 100], type: 'line', borderColor: '#0f172a', backgroundColor: '#0f172a', borderWidth: 2, tension: 0.2, pointRadius: 5 }
+        { label: 'Расторжения', data: [155, 75, 60, 60], backgroundColor: COLORS.red, stack: 'a' },
+        { label: 'Приост.>90', data: [41, 47, 36, 114], backgroundColor: COLORS.yellow, stack: 'a' },
+        { label: 'Возвраты (−)', data: [-36, -19, -20, -45], backgroundColor: COLORS.green, stack: 'a' },
+        { label: 'Нетто', data: [160, 103, 76, 129], type: 'line', borderColor: '#0f172a', backgroundColor: '#0f172a', borderWidth: 2, tension: 0.2, pointRadius: 5 }
       ]
     },
     options: {
@@ -1220,18 +1225,17 @@ const COLORS = {
   });
 })();
 
-// === 6. Reasons rast W16 vs W17 ===
+// === 6. Reasons rast W15 vs W16 ===
 (function(){
-  // Из cache 3 — только записи, идущие в отток (61 за W16, 70 за W17)
-  const r16 = {"Нет необходимости в охране":19,"Продажа помещения":10,"Съезд и перезакл.":9,"Съезд":7,"Закрытие бизнеса":6,"Неудовл. услугой":4,"Новая политика приост.":2,"Переоформление":2,"Финансовые трудности":1};
-  const r17 = {"Нет необходимости в охране":24,"Съезд":14,"Продажа помещения":11,"Съезд и перезакл.":6,"Закрытие бизнеса":6,"Неудовл. услугой":4,"Финансовые трудности":2,"Новая политика приост.":2,"Не работает система":1};
-  const keys = Array.from(new Set([...Object.keys(r16), ...Object.keys(r17)]));
-  keys.sort((a,b) => (r17[b]||0)+(r16[b]||0) - (r17[a]||0) - (r16[a]||0));
-  const max = Math.max(...keys.map(k => Math.max(r16[k]||0, r17[k]||0)));
+  const r15 = {"Нет необходимости в охране":36,"Съезд":18,"Съезд и перезакл.":10,"Закрытие бизнеса":7,"Продажа помещения":7,"Финансовые трудности":6,"Расторжение старых приост.":5,"Неудовл. услугой":4,"Переоформление":3};
+  const r16 = {"Нет необходимости в охране":27,"Съезд и перезакл.":11,"Продажа помещения":10,"Съезд":9,"Закрытие бизнеса":6,"Неудовл. услугой":4,"Переоформление":2,"Финансовые трудности":1};
+  const keys = Array.from(new Set([...Object.keys(r15), ...Object.keys(r16)]));
+  keys.sort((a,b) => (r16[b]||0)+(r15[b]||0) - (r16[a]||0) - (r15[a]||0));
+  const max = Math.max(...keys.map(k => Math.max(r15[k]||0, r16[k]||0)));
   const container = document.getElementById('reasonsRast');
-  container.innerHTML = '<div style="font-size:12px;margin-bottom:10px;display:flex;gap:16px;color:var(--text-dim);"><span>🔴 W16</span> <span>🟦 W17</span></div>';
+  container.innerHTML = '<div style="font-size:12px;margin-bottom:10px;display:flex;gap:16px;color:var(--text-dim);"><span>🔴 W15</span> <span>🟦 W16</span></div>';
   keys.forEach(k => {
-    const a = r16[k]||0, b = r17[k]||0;
+    const a = r15[k]||0, b = r16[k]||0;
     const row = document.createElement('div');
     row.className = 'cmp-row';
     row.innerHTML = `<div class="cmp-label">${k}</div>
@@ -1243,33 +1247,28 @@ const COLORS = {
   });
 })();
 
-// === 7. Sus table (W16 vs W17, без Задолженности) ===
+// === 7. Sus table ===
 (function(){
-  const w16 = DATA.sus_w15, w17 = DATA.sus_w16;
-  const keys = Array.from(new Set([...w16.map(x=>x.r), ...w17.map(x=>x.r)]));
+  const w15 = DATA.sus_w15, w16 = DATA.sus_w16;
+  const keys = Array.from(new Set([...w15.map(x=>x.r), ...w16.map(x=>x.r)]));
+  const m15 = Object.fromEntries(w15.map(x => [x.r, x]));
   const m16 = Object.fromEntries(w16.map(x => [x.r, x]));
-  const m17 = Object.fromEntries(w17.map(x => [x.r, x]));
-  keys.sort((a,b) => ((m17[b]?.t||0) + (m16[b]?.t||0)) - ((m17[a]?.t||0) + (m16[a]?.t||0)));
+  keys.sort((a,b) => ((m16[b]?.t||0) + (m15[b]?.t||0)) - ((m16[a]?.t||0) + (m15[a]?.t||0)));
   const table = document.createElement('table');
-  table.innerHTML = '<thead><tr><th>Причина паузы</th><th class="num">W16</th><th class="num">W17</th><th class="num">Δ</th><th class="num">Конверсия W16</th></tr></thead><tbody></tbody>';
+  table.innerHTML = '<thead><tr><th>Причина</th><th class="num">W15</th><th class="num">W16</th><th class="num">Δ</th><th class="num">Конверсия W16</th></tr></thead><tbody></tbody>';
   const tbody = table.querySelector('tbody');
   keys.forEach(k => {
-    const a = m16[k]?.t || 0, b = m17[k]?.t || 0;
-    const c = m16[k]?.c;
-    let cStr = '—', color = 'val-dim';
-    if (c !== null && c !== undefined) {
-      cStr = `${c} %`;
-      if (c >= 70) color = 'val-red';
-      else if (c <= 15) color = 'val-green';
-      else if (c >= 30) color = 'val-yellow';
-    }
+    const a = m15[k]?.t || 0, b = m16[k]?.t || 0;
+    const c = m16[k]?.c || m15[k]?.c || 0;
+    let color = 'val-dim';
+    if (c >= 70) color = 'val-red';
+    else if (c <= 15) color = 'val-green';
+    else if (c >= 30) color = 'val-yellow';
     const diff = b - a;
     const diffStr = diff > 0 ? `+${diff}` : diff;
     const diffCol = diff > 0 && b > 5 ? 'val-red' : (diff < 0 ? 'val-green' : 'val-dim');
-    tbody.innerHTML += `<tr><td>${k}</td><td class="num">${a}</td><td class="num"><strong>${b}</strong></td><td class="num ${diffCol}">${diffStr}</td><td class="num ${color}">${cStr}</td></tr>`;
+    tbody.innerHTML += `<tr><td>${k}</td><td class="num">${a}</td><td class="num"><strong>${b}</strong></td><td class="num ${diffCol}">${diffStr}</td><td class="num ${color}">${c} %</td></tr>`;
   });
-  // Дополнительная строка - задолженность (отдельный поток)
-  tbody.innerHTML += `<tr style="background:var(--yellow-bg);"><td><strong>Задолженность (системная)</strong></td><td class="num val-dim">—</td><td class="num val-yellow"><strong>392</strong></td><td class="num val-red">+392</td><td class="num val-dim">через 90 дн</td></tr>`;
   document.getElementById('susTable').appendChild(table);
 })();
 
@@ -1367,6 +1366,108 @@ const COLORS = {
       },
       scales: { y: { grid: { color: '#f1f5f9' } }, x: { grid: { display: false } } }
     }
+  });
+})();
+
+// === 02-bis. Структура оттока — три линии ===
+(function(){
+  const w = DATA.weekly_ytd;
+  new Chart(document.getElementById('chartStructLines'), {
+    type: 'line',
+    data: {
+      labels: w.map(x => 'W' + x.iso),
+      datasets: [
+        { label: 'Расторжения', data: w.map(x => x.r), borderColor: COLORS.red, backgroundColor: 'rgba(220,38,38,0.1)', fill: false, tension: 0.25, pointRadius: 3, borderWidth: 2 },
+        { label: 'Приост.>90', data: w.map(x => x.p), borderColor: COLORS.yellow, backgroundColor: 'rgba(217,119,6,0.1)', fill: false, tension: 0.25, pointRadius: 3, borderWidth: 2 },
+        { label: 'Возвраты', data: w.map(x => x.v), borderColor: COLORS.green, backgroundColor: 'rgba(5,150,105,0.1)', fill: false, tension: 0.25, pointRadius: 3, borderWidth: 2 }
+      ]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { position: 'bottom' } },
+      scales: { y: { grid: { color: '#f1f5f9' } }, x: { grid: { display: false } } }
+    }
+  });
+})();
+
+// === 02-bis. 100% стек (приток в отток: R + П>90) ===
+(function(){
+  const w = DATA.weekly_ytd;
+  // Доли в притоке (без возвратов)
+  const rShare = w.map(x => {
+    const tot = x.r + x.p;
+    return tot ? Math.round(x.r/tot*100) : 0;
+  });
+  const pShare = w.map(x => {
+    const tot = x.r + x.p;
+    return tot ? Math.round(x.p/tot*100) : 0;
+  });
+  new Chart(document.getElementById('chartStructStack100'), {
+    type: 'bar',
+    data: {
+      labels: w.map(x => 'W' + x.iso),
+      datasets: [
+        { label: 'Доля R %', data: rShare, backgroundColor: COLORS.red, stack: 'a' },
+        { label: 'Доля П>90 %', data: pShare, backgroundColor: COLORS.yellow, stack: 'a' }
+      ]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: {
+        legend: { position: 'bottom' },
+        tooltip: { callbacks: { afterLabel: c => `R+П>90 = ${w[c.dataIndex].r + w[c.dataIndex].p} событий` } }
+      },
+      scales: {
+        x: { stacked: true, grid: { display: false } },
+        y: { stacked: true, max: 100, grid: { color: '#f1f5f9' }, ticks: { callback: v => v + ' %' } }
+      }
+    }
+  });
+})();
+
+// === 02-bis. Чистый вклад в нетто (стек) ===
+(function(){
+  const w = DATA.weekly_ytd;
+  new Chart(document.getElementById('chartStructNet'), {
+    type: 'bar',
+    data: {
+      labels: w.map(x => 'W' + x.iso),
+      datasets: [
+        { label: 'R (+)', data: w.map(x => x.r), backgroundColor: COLORS.red, stack: 'a' },
+        { label: 'П>90 (+)', data: w.map(x => x.p), backgroundColor: COLORS.yellow, stack: 'a' },
+        { label: 'V (−)', data: w.map(x => -x.v), backgroundColor: COLORS.green, stack: 'a' },
+        { label: 'Нетто', data: w.map(x => x.net), type: 'line', borderColor: '#0f172a', backgroundColor: '#0f172a', borderWidth: 2, tension: 0.2, pointRadius: 3 }
+      ]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { position: 'bottom' } },
+      scales: { x: { stacked: true, grid: { display: false } }, y: { stacked: true, grid: { color: '#f1f5f9' } } }
+    }
+  });
+})();
+
+// === 02-bis. Таблица помесячных долей ===
+(function(){
+  // Группируем недельные данные по месяцам (W1-W4 ~ янв, W5-W8 ~ фев, ...)
+  const months = [
+    {name: 'Январь', weeks: [1,2,3,4]},
+    {name: 'Февраль', weeks: [5,6,7,8]},
+    {name: 'Март', weeks: [9,10,11,12,13]},
+    {name: 'Апрель (на W16)', weeks: [14,15,16]}
+  ];
+  const w = DATA.weekly_ytd;
+  const wmap = Object.fromEntries(w.map(x => [x.iso, x]));
+  const tbody = document.getElementById('structTable');
+  months.forEach(m => {
+    let r=0, p=0, v=0;
+    m.weeks.forEach(iso => { const x = wmap[iso]; if (x) { r += x.r; p += x.p; v += x.v; }});
+    const net = r + p - v;
+    const inflow = r + p;
+    const rs = inflow ? Math.round(r/inflow*100) : 0;
+    const ps = inflow ? Math.round(p/inflow*100) : 0;
+    const vs = inflow ? Math.round(v/inflow*100) : 0;
+    tbody.innerHTML += `<tr><td>${m.name}</td><td class="num">${r}</td><td class="num">${p}</td><td class="num">${v}</td><td class="num"><strong>${net}</strong></td><td class="num">${rs} %</td><td class="num">${ps} %</td><td class="num">${vs} %</td></tr>`;
   });
 })();
 
@@ -1486,7 +1587,7 @@ const COLORS = {
     },
     options: {
       responsive: true, maintainAspectRatio: false,
-      plugins: { legend: { position: 'bottom' }, title: { display: true, text: 'Расторжения W17 по возрастной когорте и сегменту' } },
+      plugins: { legend: { position: 'bottom' }, title: { display: true, text: 'Расторжения W16 по возрастной когорте и сегменту' } },
       scales: { x: { stacked: true, grid: { display: false } }, y: { stacked: true, grid: { color: '#f1f5f9' } } }
     }
   });

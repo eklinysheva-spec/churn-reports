@@ -295,6 +295,7 @@ footer {
     <a href="#monthly">Помесячно</a>
     <a href="#retro">Ретро 2025</a>
     <a href="#dynamics">Недельно</a>
+    <a href="#structure">Структура оттока</a>
     <a href="#weekly">W15→W16</a>
     <a href="#attribution">Атрибуция</a>
     <a href="#mom">M-o-M</a>
@@ -456,6 +457,71 @@ footer {
         <div class="card-title">Нетто-отток по неделям + нарастающий итог</div>
       </div>
       <div class="chart-wrap lg"><canvas id="chartYtd"></canvas></div>
+    </div>
+  </div>
+</section>
+
+<!-- 02-bis. STRUCTURE -->
+<section id="structure">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-number">02-bis — Структура оттока понедельно</div>
+      <h2>Из чего состоит нетто-отток каждой недели — три компоненты в динамике</h2>
+      <p>Один и тот же отток на разной неделе складывается по-разному. На пиковых неделях (W5, W9, W13, W16) драйвер — Приост.>90 (эхо 90-дневных волн). На спокойных неделях — расторжения. Высокие возвраты гасят отток (W1 даёт −255 за счёт 556 возвратов 1 января).</p>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">Тренды компонентов оттока (16 закрытых недель 2026)</div>
+        <span class="card-badge badge-blue">три линии: R · П>90 · V</span>
+      </div>
+      <div class="chart-wrap"><canvas id="chartStructLines"></canvas></div>
+      <div style="font-size:13px;color:var(--text-dim);margin-top:10px;">
+        <strong>Что видно:</strong>
+        <ul style="margin:8px 0 0 20px;padding:0;">
+          <li><strong>Приост.>90</strong> — самая волатильная компонента, пики 190–215 на W5, W9, W13 (эхо январь-март-май прошлых волн).</li>
+          <li><strong>Расторжения</strong> — относительно стабильны 50–120/нед, заметные пики в W3 (155) и W14 (176).</li>
+          <li><strong>Возвраты</strong> — обычно 18–45/нед, аномалия W1 (556 — массовое разблокирование 1 января).</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">Структура притока в отток (R + П>90)</div>
+          <span class="card-badge badge-yellow">100 %-стек</span>
+        </div>
+        <div class="chart-wrap sm"><canvas id="chartStructStack100"></canvas></div>
+        <div style="font-size:12px;color:var(--text-dim);margin-top:8px;">
+          Доля каждого источника в общем притоке оттока за неделю (без учёта возвратов).
+          Высокая доля П>90 = эхо-неделя; высокая доля R = «обычный» отток.
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">Чистый вклад в нетто-отток</div>
+          <span class="card-badge badge-blue">R + П>90 − V</span>
+        </div>
+        <div class="chart-wrap sm"><canvas id="chartStructNet"></canvas></div>
+        <div style="font-size:12px;color:var(--text-dim);margin-top:8px;">
+          R и П>90 идут вверх (вклад в отток), Возвраты идут вниз (гасят отток). Линия наверху — итоговый нетто-отток недели.
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header"><div class="card-title">Доли компонентов в нетто-оттоке за месяц</div></div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Месяц</th><th class="num">R</th><th class="num">П>90</th><th class="num">V</th><th class="num">Нетто</th><th class="num">Доля R в притоке</th><th class="num">Доля П>90</th><th class="num">% возвратов</th></tr></thead>
+          <tbody id="structTable"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="callout">
+      <strong>Главное наблюдение для W16:</strong> в текущей неделе доля Приост.>90 в притоке = 65 % (114 из 174 = R+П>90), это <strong>выше нормы</strong> (в полных месяцах 2026 ~50–60 %). Подтверждает: W16 — эхо-неделя, не отражает текущее клиентское поведение.
     </div>
   </div>
 </section>
@@ -1300,6 +1366,108 @@ const COLORS = {
       },
       scales: { y: { grid: { color: '#f1f5f9' } }, x: { grid: { display: false } } }
     }
+  });
+})();
+
+// === 02-bis. Структура оттока — три линии ===
+(function(){
+  const w = DATA.weekly_ytd;
+  new Chart(document.getElementById('chartStructLines'), {
+    type: 'line',
+    data: {
+      labels: w.map(x => 'W' + x.iso),
+      datasets: [
+        { label: 'Расторжения', data: w.map(x => x.r), borderColor: COLORS.red, backgroundColor: 'rgba(220,38,38,0.1)', fill: false, tension: 0.25, pointRadius: 3, borderWidth: 2 },
+        { label: 'Приост.>90', data: w.map(x => x.p), borderColor: COLORS.yellow, backgroundColor: 'rgba(217,119,6,0.1)', fill: false, tension: 0.25, pointRadius: 3, borderWidth: 2 },
+        { label: 'Возвраты', data: w.map(x => x.v), borderColor: COLORS.green, backgroundColor: 'rgba(5,150,105,0.1)', fill: false, tension: 0.25, pointRadius: 3, borderWidth: 2 }
+      ]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { position: 'bottom' } },
+      scales: { y: { grid: { color: '#f1f5f9' } }, x: { grid: { display: false } } }
+    }
+  });
+})();
+
+// === 02-bis. 100% стек (приток в отток: R + П>90) ===
+(function(){
+  const w = DATA.weekly_ytd;
+  // Доли в притоке (без возвратов)
+  const rShare = w.map(x => {
+    const tot = x.r + x.p;
+    return tot ? Math.round(x.r/tot*100) : 0;
+  });
+  const pShare = w.map(x => {
+    const tot = x.r + x.p;
+    return tot ? Math.round(x.p/tot*100) : 0;
+  });
+  new Chart(document.getElementById('chartStructStack100'), {
+    type: 'bar',
+    data: {
+      labels: w.map(x => 'W' + x.iso),
+      datasets: [
+        { label: 'Доля R %', data: rShare, backgroundColor: COLORS.red, stack: 'a' },
+        { label: 'Доля П>90 %', data: pShare, backgroundColor: COLORS.yellow, stack: 'a' }
+      ]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: {
+        legend: { position: 'bottom' },
+        tooltip: { callbacks: { afterLabel: c => `R+П>90 = ${w[c.dataIndex].r + w[c.dataIndex].p} событий` } }
+      },
+      scales: {
+        x: { stacked: true, grid: { display: false } },
+        y: { stacked: true, max: 100, grid: { color: '#f1f5f9' }, ticks: { callback: v => v + ' %' } }
+      }
+    }
+  });
+})();
+
+// === 02-bis. Чистый вклад в нетто (стек) ===
+(function(){
+  const w = DATA.weekly_ytd;
+  new Chart(document.getElementById('chartStructNet'), {
+    type: 'bar',
+    data: {
+      labels: w.map(x => 'W' + x.iso),
+      datasets: [
+        { label: 'R (+)', data: w.map(x => x.r), backgroundColor: COLORS.red, stack: 'a' },
+        { label: 'П>90 (+)', data: w.map(x => x.p), backgroundColor: COLORS.yellow, stack: 'a' },
+        { label: 'V (−)', data: w.map(x => -x.v), backgroundColor: COLORS.green, stack: 'a' },
+        { label: 'Нетто', data: w.map(x => x.net), type: 'line', borderColor: '#0f172a', backgroundColor: '#0f172a', borderWidth: 2, tension: 0.2, pointRadius: 3 }
+      ]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { position: 'bottom' } },
+      scales: { x: { stacked: true, grid: { display: false } }, y: { stacked: true, grid: { color: '#f1f5f9' } } }
+    }
+  });
+})();
+
+// === 02-bis. Таблица помесячных долей ===
+(function(){
+  // Группируем недельные данные по месяцам (W1-W4 ~ янв, W5-W8 ~ фев, ...)
+  const months = [
+    {name: 'Январь', weeks: [1,2,3,4]},
+    {name: 'Февраль', weeks: [5,6,7,8]},
+    {name: 'Март', weeks: [9,10,11,12,13]},
+    {name: 'Апрель (на W16)', weeks: [14,15,16]}
+  ];
+  const w = DATA.weekly_ytd;
+  const wmap = Object.fromEntries(w.map(x => [x.iso, x]));
+  const tbody = document.getElementById('structTable');
+  months.forEach(m => {
+    let r=0, p=0, v=0;
+    m.weeks.forEach(iso => { const x = wmap[iso]; if (x) { r += x.r; p += x.p; v += x.v; }});
+    const net = r + p - v;
+    const inflow = r + p;
+    const rs = inflow ? Math.round(r/inflow*100) : 0;
+    const ps = inflow ? Math.round(p/inflow*100) : 0;
+    const vs = inflow ? Math.round(v/inflow*100) : 0;
+    tbody.innerHTML += `<tr><td>${m.name}</td><td class="num">${r}</td><td class="num">${p}</td><td class="num">${v}</td><td class="num"><strong>${net}</strong></td><td class="num">${rs} %</td><td class="num">${ps} %</td><td class="num">${vs} %</td></tr>`;
   });
 })();
 
